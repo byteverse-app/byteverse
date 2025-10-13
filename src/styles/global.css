@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --radius: 20px;
+}
+
+/* Apple-like smoothness */
+* { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+/* Card glass effect */
+.nimbus-card {
+  background: rgba(255,255,255,0.02);
+  backdrop-filter: saturate(180%) blur(16px);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius);
+}
+
+/* Section max width */
+.container-narrow {
+  @apply max-w-6xl mx-auto px-6;
+}
+
+.gradient-ring {
+  position: absolute;
+  inset: -25%;
+  background: radial-gradient(60% 60% at 50% 40%, rgba(255,255,255,0.10), transparent);
+  filter: blur(80px);
+  pointer-events: none;
+}
