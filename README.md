@@ -1,6 +1,8 @@
-# ByteVerse — AI-Powered Ecosystem Overview
+# ByteVerse — Learn your way
 
-Apple‑inspired, product‑grade SaaS landing page for **ByteVerse**. Built with **React + Vite**, **Tailwind**, and a premium‑feeling **Gradient Blinds** GLSL background (via `ogl`).
+ByteVerse is an open-source AI learning ecosystem that turns a single Lesson Seed into aligned multimodal lessons: Standard, Flashcards, Video, Audio, and Mind Map. Learners pick their mode and switch anytime without losing context.
+
+**One seed. Infinite ways to learn.**
 
 > Part of the ByteVerse family. Keep branding/system consistent across repos.
 
@@ -8,12 +10,13 @@ Apple‑inspired, product‑grade SaaS landing page for **ByteVerse**. Built wit
 
 ## ✨ Features
 
-- Polished Apple‑style hero with animated gradient blinds background
-- Clean sections: Features, Pricing, FAQ, Waitlist (Formspree-ready)
-- Accessible, responsive, and fast (Vite + Tailwind)
-- Zero backend needed; deploy on **GitHub Pages** for free
-- GitHub Actions workflow included
-- No secrets hardcoded — `.env.example` provided
+- **Multi-modal Learning**: Choose from Standard, Flashcards, Video, Audio, or Mind Map modes
+- **Lesson Seed**: Single source of truth that generates all learning modalities
+- **Seamless Switching**: Change modes anytime without losing progress
+- **AI-Powered**: ByteAI generates personalized content for each modality
+- **Open Source**: Community-driven development and transparency
+- **Modern Tech**: Built with React, Vite, and Tailwind CSS
+- **Zero Backend**: Deploy on GitHub Pages for free
 
 ---
 

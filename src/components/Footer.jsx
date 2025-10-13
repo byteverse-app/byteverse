@@ -6,6 +6,9 @@ export default function Footer() {
       <div className="container-narrow py-12 text-sm text-white/60 flex flex-col md:flex-row items-center justify-between gap-4">
         <p>&copy; <span id="year">{new Date().getFullYear()}</span> ByteVerse. All rights reserved.</p>
         <div className="flex items-center gap-4">
+          <a href="/docs/MasterPlan.md" className="hover:text-white">Master Plan</a>
+          <a href="/seed" className="hover:text-white">Seed Spec</a>
+          <a href="/docs/Roadmap.md" className="hover:text-white">Roadmap</a>
           <a href="mailto:Conect@dhanikeshkarunanithi.com" className="hover:text-white">Contact</a>
           <a href="https://www.linkedin.com/in/dhanikesh-karunanithi/" target="_blank" rel="noreferrer" className="hover:text-white">LinkedIn</a>
           <a href="https://github.com/lorddannykay" target="_blank" rel="noreferrer" className="hover:text-white">GitHub</a>

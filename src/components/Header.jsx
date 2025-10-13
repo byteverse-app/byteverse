@@ -18,6 +18,7 @@ export default function Header() {
           <a href="#pricing" className="hover:text-white transition">Pricing</a>
           <a href="#mission" className="hover:text-white transition">Mission</a>
           <a href="#about-byteverse" className="hover:text-white transition">ByteVerse</a>
+          <a href="/seed" className="hover:text-white transition">Seed</a>
           <a href="#faq" className="hover:text-white transition">FAQ</a>
           <a href="#contact" className="px-4 py-2 rounded-full bg-white text-black font-medium hover:opacity-90 transition">Connect</a>
         </nav>
