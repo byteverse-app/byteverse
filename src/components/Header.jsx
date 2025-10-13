@@ -14,7 +14,6 @@ export default function Header() {
         </div>
         <nav className="flex gap-4 text-sm">
           <a href="#features" className="hover:underline">Overview</a>
-          <a href="#modes" className="hover:underline">Modes</a>
           <a href="/seed" className="hover:underline">Seed</a>
           <a href="#faq" className="hover:underline">FAQ</a>
         </nav>
