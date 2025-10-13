@@ -9,7 +9,7 @@ export default function Mission() {
             Our Mission
           </h2>
           <p className="text-lg text-white/80 max-w-3xl mx-auto">
-            ByteNimbus is part of the ByteVerse ecosystem, powered by ByteAI - democratizing AI-powered learning 
+            ByteVerse is an open-source AI learning ecosystem - democratizing AI-powered learning 
             design for educators, trainers, and content creators worldwide.
           </p>
         </div>
@@ -41,7 +41,7 @@ export default function Mission() {
             <div>
               <h3 className="text-xl font-semibold mb-3">The ByteVerse Ecosystem</h3>
               <p className="text-white/70 leading-relaxed">
-                ByteNimbus is just one application within the broader ByteVerse ecosystem I'm building in my 
+                ByteVerse is the core platform within the broader learning ecosystem I'm building in my 
                 spare time, all powered by ByteAI's advanced learning algorithms. This ecosystem represents my 
                 personal vision for transforming how we create, deliver, and experience learning in the digital age.
               </p>
@@ -50,7 +50,7 @@ export default function Mission() {
             <div>
               <h3 className="text-xl font-semibold mb-3">Why Forever Free?</h3>
               <p className="text-white/70 leading-relaxed">
-                Education should never be a barrier. ByteNimbus will always remain free because I believe 
+                Education should never be a barrier. ByteVerse will always remain free because I believe 
                 that powerful AI-assisted learning design tools should be accessible to everyone - from 
                 individual educators to global L&D teams.
               </p>
@@ -61,7 +61,7 @@ export default function Mission() {
               <p className="text-white/70 leading-relaxed">
                 This project is in early development, and I'm committed to building something truly amazing 
                 for the learning community. Your feedback, contributions, and collaboration are what will 
-                make ByteNimbus extraordinary.
+                make ByteVerse extraordinary.
               </p>
             </div>
           </div>

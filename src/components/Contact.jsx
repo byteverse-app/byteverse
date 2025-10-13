@@ -116,7 +116,7 @@ export default function Contact() {
                 style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
               >
                 <option value="" style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', color: 'white' }}>Select a topic</option>
-                <option value="Collaboration on ByteNimbus" style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', color: 'white' }}>Collaboration on ByteNimbus</option>
+                <option value="Collaboration on ByteVerse" style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', color: 'white' }}>Collaboration on ByteVerse</option>
                 <option value="Feedback & Suggestions" style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', color: 'white' }}>Feedback & Suggestions</option>
                 <option value="Future of Learning Discussion" style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', color: 'white' }}>Future of Learning Discussion</option>
                 <option value="Technology in Education" style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', color: 'white' }}>Technology in Education</option>
@@ -137,7 +137,7 @@ export default function Contact() {
                 disabled={isSubmitting}
                 rows={6}
                 className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 focus:outline-none focus:border-white/40 text-white placeholder-white/50 resize-none disabled:opacity-50 disabled:cursor-not-allowed"
-                placeholder="Share your thoughts on the future of learning, collaboration ideas, or feedback on ByteNimbus..."
+                placeholder="Share your thoughts on the future of learning, collaboration ideas, or feedback on ByteVerse..."
               />
             </div>
             
