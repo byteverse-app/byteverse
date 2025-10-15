@@ -1,6 +1,7 @@
 import React from 'react'
 import Header from './components/Header'
 import Hero from './components/Hero'
+import TryByteNimbus from './components/TryByteNimbus'
 import Features from './components/Features'
 import Pricing from './components/Pricing'
 import Mission from './components/Mission'
@@ -16,6 +17,7 @@ export default function App() {
       <Header />
       <main>
         <Hero />
+        <TryByteNimbus />
         <Features />
         <Pricing />
         <Mission />

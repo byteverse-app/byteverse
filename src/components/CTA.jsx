@@ -31,7 +31,7 @@ export default function CTA() {
         body: JSON.stringify({
           ...userData,
           type: 'waitlist_signup',
-          _subject: 'New ByteVerse Waitlist Signup',
+          _subject: 'New ByteNimbus Waitlist Signup',
           _replyto: email,
         }),
       })

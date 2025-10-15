@@ -8,40 +8,15 @@ const Feature = ({ title, desc }) => (
 )
 
 export default function Features() {
-  const items = [
-    {
-      title: 'Multimodal Learning',
-      desc: 'Standard, Flashcards, Video, Audio, and Mind Map. Pick a mode and switch anytime.'
-    },
-    {
-      title: 'Lesson Seed',
-      desc: 'Align once, reuse everywhere. One source generates every modality.'
-    },
-    {
-      title: 'Seamless Switching',
-      desc: 'Stay in the same unit while changing modes. Context and progress carry over.'
-    },
-    {
-      title: 'AI-Powered Creation',
-      desc: 'Generate lessons and transformations with Together AI models (Llama, Gemma, DeepSeek, Flux).'
-    },
-    {
-      title: 'Open & Fast',
-      desc: 'Open-source, Vite + React + Tailwind. Deployed on GitHub Pages.'
-    }
-  ];
-
   return (
-    <section id="features" className="max-w-6xl mx-auto px-4 py-16">
-      <h2 className="text-2xl font-bold">Why ByteVerse</h2>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-        {items.map((it) => (
-          <div key={it.title} className="rounded-2xl p-5 bg-white/70 dark:bg-white/5 shadow-card ring-1 ring-black/5">
-            <div className="font-semibold">{it.title}</div>
-            <p className="text-sm text-slate-600 dark:text-slate-300 mt-2">{it.desc}</p>
-          </div>
-        ))}
+    <section id="features" className="container-narrow py-20">
+      <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-center">AI-Enhanced Learning Design</h2>
+      <p className="mt-3 text-center text-white/70 max-w-3xl mx-auto">Leverage cutting-edge AI to create pedagogically-sound microlearning that follows proven instructional design frameworks and adult learning principles.</p>
+      <div className="mt-10 grid md:grid-cols-3 gap-6">
+        <Feature title="ADDIE Framework Integration" desc="AI-assisted Analysis, Design, Development, Implementation, and Evaluation following industry-standard instructional design methodology."/>
+        <Feature title="Bloom's Taxonomy Alignment" desc="Automatically align learning objectives with cognitive levels—from Remember to Create—ensuring proper skill progression and assessment design."/>
+        <Feature title="Adult Learning Principles" desc="Incorporate Knowles' principles of andragogy: self-direction, experience-based learning, and immediate application to real-world scenarios."/>
       </div>
     </section>
-  );
+  )
 }

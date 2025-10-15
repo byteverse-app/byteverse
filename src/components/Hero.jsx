@@ -27,14 +27,11 @@ export default function Hero() {
         <div className="inline-flex items-center px-3 py-1 rounded-full bg-white/90 text-black text-xs font-medium mb-6">
           ByteAI powered
         </div>
-        <h1 className="text-4xl md:text-5xl font-bold">
-          ByteVerse — Learn your way
+        <h1 className="text-5xl md:text-7xl font-semibold tracking-tight leading-[1.05] drop-shadow-glow">
+          Your <span className="text-white/80">Personal</span> Instructional Designer
         </h1>
-        <p className="mt-3 text-slate-600 dark:text-slate-300">
-          Choose how you learn — text, flashcards, video, audio, or mind maps — all generated from the same Lesson Seed.
-        </p>
-        <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-          One seed. Infinite ways to learn.
+        <p className="mt-6 text-lg md:text-xl text-white/80 max-w-3xl mx-auto">
+          Discover the ByteVerse ecosystem. From AI-powered learning with ByteNimbus to analytics with ByteAnalytics, explore our comprehensive suite of intelligent tools designed to transform how you work and learn.
         </p>
         <div className="mt-8 flex items-center justify-center gap-3">
           <a href="#try" className="px-6 py-3 rounded-full bg-white text-black font-medium hover:opacity-90 transition hover:scale-105 transform duration-200 shadow-lg hover:shadow-xl">Explore ByteVerse</a>

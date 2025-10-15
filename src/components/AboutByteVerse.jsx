@@ -231,7 +231,3 @@ export default function AboutByteVerse() {
     </section>
   );
 }
-
-
-
-
