@@ -1,8 +1,9 @@
 import React from 'react'
 import Header from './components/Header'
 import Hero from './components/Hero'
-import TryByteNimbus from './components/TryByteNimbus'
+import ModesSection from './components/ModesSection'
 import Features from './components/Features'
+import SeedSection from './components/SeedSection'
 import Pricing from './components/Pricing'
 import Mission from './components/Mission'
 import ByteVerseUniverse from './components/ByteVerseUniverse'
@@ -17,8 +18,9 @@ export default function App() {
       <Header />
       <main>
         <Hero />
-        <TryByteNimbus />
+        <ModesSection />
         <Features />
+        <SeedSection />
         <Pricing />
         <Mission />
         <ByteVerseUniverse />

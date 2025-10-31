@@ -1,0 +1,698 @@
+00:00:00 [Speaker 1]
+Welcome back to the deep dive.
+00:00:01 [Speaker 1]
+Today, we're really getting into the weeds on, designing microlearning with AI.
+00:00:06 [Speaker 1]
+We've looked at some fascinating source material and the goal, cut through all the hype and find a focused, almost surgical way to create learning that actually works and works quickly.
+00:00:16 [Speaker 1]
+So for you, the listener, think of this as a shortcut.
+00:00:19 [Speaker 1]
+We wanna show you how you AI not just, you know, churning out content, but as a real design partner.
+
+00:00:26 [Speaker 1]
+How do you take, say, a massive technical manual and turn it into something targeted, something that slots right into how people actually work today.
+
+00:00:34 [Speaker 2]
+Yeah.
+00:00:34 [Speaker 2]
+And, Bebe, the first thing is to get super clear on what microlearning actually is.
+00:00:38 [Speaker 2]
+Because, honestly, the term gets thrown around quite a bit.
+00:00:40 [Speaker 2]
+Yeah.
+00:00:40 [Speaker 2]
+We're not just talking about, you know, chopping up longer videos.
+
+00:00:43 [Speaker 2]
+It's really about delivering these focused, surgical experiences.
+00:00:47 [Speaker 2]
+And the definition we're working with is strict.
+00:00:49 [Speaker 2]
+Three to seven minutes long.
+
+00:00:50 [Speaker 1]
+Okay.
+00:00:51 [Speaker 1]
+Three to seven minutes.
+
+00:00:52 [Speaker 2]
+That's tough.
+00:00:52 [Speaker 2]
+And here's the absolute core constraint.
+00:00:55 [Speaker 2]
+Each little nugget, each piece of content, it has to tackle only one thing, one task, one decision, maybe one concept.
+00:01:03 [Speaker 2]
+Just one.
+00:01:04 [Speaker 2]
+That singular focus is key.
+
+00:01:05 [Speaker 1]
+Okay.
+00:01:06 [Speaker 1]
+So why is that singular focus so critical?
+00:01:09 [Speaker 1]
+You mentioned reducing cognitive load.
+00:01:11 [Speaker 1]
+For listeners, maybe not steeped in an instructional design, what does that actually mean in practice?
+00:01:16 [Speaker 1]
+What does it feel like?
+
+00:01:17 [Speaker 2]
+It feels like clarity, like efficiency.
+00:01:19 [Speaker 2]
+Yeah.
+00:01:20 [Speaker 2]
+Cognitive alert is basically, the mental bandwidth you need new stuff.
+
+00:01:24 [Speaker 1]
+Right.
+
+00:01:24 [Speaker 2]
+If you throw a sixty minute module at someone, their brain is constantly working overtime trying to filter, remember different steps, connect the dots.
+00:01:33 [Speaker 2]
+Mhmm.
+00:01:33 [Speaker 2]
+It's exhausting.
+
+00:01:34 [Speaker 1]
+Right.
+00:01:34 [Speaker 1]
+Information overload.
+00:01:36 [Speaker 1]
+Exactly.
+00:01:36 [Speaker 1]
+Right.
+
+00:01:36 [Speaker 2]
+But shrink it down to five minutes.
+00:01:38 [Speaker 2]
+One single objective.
+00:01:39 [Speaker 2]
+You remove all that mental filtering, and this is why it speeds up time to competence.
+00:01:43 [Speaker 2]
+People can actually absorb and then immediately apply that one specific thing they just learned.
+00:01:48 [Speaker 2]
+Our sources have this great analogy, the learning monolith.
+
+00:01:51 [Speaker 2]
+Think of that huge, daunting, 60 customer service module Mhmm.
+00:01:55 [Speaker 2]
+Monolith.
+
+00:01:55 [Speaker 1]
+Okay.
+00:01:56 [Speaker 1]
+Like this giant block of training.
+
+00:01:58 [Speaker 2]
+Yeah.
+00:01:58 [Speaker 2]
+Instead of that, you break it down.
+00:01:59 [Speaker 2]
+You create five distinct, surgical micro lessons.
+
+00:02:03 [Speaker 1]
+Ah, so you're dismantling the monolith piece by piece.
+
+00:02:06 [Speaker 2]
+Precisely.
+00:02:07 [Speaker 2]
+So maybe one lesson on verifying identity, another on calibrating tone for tricky calls, another for diagnosing common issues, then one for escalation rules, and maybe one for good post call notes.
+00:02:19 [Speaker 2]
+You see, five distinct things.
+
+00:02:22 [Speaker 1]
+Got it.
+00:02:22 [Speaker 1]
+Deconstruction first.
+
+00:02:23 [Speaker 2]
+Deconstruction first.
+00:02:24 [Speaker 2]
+And then step two, which is absolutely vital.
+00:02:27 [Speaker 2]
+Every single one of those five pieces has to end with a quick scenario and a single actionable checklist.
+
+00:02:34 [Speaker 1]
+So it forces application?
+
+00:02:35 [Speaker 2]
+It forces application.
+00:02:36 [Speaker 2]
+That structure is nonnegotiable for making it stick.
+
+00:02:39 [Speaker 1]
+I really like that dismantling the monolith.
+00:02:42 [Speaker 1]
+It reframes microlearning.
+00:02:43 [Speaker 1]
+It's not just short content.
+00:02:44 [Speaker 1]
+It's a deliberate strategy.
+00:02:46 [Speaker 1]
+And connecting that strategy to the bigger picture, it sounds like it really shines when you need that just in time knowledge.
+
+00:02:52 [Speaker 2]
+That's the so what.
+00:02:52 [Speaker 2]
+Right?
+00:02:53 [Speaker 2]
+That's the core benefit.
+00:02:54 [Speaker 2]
+And you see it immediately in the use cases.
+00:02:56 [Speaker 2]
+Take onboarding.
+
+00:02:57 [Speaker 2]
+Instead of that day one info dump, you deliver the essentials, how to log in, the right tone for emails, key safety points in these bite sized chunks they can access right when they need them.
+
+00:03:06 [Speaker 1]
+Right.
+00:03:06 [Speaker 1]
+Instead of trying to remember page 37 of the manual eight hours ago.
+
+00:03:10 [Speaker 2]
+Exactly.
+00:03:10 [Speaker 2]
+And compliance training too, you mentioned this.
+00:03:12 [Speaker 2]
+It's usually, let's be honest, pretty soul crushing stuff.
+
+00:03:15 [Speaker 1]
+Uh-huh.
+00:03:16 [Speaker 1]
+Yeah.
+00:03:16 [Speaker 1]
+Often is.
+
+00:03:17 [Speaker 2]
+But here, you can transform it.
+00:03:19 [Speaker 2]
+Instead of a massive regulatory overview nobody remembers, focus on one specific risk per nugget.
+00:03:26 [Speaker 2]
+Give a quick scenario, then the action checklist.
+
+00:03:29 [Speaker 1]
+Making it practical, not just abstract rules.
+
+00:03:31 [Speaker 2]
+Yes.
+00:03:32 [Speaker 2]
+But the real payoff, I think, is that true just in time support.
+00:03:37 [Speaker 2]
+Surfacing these nuggets inside the tools people are already using.
+
+00:03:40 [Speaker 1]
+Explain that a bit more.
+
+00:03:41 [Speaker 2]
+Well, imagine a support agent is, staring at a screen for some legacy system they rarely use.
+00:03:47 [Speaker 2]
+They click a function.
+00:03:48 [Speaker 2]
+Yeah.
+00:03:48 [Speaker 2]
+And instead of them having to stop, search a clunky knowledge base, find the right section.
+00:03:52 [Speaker 2]
+Boom.
+
+00:03:53 [Speaker 2]
+A two minute micro lesson on that specific function just pops up.
+
+00:03:57 [Speaker 1]
+Context is everything there.
+00:03:58 [Speaker 1]
+Learning in the flow of work.
+
+00:03:59 [Speaker 2]
+That's the phrase.
+00:04:00 [Speaker 2]
+Learning in the flow of work.
+
+00:04:02 [Speaker 1]
+Okay.
+00:04:02 [Speaker 1]
+Now this is where it gets really interesting, I thought.
+00:04:04 [Speaker 1]
+The sales team example you pulled out.
+00:04:06 [Speaker 1]
+Instead of dragging reps into those long monthly training sessions covering everything under the sun, short three minute micro lessons, what triggers them though?
+00:04:16 [Speaker 1]
+That's the clever part.
+
+00:04:17 [Speaker 2]
+The trigger is everything.
+00:04:19 [Speaker 2]
+It's not just scheduled training anymore.
+00:04:21 [Speaker 2]
+It's dynamic.
+00:04:22 [Speaker 2]
+So maybe a customer emails with a really specific tricky question about feature x.
+00:04:28 [Speaker 2]
+That email, maybe through some smart routing, could trigger a three minute lesson right to the rep's inbox on handling that exact objection.
+
+00:04:36 [Speaker 1]
+Wow.
+00:04:36 [Speaker 1]
+Okay.
+
+00:04:37 [Speaker 2]
+Or, say, a competitor launches a new product, Pam.
+00:04:40 [Speaker 2]
+The system pushes out a micro lesson.
+00:04:42 [Speaker 2]
+Here are the two arguments.
+
+00:04:44 [Speaker 1]
+So the knowledge is immediate.
+00:04:45 [Speaker 1]
+It's current.
+
+00:04:46 [Speaker 2]
+And therefore, it's immediately applicable.
+00:04:48 [Speaker 2]
+That's the power.
+00:04:49 [Speaker 2]
+And that immediacy, that specificity, it transitions us perfectly into using AI effectively for this.
+00:04:56 [Speaker 2]
+Because what's fascinating and what the sources really hammer home is that even with amazing AI tools, the output quality is totally dependent on the prompt you give it.
+
+00:05:04 [Speaker 1]
+Right.
+00:05:04 [Speaker 1]
+Garbage in, garbage out, basically.
+
+00:05:06 [Speaker 2]
+Exactly.
+00:05:07 [Speaker 2]
+You can't just say, hey, AI.
+00:05:09 [Speaker 2]
+Make me a lesson on customer service.
+00:05:11 [Speaker 2]
+You'll get generic fluff.
+
+00:05:12 [Speaker 1]
+So structure is needed.
+00:05:14 [Speaker 1]
+The source has mentioned QA.
+00:05:15 [Speaker 1]
+Situation, complication, question, answer.
+00:05:18 [Speaker 1]
+Tell me more about why that specific framework is good for scenarios.
+
+00:05:22 [Speaker 2]
+It forces relevance.
+00:05:23 [Speaker 2]
+At CQA, it comes from, consulting, actually.
+00:05:27 [Speaker 2]
+It makes the AI first set the scene situation, then identify the specific problem or challenge, complication.
+00:05:35 [Speaker 2]
+Then it frowns the learner's specific dilemma question and then structures the micro lesson content around solving that answer.
+
+00:05:41 [Speaker 1]
+Okay.
+00:05:41 [Speaker 1]
+So it's not just telling a story.
+00:05:43 [Speaker 1]
+It's building a mini case study.
+
+00:05:45 [Speaker 2]
+Precisely.
+00:05:45 [Speaker 2]
+It cuts out all the stuff and focuses only on the problem solving path, essential for keeping it under, say, five minutes.
+
+00:05:51 [Speaker 1]
+Makes sense.
+00:05:52 [Speaker 1]
+And beyond SCQA, you mentioned constraints, the role plus constraints pattern.
+
+00:05:56 [Speaker 2]
+Yes.
+00:05:57 [Speaker 2]
+You have to tell the AI who it should be, act as a coach, act as a senior engineer, act as an angry customer, and then give strict rules for the output.
+
+00:06:04 [Speaker 1]
+Like literally saying, you must output this as a four step checklist and keep it under a 100 words.
+
+00:06:09 [Speaker 2]
+Exactly like that.
+00:06:10 [Speaker 2]
+You define the persona and the output format constraints.
+00:06:14 [Speaker 2]
+If you don't, the AI defaults to its usual, you know, rambling.
+00:06:18 [Speaker 2]
+You lose the micro aspect instantly.
+
+00:06:20 [Speaker 1]
+So the anti pattern is being vague.
+00:06:23 [Speaker 1]
+You absolutely have to specify the desired outcome.
+00:06:25 [Speaker 1]
+The learner must be able to do the specific thing and who the audience is.
+
+00:06:30 [Speaker 2]
+Couldn't say it better myself.
+00:06:32 [Speaker 2]
+Outcome and audience are nonnegotiable for a good prompt.
+
+00:06:35 [Speaker 1]
+Let's look at that before and after prompt example from the sources because it really shows the difference.
+00:06:39 [Speaker 1]
+The vague one was just
+
+00:06:41 [Speaker 2]
+Create a lesson about customer service.
+00:06:43 [Speaker 2]
+Utterly useless.
+
+00:06:44 [Speaker 1]
+Right.
+00:06:44 [Speaker 1]
+And the effective one.
+
+00:06:45 [Speaker 2]
+So much better.
+00:06:46 [Speaker 2]
+It was.
+00:06:46 [Speaker 2]
+Act as a customer service trainer.
+00:06:48 [Speaker 2]
+Create a three minute for new agents on handling angry customers.
+00:06:52 [Speaker 2]
+Include one SCQA framed scenario, three key de escalation freezes, and a four step practice checklist.
+
+00:06:59 [Speaker 1]
+See, that's night and day.
+00:07:01 [Speaker 1]
+You've told the AI exactly what job to do, what elements to include, and what format to use.
+00:07:06 [Speaker 1]
+It guarantees actionable output.
+
+00:07:08 [Speaker 2]
+Okay.
+00:07:08 [Speaker 2]
+So let's unpack this further.
+00:07:10 [Speaker 2]
+Even with great prompts, it sounds like it's easy to mess this up.
+00:07:13 [Speaker 2]
+What are the big design mistakes people make, the common pitfalls?
+
+00:07:17 [Speaker 1]
+Oh, definitely.
+00:07:17 [Speaker 1]
+And the number one, the absolute cardinal sin is that single outcome principle we talked about.
+00:07:23 [Speaker 1]
+It's overstuffing.
+
+00:07:25 [Speaker 2]
+Overstuffing.
+00:07:25 [Speaker 2]
+Meaning, trying to cram too much in.
+
+00:07:27 [Speaker 1]
+Exactly.
+00:07:28 [Speaker 1]
+If you find yourself needing subsections or a little table of contents or you're covering two, three, four distinct skills in one micro lesson, you've broken the model.
+
+00:07:37 [Speaker 2]
+But wait.
+00:07:38 [Speaker 2]
+If the topics are related, isn't it more efficient to group them?
+00:07:41 [Speaker 2]
+Why is putting, say, five related steps in one five minute module actually bad?
+
+00:07:47 [Speaker 1]
+Because it fragments the learner's focus.
+00:07:49 [Speaker 1]
+Yeah.
+00:07:49 [Speaker 1]
+You shift from teaching competence in one thing, teaching recall of many things.
+00:07:54 [Speaker 1]
+The cognitive load shoots back up.
+00:07:55 [Speaker 1]
+There is this great or rather terrible example in the sources.
+
+00:07:59 [Speaker 1]
+A company made a five minute microlearning on customer service excellence.
+00:08:03 [Speaker 1]
+Sounds good.
+00:08:03 [Speaker 1]
+Right?
+00:08:04 [Speaker 1]
+It's okay.
+
+00:08:04 [Speaker 2]
+But when they look closely, it packed in, like, eight different skills.
+00:08:08 [Speaker 2]
+Tone, product knowledge, regulations, upselling, everything.
+00:08:13 [Speaker 2]
+The result.
+00:08:13 [Speaker 2]
+Yeah.
+00:08:14 [Speaker 2]
+Total confusion.
+
+00:08:15 [Speaker 2]
+Retention plummeted.
+00:08:16 [Speaker 2]
+They didn't improve competence in any single area.
+00:08:19 [Speaker 2]
+They basically just shrunk the monolith's font size.
+
+00:08:22 [Speaker 1]
+Okay.
+00:08:22 [Speaker 1]
+Loud and clear.
+00:08:23 [Speaker 1]
+Rule one, each sections, you need separate micro lessons.
+00:08:26 [Speaker 1]
+Break it down
+
+00:08:27 [Speaker 2]
+further.
+00:08:27 [Speaker 2]
+Break it down again.
+00:08:29 [Speaker 2]
+The second major mistake, no practice.
+00:08:31 [Speaker 2]
+Simple as that.
+00:08:32 [Speaker 2]
+Every single nugget, every single one must include a short scenario, quick question, some kind of action activity.
+
+00:08:39 [Speaker 2]
+If the learner doesn't do something with the information immediately
+
+00:08:42 [Speaker 1]
+It doesn't stick.
+
+00:08:43 [Speaker 2]
+It doesn't translate to competence, information in, information out.
+00:08:47 [Speaker 2]
+And the third common mistake is lack of context.
+00:08:50 [Speaker 2]
+Yes.
+00:08:50 [Speaker 2]
+Microlearning is short, but it can't exist in a total vacuum.
+00:08:54 [Speaker 2]
+If someone needs prior knowledge, you have to provide it, either linked to prerequisite nuggets or, at the very least, include a super brief, maybe thirty second recap at the start.
+
+00:09:03 [Speaker 1]
+Right.
+00:09:03 [Speaker 1]
+So they're not lost before they even begin the main point.
+
+00:09:06 [Speaker 2]
+Exactly them, then give them the focused skill.
+
+00:09:08 [Speaker 1]
+Okay.
+00:09:09 [Speaker 1]
+We've used AI smartly.
+00:09:10 [Speaker 1]
+We've crafted this perfect single outcome five minute gem.
+00:09:14 [Speaker 1]
+We've avoided overstuffing and included practice.
+00:09:19 [Speaker 1]
+Now the final piece, making sure it actually sticks.
+
+00:09:24 [Speaker 1]
+How do we ensure retention that seems to move into strategy around review and retrieval?
+
+00:09:28 [Speaker 2]
+Absolutely.
+00:09:29 [Speaker 2]
+And this is where we lean hard on cognitive science principles.
+00:09:32 [Speaker 2]
+The first big one is spaced repetition.
+00:09:34 [Speaker 2]
+The research is really clear here.
+00:09:37 [Speaker 2]
+Reviewing isn't enough.
+
+00:09:38 [Speaker 2]
+You need to prompt that retrieval practice at increasing intervals.
+
+00:09:41 [Speaker 1]
+Like a schedule?
+
+00:09:42 [Speaker 2]
+A specific schedule.
+00:09:43 [Speaker 2]
+Yeah.
+00:09:43 [Speaker 2]
+The common one is review twenty four hours later, then again three days later, then again seven days later.
+00:09:49 [Speaker 2]
+That timing forces the brain to work a little harder to retrieve the info just as it's starting to fade, which really strengthens the memory trace.
+
+00:09:57 [Speaker 1]
+Interesting.
+00:09:57 [Speaker 1]
+Okay.
+00:09:57 [Speaker 1]
+Specific timing.
+00:09:58 [Speaker 1]
+Then there's interleaved practice.
+00:10:00 [Speaker 1]
+This sounds a bit weird mixing different related skills together instead of drilling one.
+
+00:10:04 [Speaker 2]
+It does sound counterintuitive, doesn't it?
+00:10:06 [Speaker 2]
+But it's incredibly effective for building flexible knowledge.
+00:10:09 [Speaker 2]
+Instead of practicing skill a 10 times, then skill b 10 times, you mix them up, a b a c b a c.
+
+00:10:15 [Speaker 1]
+Why?
+00:10:15 [Speaker 1]
+What does that mixing achieve?
+
+00:10:17 [Speaker 2]
+It forces the brain to learn how to differentiate.
+00:10:20 [Speaker 2]
+When should I use a versus b versus c?
+00:10:24 [Speaker 2]
+This improves the ability to choose the right skill in a real world situation under pressure, better knowledge transfer.
+
+00:10:31 [Speaker 1]
+I like that sale team example again for this.
+00:10:34 [Speaker 1]
+They practice objection handling daily with two minute micro lessons.
+00:10:38 [Speaker 1]
+But crucially, they mix the types of objection timing features every day that forces them to differentiate their responses on the fly.
+
+00:10:46 [Speaker 2]
+Exactly right.
+00:10:47 [Speaker 2]
+And that differentiation practice leads us straight into the final assessment.
+00:10:51 [Speaker 2]
+How do you measure if this is working?
+00:10:53 [Speaker 2]
+Since microlearning is all about performance, about doing, your assessment has to reflect that.
+00:10:58 [Speaker 2]
+Forget simple recall quizzes.
+
+00:10:59 [Speaker 1]
+So testing the application, not just the definition.
+
+00:11:02 [Speaker 2]
+Precisely.
+00:11:02 [Speaker 2]
+You need to assess what the learner can now do.
+
+00:11:04 [Speaker 1]
+How does that change how we track success?
+00:11:06 [Speaker 1]
+It's not just completion rates anymore, is it?
+
+00:11:09 [Speaker 2]
+No.
+00:11:09 [Speaker 2]
+Completion rates are almost meaningless here.
+00:11:11 [Speaker 2]
+You need to look at time on task for the practice activities.
+00:11:15 [Speaker 2]
+Sure.
+00:11:15 [Speaker 2]
+But, critically, error patterns.
+
+00:11:18 [Speaker 2]
+Where are people stumbling in the scenarios?
+00:11:20 [Speaker 2]
+That data tells you where the learning gaps actually are, not just if they clicked complete.
+
+00:11:25 [Speaker 1]
+And the sources give that really clear example of a good application test, didn't they?
+
+00:11:29 [Speaker 2]
+Yes.
+00:11:29 [Speaker 2]
+The least method for deescalation, the weak test is list the four steps of least.
+00:11:35 [Speaker 2]
+Let's just recall.
+
+00:11:35 [Speaker 1]
+Right.
+
+00:11:36 [Speaker 2]
+The strong test is, okay, here's a simulated chat with an angry customer.
+00:11:40 [Speaker 2]
+Use the least method to deescalate.
+00:11:42 [Speaker 2]
+That test real that tells you if they've achieved competence.
+
+00:11:46 [Speaker 1]
+Okay.
+00:11:46 [Speaker 1]
+That makes perfect sense.
+00:11:47 [Speaker 1]
+So let's try and blow this down.
+00:11:49 [Speaker 1]
+Four key takeaways for you, the listener, to really nail microlearning design, especially with AI.
+00:11:54 [Speaker 1]
+One, stick ruthlessly to one outcome per nugget.
+
+00:11:58 [Speaker 1]
+Dismantle that monolith.
+
+00:11:59 [Speaker 2]
+Absolutely.
+00:12:00 [Speaker 2]
+Two, use that SEQA framework in your AI prompts.
+00:12:03 [Speaker 2]
+It forces relevant scenarios.
+
+00:12:05 [Speaker 1]
+Three, always include practice every single time.
+00:12:08 [Speaker 1]
+An activity, a checklist, something to do.
+
+00:12:10 [Speaker 2]
+Non negotiable.
+00:12:11 [Speaker 2]
+And four, focus your assessment on performance and application, not just recall.
+00:12:15 [Speaker 2]
+Crack those error patterns.
+
+00:12:16 [Speaker 1]
+Get those four things right, and you're well on your way to using microlearning effectively.
+00:12:20 [Speaker 1]
+You've got the shortcut to competence.
+
+00:12:22 [Speaker 2]
+And maybe a final thought for you to mull over.
+00:12:24 [Speaker 2]
+Yeah.
+00:12:24 [Speaker 2]
+Building on all this.
+00:12:26 [Speaker 2]
+If you are tracking those specific error patterns through performance analytics, what happens when you start integrating personalized recommendations?
+00:12:35 [Speaker 2]
+Imagine the AI noticing a learner struggles with, say, pricing objections.
+
+00:12:40 [Speaker 2]
+It could automatically serve up the next best nugget specifically targeting that weakness.
+00:12:45 [Speaker 2]
+How might that kind of personalized driven pathway fundamentally change how quickly people reach true demonstrable competence in your specific field?
+00:12:54 [Speaker 2]
+That's where this gets really powerful.

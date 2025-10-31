@@ -28,10 +28,13 @@ export default function Hero() {
           ByteAI powered
         </div>
         <h1 className="text-5xl md:text-7xl font-semibold tracking-tight leading-[1.05] drop-shadow-glow">
-          Your <span className="text-white/80">Personal</span> Instructional Designer
+          ByteVerse — <span className="text-white/80">Learn your way</span>
         </h1>
         <p className="mt-6 text-lg md:text-xl text-white/80 max-w-3xl mx-auto">
-          Discover the ByteVerse ecosystem. From AI-powered learning with ByteNimbus to analytics with ByteAnalytics, explore our comprehensive suite of intelligent tools designed to transform how you work and learn.
+          Choose how you learn — text, flashcards, video, audio, or mind maps — all generated from the same Lesson Seed.
+        </p>
+        <p className="mt-2 text-sm text-white/60">
+          One seed. Infinite ways to learn.
         </p>
         <div className="mt-8 flex items-center justify-center gap-3">
           <a href="#try" className="px-6 py-3 rounded-full bg-white text-black font-medium hover:opacity-90 transition hover:scale-105 transform duration-200 shadow-lg hover:shadow-xl">Explore ByteVerse</a>

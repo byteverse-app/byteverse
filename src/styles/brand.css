@@ -1,0 +1,13 @@
+:root{
+  /* Brand colors that work with dark theme */
+  --ink: #FFFFFF;
+  --muted: #A0A0A0;
+  --panel: rgba(255,255,255,0.02);
+  --accent: #5B63FF;
+  --accent2: #6CF3B2;
+  --ok: #0EB97D;
+  --radius-lg: 1.25rem;
+  --radius-md: 0.75rem;
+  --radius-sm: 0.5rem;
+  --shadow-card: 0 10px 20px rgba(0,0,0,0.3);
+}
