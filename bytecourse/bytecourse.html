@@ -1,0 +1,2300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ByteLab • Multimodal Lesson Prototype (Mind Map)</title>
+<style>
+  :root{
+    --bg:#f4f4f8; --panel:#ffffff; --panel-2:#f8f9fb; --ink:#0e0f1a; --muted:#8a8ea3;
+    --accent:#5b63ff; --chip:#23233a; --chip-ink:#f2f4ff; --shadow:0 10px 20px rgba(10,12,38,.08);
+    --radius:20px;
+  }
+  *{box-sizing:border-box} html,body{height:100%}
+  body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto;color:var(--ink);background:var(--bg)}
+  .app{max-width:1200px;margin:24px auto;padding:12px;border-radius:36px;background:#f6f6fb;box-shadow:var(--shadow) inset,0 0 0 1px #ececf6}
+  header{display:flex;align-items:center;gap:16px;padding:14px 18px;border-radius:24px;background:var(--panel);box-shadow:var(--shadow)}
+  .logo{width:54px;height:54px;border-radius:16px;background:#bde7d3;display:grid;place-items:center;border:2px solid #e7fff3}
+  .logo svg{width:28px;height:28px;fill:#0a613d}
+  .title h1{font-size:18px;margin:0;font-weight:700}.title small{display:block;color:var(--muted)}
+  .topbar{display:flex;align-items:center;gap:12px;margin-top:14px}
+  .topnav{flex:1;background:var(--panel);border-radius:24px;padding:10px;display:flex;gap:12px;align-items:center;box-shadow:var(--shadow)}
+  .pill{appearance:none;border:none;padding:10px 18px;border-radius:999px;background:var(--chip);color:var(--chip-ink);font-weight:600;cursor:pointer;box-shadow:inset 0 0 0 1px #2e2e53}
+  .pill[aria-selected="true"]{background:linear-gradient(180deg,#646cff,#3840ff);box-shadow:inset 0 0 0 1px rgba(255,255,255,.15),0 6px 14px rgba(88,96,255,.35)}
+  .settings-btn{appearance:none;border:none;border-radius:999px;padding:10px 14px;font-weight:700;cursor:pointer;background:#e7fffb;color:#0b6b62;box-shadow:inset 0 0 0 2px #bff1ea}
+  .grid{display:grid;grid-template-columns:260px 1fr 64px;gap:16px;margin-top:16px}
+  .sidebar{background:var(--panel);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+  .sidebar h3{margin:6px 0 12px 8px;font-size:14px;color:var(--muted)}
+  .sidebar-content{transition:opacity 0.3s ease}
+  .mindmap-node-details{background:var(--panel-2);border-radius:12px;padding:12px;margin-top:8px;border:2px solid #e8e9f5}
+  .mindmap-node-details h4{margin:0 0 8px 0;color:var(--ink);font-size:16px;font-weight:700}
+  .mindmap-node-details p{margin:0 0 8px 0;color:var(--ink);font-size:14px;line-height:1.5}
+  .mindmap-node-details ul{margin:8px 0;padding-left:16px}
+  .mindmap-node-details li{margin:4px 0;color:var(--ink);font-size:14px}
+  .nav-btn{width:100%;text-align:left;padding:10px 12px;border-radius:12px;border:none;background:#e9ecff;color:#1b1e5b;font-weight:700;cursor:pointer;margin:6px 0;box-shadow:inset 0 0 0 2px #cfd6ff}
+  .nav-btn[aria-current="true"]{background:#dfe5ff}
+  .nav-btn.sub{background:#eef1ff;color:#3c4599;position:relative;margin-left:18px}
+  .nav-btn.sub:before{content:"";position:absolute;left:-14px;top:-6px;bottom:-6px;width:2px;background:repeating-linear-gradient(#c7cbe8 0 6px,#c7cbe8 6px 12px,transparent 12px 18px)}
+  .stage-wrap{background:var(--panel);border-radius:var(--radius);padding:12px;box-shadow:var(--shadow)}
+  .stage{background:var(--panel-2);border-radius:18px;padding:18px;box-shadow:inset 0 0 0 2px #e8e9f5;min-height:520px;max-height:600px;position:relative;overflow-y:auto;overflow-x:hidden;padding-bottom:24px}
+  .meta{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+  .crumb{font-size:14px;color:#63678a}
+  .recommend{font-size:14px;color:#0f5c3f;background:#e7fff5;padding:8px 12px;border-radius:12px;box-shadow:inset 0 0 0 2px #baf2dc}
+  .mode{display:none;animation:fade .25s ease}.mode.active{display:block}
+  @keyframes fade{from{opacity:.6;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+  .header-box{height:64px;border-radius:14px;background:#e4e6ef;display:grid;place-items:center;color:#444;font-weight:700;box-shadow:inset 0 0 0 2px #dadced;margin-bottom:14px}
+  .row{margin-top:18px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .imgph{background:#e3e4ee;border-radius:14px;height:230px;display:grid;place-items:center;color:#6a6e86;box-shadow:inset 0 0 0 2px #d6d8ea;overflow:hidden}
+  .imgph img{width:100%;height:100%;object-fit:cover}
+  .flash-wrap,.video-wrap,.quiz{background:#fff;border-radius:16px;padding:16px;box-shadow:var(--shadow)}
+  .video-wrap video{border-radius:12px;overflow:hidden;box-shadow:inset 0 0 0 2px #e8e9f5}
+  .continue-learning-overlay{position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);display:flex;align-items:center;justify-content:center;border-radius:12px;z-index:1000;backdrop-filter:blur(4px);width:100%;height:100%}
+  .continue-learning-content{background:var(--panel);padding:24px;border-radius:16px;text-align:center;box-shadow:var(--shadow);max-width:300px}
+  .continue-learning-content h3{margin:0 0 12px 0;color:var(--ink);font-size:18px;font-weight:700}
+  .continue-learning-content p{margin:0 0 20px 0;color:var(--ink);font-size:14px;line-height:1.5;font-weight:500}
+  .continue-learning-buttons{display:flex;gap:12px;justify-content:center}
+  .continue-btn{appearance:none;border:none;padding:12px 20px;border-radius:12px;font-weight:700;cursor:pointer;transition:all 0.2s ease;font-size:14px}
+  .continue-btn.primary{background:var(--accent);color:#fff;box-shadow:0 4px 12px rgba(91,99,255,0.3)}
+  .continue-btn.primary:hover{background:#4a4af9;transform:translateY(-1px);box-shadow:0 6px 16px rgba(91,99,255,0.4)}
+  .continue-btn.secondary{background:#e8e9f5;color:var(--ink);box-shadow:inset 0 0 0 2px #cbd0ff}
+  .continue-btn.secondary:hover{background:#d6d8ea}
+  .card{border:2px dashed #d5d8f4;border-radius:16px;min-height:180px;display:grid;place-items:center;font-weight:700;color:#3a3f71;padding:16px;text-align:center}
+  #card-image{width:100%;height:120px;border-radius:12px;overflow:hidden;margin-bottom:12px}
+  #card-image img{width:100%;height:100%;object-fit:cover}
+  #card-text{font-size:16px;line-height:1.4}
+  .interactive-quiz{background:#f8f9fb;border-radius:16px;padding:20px;margin:16px 0;border:2px solid #e8e9f5}
+  .quiz-question{font-weight:700;margin-bottom:12px;color:#2a2e7a}
+  .quiz-options{display:grid;gap:8px;margin:12px 0}
+  .quiz-option{padding:12px;background:#fff;border:2px solid #e8e9f5;border-radius:12px;cursor:pointer;transition:all 0.2s ease}
+  .quiz-option:hover{background:#eef1ff;border-color:#95a0ff}
+  .quiz-option.selected{background:#dfe5ff;border-color:#5b63ff}
+  .quiz-option.correct{background:#e7fff5;border-color:#09a86a}
+  .quiz-option.incorrect{background:#ffe7e7;border-color:#ff6b6b}
+  .quiz-explanation{margin-top:12px;padding:12px;background:#e7fff5;border-radius:12px;border:2px solid #baf2dc;display:none}
+  .accordion{background:#fff;border-radius:16px;margin:16px 0;overflow:hidden;box-shadow:var(--shadow)}
+  .accordion-item{border-bottom:1px solid #e8e9f5}
+  .accordion-item:last-child{border-bottom:none}
+  .accordion-header{padding:16px;background:#f8f9fb;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:700;color:#2a2e7a;transition:background 0.2s ease}
+  .accordion-header:hover{background:#eef1ff}
+  .accordion-header.active{background:#dfe5ff}
+  .accordion-content{padding:0 16px;max-height:0;overflow:hidden;transition:all 0.3s ease}
+  .accordion-content.active{padding:16px;max-height:200px}
+  .match-column{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+  .match-column-left,.match-column-right{background:#f8f9fb;border-radius:12px;padding:16px}
+  .match-item{padding:12px;background:#fff;border:2px solid #e8e9f5;border-radius:8px;margin:8px 0;cursor:pointer;transition:all 0.2s ease;text-align:center}
+  .match-item:hover{background:#eef1ff;border-color:#95a0ff}
+  .match-item.selected{background:#dfe5ff;border-color:#5b63ff}
+  .match-item.matched{background:#e7fff5;border-color:#09a86a}
+  .interactive-element{margin:16px 0;padding:16px;background:#fff;border-radius:16px;box-shadow:var(--shadow)}
+  .element-title{font-weight:700;color:#2a2e7a;margin-bottom:12px}
+  .concept-list{list-style:none;padding:0}
+  .concept-list li{padding:8px 0;border-bottom:1px solid #e8e9f5;display:flex;align-items:flex-start;gap:12px}
+  .concept-list li:last-child{border-bottom:none}
+  .concept-list li:before{content:"✓";color:#09a86a;font-weight:700;flex-shrink:0;margin-top:2px}
+  .example-box{background:#e7fff5;border:2px solid #baf2dc;border-radius:12px;padding:16px;margin:16px 0}
+  .example-box strong{color:#0a613d;display:block;margin-bottom:8px}
+  .reflection-box{background:#eef1ff;border:2px solid #cbd0ff;border-radius:12px;padding:16px;margin:16px 0}
+  .reflection-box strong{color:#2a2e7a;display:block;margin-bottom:8px}
+  /* Custom scrollbar styling */
+  .stage::-webkit-scrollbar{width:8px}
+  .stage::-webkit-scrollbar-track{background:#f1f2f6;border-radius:4px}
+  .stage::-webkit-scrollbar-thumb{background:#c9cef6;border-radius:4px;transition:background 0.2s ease}
+  .stage::-webkit-scrollbar-thumb:hover{background:#95a0ff}
+  .stage::-webkit-scrollbar-corner{background:#f1f2f6}
+  .fc-controls{display:flex;align-items:center;justify-content:space-between;margin-top:12px}
+  .btn{appearance:none;border:none;padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:700}
+  .btn.primary{background:#e8ebff;color:#2a2e7a;box-shadow:inset 0 0 0 2px #cbd0ff}
+  .dots{display:flex;gap:6px}.dot{width:8px;height:8px;border-radius:50%;background:#c6c8da}.dot.active{background:#8a8ee0}
+  .timed-notes{margin-top:12px;display:grid;gap:8px}.note{background:#eef1ff;padding:10px;border-radius:10px;font-size:14px;cursor:pointer}
+  .audio-wrap{background:var(--panel);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+  .audio-flex{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .audio-blob{background:linear-gradient(135deg,#eef1ff,#f0f2ff);border-radius:16px;height:220px;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 2px #e8e9f5}
+  .audio-pane{background:var(--panel-2);border:2px solid #e8e9f5;border-radius:16px;padding:20px;box-shadow:inset 0 0 0 1px #f1f2f6}
+  .audio-pane p{margin:.5rem 0 0 0;font-size:14px;color:var(--ink);line-height:1.5}
+  .audio-pane strong{color:var(--ink);font-weight:700;margin-bottom:12px;display:block}
+  .audio-pane label{color:var(--muted);font-size:12px;font-weight:600;margin-bottom:8px;display:block}
+  .audio-pane input[type="range"]{width:100%;margin:8px 0 16px 0;accent-color:var(--accent)}
+  .audio-pane audio{width:100%;border-radius:12px;box-shadow:inset 0 0 0 2px #e8e9f5}
+  .transcript-container{max-height:300px;overflow-y:auto;padding:12px;background:#f8f9fb;border-radius:12px;border:2px solid #e8e9f5;margin-top:12px;scroll-behavior:smooth}
+  .transcript-line{display:block;margin-bottom:8px;padding:8px 12px;border-radius:8px;transition:all 0.3s ease;cursor:pointer;font-size:13px;line-height:1.4}
+  .transcript-line:hover{background:#eef1ff;border-left:3px solid var(--accent)}
+  .transcript-line.active{background:var(--accent);color:#fff;font-weight:600;box-shadow:0 2px 8px rgba(91,99,255,0.3);transform:scale(1.02);border-left:4px solid #fff}
+  .transcript-line.active:hover{background:var(--accent);color:#fff;transform:scale(1.02)}
+  .transcript-timestamp{color:var(--muted);font-size:11px;font-weight:600;margin-right:8px}
+  .transcript-line.active .transcript-timestamp{color:rgba(255,255,255,0.8)}
+  /* Mind map */
+  .mm-wrap{display:grid;grid-template-columns: 2fr 1fr;gap:14px}
+  .mm-canvas{background:#fff;border-radius:16px;box-shadow:var(--shadow);padding:8px;overflow:hidden}
+  .mm-side{background:#fff;border-radius:16px;box-shadow:var(--shadow);padding:12px}
+  .node{transition:all 0.3s ease;cursor:pointer}
+  .node:hover{transform:scale(1.05)}
+  .node circle{fill:#eef1ff;stroke:#95a0ff;stroke-width:2;transition:all 0.3s ease}
+  .node text{font-size:12px;fill:#2a2e7a;font-weight:700;transition:all 0.3s ease}
+  .node.active circle{fill:#dfe5ff;stroke:#5b63ff;stroke-width:3}
+  .node.active text{fill:#1b1e5b;font-weight:800}
+  .node:hover circle{fill:#f0f2ff;stroke:#7c85ff;stroke-width:2.5}
+  .node:hover text{fill:#1b1e5b}
+  .edge{stroke:#c9cef6;stroke-width:2;transition:all 0.3s ease}
+  .edge:hover{stroke:#95a0ff;stroke-width:3}
+  .edge.active{stroke:#5b63ff;stroke-width:3}
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+  .node.pulse{animation:pulse 0.6s ease-in-out}
+  @keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  .node.fade-in{animation:fadeInUp 0.5s ease-out}
+  .elevator{background:var(--panel);border-radius:20px;padding:10px;display:flex;flex-direction:column;align-items:center;gap:14px;box-shadow:var(--shadow)}
+  .ctl{width:40px;height:40px;border-radius:14px;border:none;background:#ccffe7;display:grid;place-items:center;cursor:pointer;box-shadow:inset 0 0 0 2px #b0ffd8}
+  .ctl svg{width:18px;height:18px;fill:#09a86a}
+  /* ByteAI Assistant */
+  .byteai-assistant{position:fixed;bottom:20px;right:20px;z-index:1000;display:flex;justify-content:center}
+  .byteai-button{background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;transition:all 0.3s ease}
+  .byteai-button:hover{transform:scale(1.1)}
+  .byteai-button:active{transform:scale(0.95)}
+  .byteai-icon{
+    --icon-size: 96px;
+    --icon-color: #4a4af9;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    color: var(--icon-color);
+    display: inline-block;
+    filter: drop-shadow(0 0 8px color-mix(in srgb, currentColor 50%, transparent));
+    transition: all 0.3s ease;
+  }
+  .byteai-icon > svg { width: 100%; height: 100%; display: block; }
+  .byteai-button:hover .byteai-icon{
+    filter: drop-shadow(0 0 12px color-mix(in srgb, currentColor 70%, transparent));
+  }
+  .byteai-chat{position:absolute;bottom:60px;left:0;right:0;width:100%;height:350px;background:rgba(255,255,255,0.15);backdrop-filter:blur(20px) saturate(150%) contrast(110%) brightness(105%);-webkit-backdrop-filter:blur(20px) saturate(150%) contrast(110%) brightness(105%);border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.1),inset 0 1px 0 rgba(255,255,255,0.3);border:1px solid rgba(255,255,255,0.2);display:flex;flex-direction:column;overflow:hidden;z-index:1000;transition:all 0.3s ease}
+  .byteai-chat:hover{backdrop-filter:blur(25px) saturate(180%) contrast(120%) brightness(110%);-webkit-backdrop-filter:blur(25px) saturate(180%) contrast(120%) brightness(110%);transform:scale(1.01)}
+  .byteai-header{background:rgba(74,74,249,0.25);backdrop-filter:blur(10px) saturate(120%);-webkit-backdrop-filter:blur(10px) saturate(120%);color:#000;padding:16px;display:flex;justify-content:space-between;align-items:center;border-radius:16px 16px 0 0;border-bottom:1px solid rgba(255,255,255,0.2);box-shadow:inset 0 1px 0 rgba(255,255,255,0.2)}
+  .byteai-header h4{margin:0;font-size:14px;font-weight:700}
+  .byteai-close{background:none;border:none;color:#000;font-size:20px;cursor:pointer;padding:4px;width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:background 0.2s ease}
+  .byteai-close:hover{background:rgba(255,255,255,.2)}
+  .byteai-messages{flex:1;padding:16px;overflow-y:auto;display:flex;flex-direction:column;gap:12px}
+  .byteai-message{display:flex;gap:8px;align-items:flex-start}
+  .byteai-message.byteai-bot .byteai-avatar{width:32px;height:32px;border-radius:50%;background:#f0f2ff;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;border:2px solid #e8e9f5}
+  .byteai-message.byteai-user{flex-direction:row-reverse}
+  .byteai-message.byteai-user .byteai-text{background:#4a4af9;color:#fff}
+  .byteai-text{background:#f8f9fb;padding:12px 16px;border-radius:16px;font-size:14px;line-height:1.5;max-width:85%;word-wrap:break-word;border:1px solid #e8e9f5}
+  .byteai-input-area{display:flex;padding:16px;border-top:1px solid #e8e9f5;gap:8px;align-items:center}
+  .byteai-input-area input{flex:1;border:2px solid #e8e9f5;border-radius:20px;padding:10px 16px;font-size:14px;outline:none;transition:all 0.2s ease;background:#fff}
+  .byteai-input-area input:focus{border-color:#4a4af9;box-shadow:0 0 0 3px rgba(74,74,249,0.1)}
+  .byteai-input-area input::placeholder{animation:marquee 15s linear infinite;white-space:nowrap;color:#999}
+  @keyframes marquee{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
+  .byteai-send{background:#4a4af9;color:#fff;border:none;border-radius:20px;padding:10px 20px;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.2s ease;white-space:nowrap;min-width:60px}
+  .byteai-send:hover{background:#3a3ae9;transform:translateY(-1px)}
+  .byteai-send:disabled{background:#ccc;cursor:not-allowed;transform:none}
+  dialog{border:none;border-radius:16px;padding:0;box-shadow:0 20px 60px rgba(10,12,38,.25)}
+  .sheet{padding:16px;background:#fff;min-width:320px}.sheet h3{margin:0 0 12px 0}.field{margin:10px 0;display:grid;gap:6px}.sheet .btns{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
+  
+  /* Text Selection Popup */
+  .selection-popup{position:absolute;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:12px;padding:12px 16px;box-shadow:0 8px 32px rgba(0,0,0,0.15);border:1px solid rgba(255,255,255,0.3);z-index:1001;display:none;min-width:200px;max-width:300px}
+  .selection-popup.show{display:block;animation:popupFadeIn 0.2s ease-out}
+  .selection-popup-content{display:flex;align-items:center;gap:8px;font-size:14px;color:#2a2e7a}
+  .selection-popup-icon{width:20px;height:20px;color:#4a4af9;flex-shrink:0}
+  .selection-popup-text{flex:1;font-weight:600}
+  .selection-popup-buttons{display:flex;gap:8px;margin-top:8px}
+  .selection-popup-btn{background:#4a4af9;color:#fff;border:none;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s ease}
+  .selection-popup-btn:hover{background:#3a3ae9;transform:translateY(-1px)}
+  .selection-popup-btn.secondary{background:#e8e9f5;color:#2a2e7a}
+  .selection-popup-btn.secondary:hover{background:#d6d8ea}
+  
+  /* Drag and Drop Styling */
+  .dragging{opacity:0.5;transform:scale(0.95);transition:all 0.2s ease}
+  .drop-zone{position:relative}
+  .drop-zone.drag-over{background:rgba(74,74,249,0.1);border:2px dashed #4a4af9;border-radius:12px;transition:all 0.2s ease}
+  .drop-zone.drag-over::before{content:"Drop here to ask ByteAI";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#4a4af9;font-weight:600;font-size:14px;pointer-events:none;z-index:1000}
+  
+  /* Chat highlight animation */
+  .byteai-chat.highlight{animation:chatHighlight 0.6s ease-out}
+  @keyframes chatHighlight{0%{transform:scale(1);box-shadow:0 8px 32px rgba(0,0,0,0.1)}50%{transform:scale(1.02);box-shadow:0 12px 40px rgba(74,74,249,0.3)}100%{transform:scale(1);box-shadow:0 8px 32px rgba(0,0,0,0.1)}}
+  
+  /* Text selection animations */
+  .text-selected{background:linear-gradient(120deg, rgba(74,74,249,0.2) 0%, rgba(74,74,249,0.1) 100%);border-radius:4px;padding:2px 4px;animation:textSelectPulse 0.3s ease-out}
+  @keyframes textSelectPulse{0%{background:rgba(74,74,249,0.1);transform:scale(1)}50%{background:rgba(74,74,249,0.3);transform:scale(1.02)}100%{background:rgba(74,74,249,0.2);transform:scale(1)}}
+  
+  /* Enhanced text selection */
+  .stage *{user-select:text;-webkit-user-select:text;-moz-user-select:text;-ms-user-select:text}
+  .stage p, .stage div, .stage span, .stage li, .stage h1, .stage h2, .stage h3, .stage h4, .stage h5, .stage h6{cursor:pointer;position:relative}
+  .stage .concept-list li, .stage .example-box, .stage .reflection-box, .stage .quiz-question, .stage .accordion-content, .stage .match-item{cursor:pointer;user-select:text;-webkit-user-select:text}
+  .stage .byteai-text{cursor:pointer;user-select:text;-webkit-user-select:text}
+  
+  /* Custom ByteAI cursor */
+  .byteai-cursor{position:absolute;pointer-events:none;z-index:10000;display:flex;align-items:center;gap:4px;background:rgba(74,74,249,0.95);color:#fff;padding:4px 8px;border-radius:6px;font-size:12px;font-weight:600;box-shadow:0 4px 12px rgba(74,74,249,0.3);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.2);opacity:0;transform:scale(0.8);transition:all 0.2s ease}
+  .byteai-cursor.show{opacity:1;transform:scale(1);animation:byteaiCursorPulse 2s ease-in-out infinite}
+  .byteai-cursor-icon{width:16px;height:16px;background:#fff;border-radius:2px;position:relative;display:flex;align-items:center;justify-content:center}
+  .byteai-cursor-icon::before{content:"";width:2px;height:12px;background:#4a4af9;border-radius:1px;position:absolute;animation:byteaiCursorBlink 1s ease-in-out infinite}
+  .byteai-cursor-icon::after{content:"";width:6px;height:6px;border:2px solid #4a4af9;border-top:none;border-right:none;position:absolute;top:2px;left:2px;transform:rotate(-45deg)}
+  
+  @keyframes byteaiCursorPulse{0%,100%{box-shadow:0 4px 12px rgba(74,74,249,0.3)}50%{box-shadow:0 6px 16px rgba(74,74,249,0.5)}}
+  @keyframes byteaiCursorBlink{0%,50%{opacity:1}51%,100%{opacity:0.3}}
+  
+  /* Hover effects for selectable text */
+  .stage p:hover, .stage div:hover, .stage span:hover, .stage li:hover{cursor:none;background:rgba(74,74,249,0.02);border-radius:4px;transition:background 0.2s ease}
+  .stage .concept-list li:hover, .stage .example-box:hover, .stage .reflection-box:hover{cursor:none;background:rgba(74,74,249,0.05);border-radius:8px;transition:background 0.2s ease}
+  
+  /* Selection hint for users */
+  .stage::before{content:"💡 Tip: Select any text to ask ByteAI about it";position:absolute;top:10px;right:10px;background:rgba(74,74,249,0.1);color:#4a4af9;padding:8px 12px;border-radius:8px;font-size:12px;font-weight:600;opacity:0;transition:opacity 0.3s ease;pointer-events:none;z-index:100}
+  .stage:hover::before{opacity:1}
+  
+  /* Popup entrance animation */
+  .selection-popup.entering{animation:popupSlideIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)}
+  @keyframes popupSlideIn{0%{opacity:0;transform:translateY(-20px) scale(0.8);filter:blur(4px)}100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
+  
+  /* Message sending animation */
+  .message-sending{animation:messageSlideIn 0.4s ease-out}
+  @keyframes messageSlideIn{0%{opacity:0;transform:translateX(-20px) scale(0.95)}100%{opacity:1;transform:translateX(0) scale(1)}}
+  
+  /* ByteAI response animation */
+  .byteai-response{animation:responseSlideIn 0.5s ease-out}
+  @keyframes responseSlideIn{0%{opacity:0;transform:translateX(20px) scale(0.95)}100%{opacity:1;transform:translateX(0) scale(1)}}
+  
+  /* Drag preview animation */
+  .drag-preview{animation:dragFloat 0.3s ease-out infinite alternate}
+  @keyframes dragFloat{0%{transform:translateY(0) rotate(-2deg)}100%{transform:translateY(-5px) rotate(2deg)}}
+  
+  /* Success feedback animation */
+  .transfer-success{animation:successPulse 0.8s ease-out}
+  @keyframes successPulse{0%{transform:scale(1)}25%{transform:scale(1.05)}50%{transform:scale(1.02)}75%{transform:scale(1.03)}100%{transform:scale(1)}}
+  
+  /* Typing indicator animation */
+  .typing-indicator{display:flex;align-items:center;gap:4px;padding:12px 16px;background:#f8f9fb;border-radius:16px;border:1px solid #e8e9f5;margin:8px 0}
+  .typing-dot{width:8px;height:8px;border-radius:50%;background:#4a4af9;animation:typingBounce 1.4s infinite ease-in-out}
+  .typing-dot:nth-child(1){animation-delay:-0.32s}
+  .typing-dot:nth-child(2){animation-delay:-0.16s}
+  .typing-dot:nth-child(3){animation-delay:0s}
+  @keyframes typingBounce{0%,80%,100%{transform:scale(0.8);opacity:0.5}40%{transform:scale(1.2);opacity:1}}
+  
+  @keyframes popupFadeIn{from{opacity:0;transform:translateY(-10px) scale(0.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+  @media (max-width:1100px){.grid{grid-template-columns:240px 1fr}.elevator{display:none}}
+  @media (max-width:820px){.grid{grid-template-columns:1fr}.sidebar{order:2}.audio-flex{grid-template-columns:1fr}.mm-wrap{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+  <div class="app" id="app">
+    <header>
+      <div class="logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" role="img" aria-label="Course icon"><path d="M4 3h12a2 2 0 0 1 2 2v3h2v11a2 2 0 0 1-2 2H6l-2 2v-2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Zm0 2v12h14V5H4Zm3 3h8v2H7V8Zm0 4h5v2H7v-2Z"/></svg>
+      </div>
+      <div class="title">
+        <h1>Designing Microlearning with AI</h1><small>ByteVerse demo lesson • Foundations → Assessment</small>
+      </div>
+    </header>
+
+    <div class="topbar">
+      <nav class="topnav" aria-label="Lesson mode" role="tablist">
+        <button class="pill" role="tab" aria-selected="true" data-mode="standard">Standard</button>
+        <button class="pill" role="tab" aria-selected="false" data-mode="flashcard">Flashcard</button>
+        <button class="pill" role="tab" aria-selected="false" data-mode="video">Video Lesson</button>
+        <button class="pill" role="tab" aria-selected="false" data-mode="audio">Audio Lesson</button>
+        <button class="pill" role="tab" aria-selected="false" data-mode="mindmap">Mind Map</button>
+      </nav>
+      <button class="settings-btn" id="openSettings" aria-haspopup="dialog">Settings</button>
+    </div>
+
+    <div class="grid">
+      <aside class="sidebar" aria-label="Course outline">
+        <!-- Standard/Default Course Outline -->
+        <div class="sidebar-content" id="sidebar-standard">
+          <h3>Course Outline</h3>
+          <button class="nav-btn" data-unit="0" aria-current="true">1. Microlearning Foundations</button>
+          <button class="nav-btn" data-unit="1">2. Use Cases & Workflows</button>
+          <button class="nav-btn" data-unit="2">3. Prompt Patterns</button>
+          <button class="nav-btn sub" data-unit="3">4. Edge Cases & Pitfalls</button>
+          <button class="nav-btn sub" data-unit="4">5. Review & Retrieval</button>
+          <button class="nav-btn" data-unit="5">6. Mini Project Plan</button>
+          <button class="nav-btn" data-unit="6">7. Peer Feedback</button>
+          <button class="nav-btn" data-unit="7">8. Assessment & Next Steps</button>
+        </div>
+
+        <!-- Flashcard Mode - No sidebar content needed -->
+        <div class="sidebar-content" id="sidebar-flashcard" style="display: none;">
+          <h3>Flashcard Mode</h3>
+          <p style="color: var(--muted); font-size: 14px; margin: 12px 0;">Focus on learning with flashcards. No navigation needed.</p>
+        </div>
+
+        <!-- Video Mode - Timestamp Navigation -->
+        <div class="sidebar-content" id="sidebar-video" style="display: none;">
+          <h3>Video Timeline</h3>
+          <div class="timed-notes">
+            <div class="note" data-t="20">00:20 — The Problem With Training</div>
+            <div class="note" data-t="58">00:58 — What is Microlearning</div>
+            <div class="note" data-t="133">02:13 — Your AI design partner</div>
+            <div class="note" data-t="202">03:22 — Blueprint for Success</div>
+            <div class="note" data-t="301">05:01 — Your First lesson</div>
+            <div class="note" data-t="330">05:30 — Transformation Question</div>
+          </div>
+        </div>
+
+        <!-- Audio Mode - Transcript Container -->
+        <div class="sidebar-content" id="sidebar-audio" style="display: none;">
+          <h3>Live Transcript</h3>
+          <div class="transcript-container" id="sidebarTranscriptContainer">
+            <div id="sidebarTranscriptContent">
+              <!-- Transcript will be loaded here -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Mindmap Mode - Node Details -->
+        <div class="sidebar-content" id="sidebar-mindmap" style="display: none;">
+          <h3>Node Details</h3>
+          <div class="mindmap-node-details" id="mindmapNodeDetails">
+            <p style="color: var(--muted); font-size: 14px; margin: 12px 0;">Select a concept node to see detailed information here.</p>
+          </div>
+        </div>
+        
+        
+        <!-- Text Selection Popup -->
+        <div class="selection-popup" id="selectionPopup">
+          <div class="selection-popup-content">
+            <div class="selection-popup-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="8" fill="#4a4af9" opacity="0.8"/>
+                <circle cx="8" cy="8" r="3" fill="#4a4af9" opacity="0.6"/>
+                <circle cx="16" cy="8" r="2" fill="#4a4af9" opacity="0.7"/>
+                <circle cx="8" cy="16" r="2" fill="#4a4af9" opacity="0.5"/>
+                <circle cx="16" cy="16" r="3" fill="#4a4af9" opacity="0.6"/>
+              </svg>
+            </div>
+            <div class="selection-popup-text">Want to learn more about this?</div>
+          </div>
+          <div class="selection-popup-buttons">
+            <button class="selection-popup-btn" id="askByteaiBtn">Ask ByteAI</button>
+            <button class="selection-popup-btn secondary" id="cancelSelectionBtn">Cancel</button>
+          </div>
+        </div>
+        
+        <!-- Custom ByteAI Cursor -->
+        <div class="byteai-cursor" id="byteaiCursor">
+          <div class="byteai-cursor-icon"></div>
+          <span>ByteAI</span>
+        </div>
+      </aside>
+
+      <main class="stage-wrap">
+        <section class="stage" aria-live="polite">
+          <div class="meta">
+            <div class="crumb" id="crumb">Unit 1 / 8 • Standard</div>
+            <div class="recommend" id="reco"><strong>Tip:</strong> Prefer visuals? Open Mind Map.</div>
+          </div>
+
+          <!-- STANDARD -->
+          <section class="mode active" id="mode-standard" role="tabpanel">
+            <div class="header-box" id="standard-title">Section 1 — Microlearning Foundations</div>
+            <div id="standard-content">
+              <!-- Content will be dynamically loaded here -->
+            </div>
+          </section>
+
+          <!-- FLASHCARDS -->
+          <section class="mode" id="mode-flashcard" role="tabpanel">
+            <div class="flash-wrap" aria-label="Flashcards">
+              <div class="card" id="card-face">
+                <div id="card-image"></div>
+                <div id="card-text">Q1. What's microlearning in one sentence?</div>
+              </div>
+              <div class="fc-controls">
+                <button class="btn primary" id="prevCard" aria-label="Previous card">◀</button>
+                <div class="dots" id="fcDots"></div>
+                <div>
+                  <button class="btn primary" id="flipCard" aria-label="Flip card">Flip</button>
+                  <button class="btn primary" id="nextCard" aria-label="Next card">▶</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- VIDEO -->
+          <section class="mode" id="mode-video" role="tabpanel">
+            <div class="video-wrap">
+              <video id="video" controls width="100%" preload="metadata" aria-label="Lesson video">
+                <source src="assets/AI microlearning.mp4" type="video/mp4">
+                Your browser does not support the video element.
+              </video>
+              <!-- Timestamp navigation moved to sidebar -->
+            </div>
+          </section>
+
+          <!-- AUDIO -->
+          <section class="mode" id="mode-audio" role="tabpanel">
+            <div class="audio-wrap">
+              <div class="audio-flex">
+                <div class="audio-blob" aria-hidden="true">
+                  <div style="text-align: center; color: var(--muted);">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 3v10.55l-4-4-4 4V5h8V3z" fill="currentColor"/>
+                      <path d="M19 12a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" stroke-width="2" fill="none"/>
+                    </svg>
+                    <p style="margin-top: 12px; font-size: 14px; font-weight: 600;">Audio Lesson</p>
+                  </div>
+                </div>
+                <div class="audio-pane">
+                  <strong>Audio Controls</strong>
+                  <label for="audioSpeed">Playback Speed</label>
+                  <input type="range" id="audioSpeed" min="0.75" max="1.5" value="1" step="0.25" />
+                  <audio id="audio" controls preload="none" aria-label="Lesson audio">
+                    <source src="assets/Audiolesson.m4a" type="audio/mp4">
+                    Your browser does not support the audio element.
+                  </audio>
+                  <!-- Transcript moved to sidebar for better accessibility -->
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- MIND MAP -->
+          <section class="mode" id="mode-mindmap" role="tabpanel">
+            <div class="mm-wrap">
+              <div class="mm-canvas">
+                <svg id="mindmap" viewBox="0 0 800 420" width="100%" height="420" aria-label="Mind map"></svg>
+              </div>
+              <div class="mm-side" id="mmSide">
+                <strong>Node detail</strong>
+                <p>Select a concept node to see a concise explanation here.</p>
+              </div>
+            </div>
+          </section>
+        </section>
+      </main>
+
+      <div class="elevator" aria-label="Unit navigation">
+        <button class="ctl" id="unitPrev" title="Previous unit">
+          <svg viewBox="0 0 24 24"><path d="M12 7l6 6H6z"/></svg>
+        </button>
+        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+        <button class="ctl" id="unitNext" title="Next unit">
+          <svg viewBox="0 0 24 24" style="transform:rotate(180deg)"><path d="M12 7l6 6H6z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings -->
+  <dialog id="settings">
+    <form method="dialog" class="sheet">
+      <h3>Preferences</h3>
+      <div class="field">
+        <label for="fontScale">Text size</label>
+        <input type="range" id="fontScale" min="90" max="120" value="100" />
+      </div>
+      <div class="field">
+        <label for="defaultMode">Default mode on open</label>
+        <select id="defaultMode">
+          <option value="standard">Standard</option>
+          <option value="flashcard">Flashcard</option>
+          <option value="video">Video</option>
+          <option value="audio">Audio</option>
+          <option value="mindmap">Mind Map</option>
+        </select>
+      </div>
+      <div class="btns">
+        <button class="btn" value="cancel">Cancel</button>
+        <button class="btn primary" value="ok">Save</button>
+      </div>
+    </form>
+  </dialog>
+
+<script>
+  /* ---------- Enhanced lesson data ---------- */
+  const UNITS = [
+    { 
+      title:"Section 1 — Microlearning Foundations", 
+      tip:"Prefer visuals? Open Mind Map.",
+      content: {
+        keyIdea: "Microlearning is the practice of delivering focused learning experiences (3–7 minutes) that tackle one task, decision, or concept at a time. It matters because it reduces cognitive load, accelerates time-to-competence, and makes learning available 'in the flow of work.'",
+        concepts: [
+          "One outcome per nugget — a clear 'can do' statement",
+          "Distributed teams, complex tools, and changing processes make just-in-time learning essential",
+          "Reduces cognitive load and fits naturally into workflow"
+        ],
+        example: "You're onboarding new support agents. Instead of a 60-minute module, you publish five micro-lessons: (1) verifying identity, (2) tone calibration, (3) diagnosing common issues, (4) escalation rules, (5) post-call notes. Each lesson ends with a quick scenario and a single action checklist.",
+        reflection: "Where in your current program can you replace a long module with a series of focused, single-outcome nuggets?",
+        images: [
+          "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=900&h=600&q=60",
+          "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&h=600&q=60"
+        ],
+        quiz: {
+          question: "What is the optimal duration for a microlearning lesson?",
+          options: ["1-2 minutes", "3-7 minutes", "10-15 minutes", "20-30 minutes"],
+          correct: 1,
+          explanation: "Microlearning lessons should be 3-7 minutes to maintain focus while providing sufficient content depth."
+        },
+        accordion: [
+          { title: "Benefits of Microlearning", content: "Reduces cognitive load, fits into workflow, faster onboarding, just-in-time learning, higher retention rates" },
+          { title: "Key Principles", content: "Single outcome focus, scenario-based learning, immediate application, bite-sized content, mobile-friendly" },
+          { title: "Common Mistakes", content: "Overstuffing content, lack of practice activities, ignoring context, creating mini-lectures instead of micro-lessons" }
+        ]
+      },
+      map:{center:"Microlearning", nodes:[
+        {id:"A1", label:"Definition", x:200,y:80, note:"Short, focused lesson targeting one outcome (3–7 min)."},
+        {id:"A2", label:"Why it matters", x:560,y:90, note:"Reduces cognitive load; fits flow of work; faster onboarding."},
+        {id:"A3", label:"Example", x:170,y:300, note:"Split a 60-min module into 5 outcome-based nuggets."},
+        {id:"A4", label:"Pitfall", x:420,y:330, note:"Shrinking content without refocusing outcomes ≠ microlearning."},
+      ], edges:[["center","A1"],["center","A2"],["center","A3"],["center","A4"]] }
+    },
+    { 
+      title:"Section 2 — Use Cases & Workflows", 
+      tip:"Short on time? Switch to Audio.",
+      content: {
+        keyIdea: "Microlearning excels in specific use cases where just-in-time knowledge delivery is critical. Understanding these scenarios helps you design more effective learning experiences.",
+        concepts: [
+          "Onboarding: Day-1 basics with systems, tone, and key procedures",
+          "Just-in-time: Surface nuggets inside tools at moment of need",
+          "Compliance: Single risk per nugget with scenario and action checklist"
+        ],
+        example: "A sales team needs quick access to product updates. Instead of monthly training sessions, they receive 3-minute micro-lessons triggered by specific customer questions or product launches.",
+        reflection: "Identify three moments in your workday where microlearning could provide immediate value.",
+        images: [
+          "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&h=600&q=60",
+          "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&h=600&q=60"
+        ],
+        quiz: {
+          question: "Which use case is best suited for microlearning?",
+          options: ["Complex theoretical concepts", "Just-in-time procedural guidance", "Deep philosophical discussions", "Multi-day certification programs"],
+          correct: 1,
+          explanation: "Just-in-time procedural guidance is ideal for microlearning because it provides immediate, actionable information when needed."
+        },
+        matchColumn: {
+          left: ["Onboarding", "Just-in-time", "Compliance", "Skill refresh"],
+          right: ["Day-1 basics and procedures", "Tool-embedded guidance", "Risk scenarios and checklists", "Spaced practice sessions"]
+        }
+      },
+      map:{center:"Use Cases", nodes:[
+        {id:"B1", label:"Onboarding", x:230,y:120, note:"Day-1 basics: systems, tone, 1–2 key procedures."},
+        {id:"B2", label:"Just-in-time", x:560,y:180, note:"Surface nuggets inside tools at moment of need."},
+        {id:"B3", label:"Compliance", x:160,y:320, note:"Single risk per nugget → scenario → action checklist."},
+      ], edges:[["center","B1"],["center","B2"],["center","B3"]] }
+    },
+    { 
+      title:"Section 3 — Prompt Patterns", 
+      tip:"Try Flashcards for retrieval.",
+      content: {
+        keyIdea: "Effective AI prompts follow specific patterns that generate better learning content. Understanding these patterns helps you create more engaging and effective microlearning experiences.",
+        concepts: [
+          "SCQA: Situation–Complication–Question–Answer for scenario framing",
+          "Role + Constraints: 'Act as coach … within 100 words … 4-step checklist'",
+          "Anti-pattern: Vague asks lead to generic output; always specify outcome & audience"
+        ],
+        example: "Instead of 'Create a lesson about customer service,' use: 'Act as a customer service trainer. Create a 3-minute micro-lesson for new agents on handling angry customers. Include one scenario, three key phrases, and a practice checklist.'",
+        reflection: "Rewrite one of your existing learning objectives using the SCQA pattern.",
+        images: [
+          "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=900&h=600&q=60",
+          "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&h=600&q=60"
+        ],
+        quiz: {
+          question: "What does SCQA stand for in prompt patterns?",
+          options: ["Subject-Context-Question-Answer", "Situation-Complication-Question-Answer", "Scenario-Context-Query-Answer", "Story-Context-Question-Answer"],
+          correct: 1,
+          explanation: "SCQA stands for Situation-Complication-Question-Answer, a framework for creating engaging scenarios in learning content."
+        },
+        accordion: [
+          { title: "SCQA Pattern", content: "Situation: Set the context. Complication: Introduce the challenge. Question: Pose the problem. Answer: Provide the solution." },
+          { title: "Role + Constraints", content: "Define the AI's role, set clear boundaries, specify format requirements, and include success criteria." },
+          { title: "Anti-patterns to Avoid", content: "Vague requests, missing context, no constraints, generic outcomes, ignoring the target audience" }
+        ]
+      },
+      map:{center:"Prompt Patterns", nodes:[
+        {id:"P1", label:"SCQA", x:220,y:120, note:"Situation–Complication–Question–Answer → scenario framing."},
+        {id:"P2", label:"Role + Constraints", x:560,y:140, note:"Act as coach … within 100 words … 4-step checklist."},
+        {id:"P3", label:"Anti-pattern", x:390,y:320, note:"Vague asks → generic output; always specify outcome & audience."},
+      ], edges:[["center","P1"],["center","P2"],["center","P3"]] }
+    },
+    { 
+      title:"Sub-Section 4 — Edge Cases & Pitfalls", 
+      tip:"Stuck? Standard mode has notes.",
+      content: {
+        keyIdea: "Understanding common pitfalls helps you avoid them and create more effective microlearning experiences. These edge cases often determine the success or failure of your learning program.",
+        concepts: [
+          "Overstuffing: If you need subsections, you likely have multiple outcomes",
+          "No practice: Every nugget should include a short scenario/action",
+          "Lack context: Add pre-req link or a 30-sec recap at start"
+        ],
+        example: "A company created a '5-minute' microlearning on 'Customer Service Excellence' that actually contained 8 different skills. This violated the single-outcome principle and confused learners.",
+        reflection: "Review your last learning module. Does it focus on one clear outcome, or does it try to cover multiple concepts?",
+        images: [
+          "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=900&h=600&q=60",
+          "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&h=600&q=60"
+        ],
+        quiz: {
+          question: "What's the biggest red flag that you're overstuffing a microlearning lesson?",
+          options: ["It takes 10 minutes to complete", "You need multiple subsections", "It covers one skill thoroughly", "It has interactive elements"],
+          correct: 1,
+          explanation: "If you need subsections, you likely have multiple outcomes, which violates the core principle of microlearning."
+        },
+        accordion: [
+          { title: "Overstuffing Signs", content: "Multiple learning objectives, subsections needed, longer than 7 minutes, covering multiple skills, complex branching" },
+          { title: "Missing Practice", content: "No scenarios, no actions to take, pure information delivery, no application opportunities, no feedback loops" },
+          { title: "Context Gaps", content: "No prerequisites mentioned, missing background info, assumes prior knowledge, no recap, disconnected from workflow" }
+        ]
+      },
+      map:{center:"Edges", nodes:[
+      {id:"E1", label:"Overstuffing", x:240,y:120, note:"If you need subsections, you likely have multiple outcomes."},
+      {id:"E2", label:"No practice", x:560,y:160, note:"Every nugget should include a short scenario/action."},
+      {id:"E3", label:"Lack context", x:180,y:300, note:"Add pre-req link or a 30-sec recap at start."},
+      ], edges:[["center","E1"],["center","E2"],["center","E3"]] }
+    },
+    { 
+      title:"Sub-Section 5 — Review & Retrieval", 
+      tip:"Interleave with Flashcards.",
+      content: {
+        keyIdea: "Effective learning requires strategic review and retrieval practice. Microlearning's short format makes it ideal for spaced repetition and interleaved practice.",
+        concepts: [
+          "Spaced: Schedule 24h, 3d, 7d prompts for optimal retention",
+          "Interleaved: Mix related skills for better transfer",
+          "Mini-quizzes: 2–3 items max with immediate feedback"
+        ],
+        example: "A sales team practices objection handling through daily 2-minute micro-lessons, with each lesson building on previous ones and mixing different objection types to improve transfer.",
+        reflection: "How can you implement spaced repetition in your current learning program?",
+        images: [
+          "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=900&h=600&q=60",
+          "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=900&h=600&q=60"
+        ],
+        quiz: {
+          question: "What's the optimal spacing for microlearning review?",
+          options: ["Daily for a week", "24h, 3d, 7d intervals", "Weekly for a month", "Only when needed"],
+          correct: 1,
+          explanation: "Research shows that 24h, 3d, 7d intervals provide optimal retention for microlearning content."
+        },
+        matchColumn: {
+          left: ["Spaced Practice", "Interleaved Practice", "Retrieval Practice", "Elaborative Interrogation"],
+          right: ["24h, 3d, 7d intervals", "Mix related skills", "Active recall without notes", "Explain why and how"]
+        }
+      },
+      map:{center:"Review Map", nodes:[
+      {id:"R1", label:"Spaced", x:240,y:120, note:"Schedule 24h, 3d, 7d prompts."},
+      {id:"R2", label:"Interleaved", x:560,y:120, note:"Mix related skills for transfer."},
+      {id:"R3", label:"Mini-quizzes", x:380,y:320, note:"2–3 items max; immediate feedback."},
+      ], edges:[["center","R1"],["center","R2"],["center","R3"]] }
+    },
+    { 
+      title:"Section 6 — Mini Project Plan", 
+      tip:"Draft your idea, then mind map it.",
+      content: {
+        keyIdea: "Creating your own microlearning project helps you apply all the concepts you've learned. This hands-on approach solidifies your understanding and gives you a practical deliverable.",
+        concepts: [
+          "Outcome: Write a single can-do statement that's observable and measurable",
+          "Scenario: Draft a 3-line SCQA scenario that sets up the learning context",
+          "Checklist: Create a 4-step action checklist for immediate application"
+        ],
+        example: "Project: 'Customer Service De-escalation' - Outcome: 'I can de-escalate an angry customer using the LEAST method.' Scenario: 'A customer calls about a billing error and becomes increasingly frustrated. How do you respond?' Checklist: 1) Listen actively, 2) Empathize with their concern, 3) Acknowledge the issue, 4) Solve together, 5) Thank them.",
+        reflection: "What microlearning project would have the biggest impact on your current role?",
+        images: [
+          "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=900&h=600&q=60",
+          "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&h=600&q=60"
+        ],
+        quiz: {
+          question: "What makes a good microlearning outcome statement?",
+          options: ["It's broad and covers multiple skills", "It's specific, observable, and measurable", "It's theoretical and conceptual", "It's long and detailed"],
+          correct: 1,
+          explanation: "A good outcome statement is specific, observable, and measurable - something you can clearly demonstrate doing."
+        },
+        accordion: [
+          { title: "Writing Outcomes", content: "Use action verbs, be specific, make it observable, ensure it's achievable in 3-7 minutes, focus on one skill" },
+          { title: "Creating Scenarios", content: "Use SCQA structure, make it realistic, include relevant context, create tension or challenge, provide clear stakes" },
+          { title: "Designing Checklists", content: "Keep it to 4-5 steps, use action verbs, make it sequential, ensure it's actionable, test with real users" }
+        ]
+      },
+      map:{center:"Project Plan", nodes:[
+      {id:"PP1", label:"Outcome", x:230,y:120, note:"Write a single can-do statement."},
+      {id:"PP2", label:"Scenario", x:560,y:180, note:"Draft a 3-line SCQA scenario."},
+      {id:"PP3", label:"Checklist", x:160,y:320, note:"Create a 4-step action checklist."},
+      ], edges:[["center","PP1"],["center","PP2"],["center","PP3"]] }
+    },
+    { 
+      title:"Section 7 — Peer Feedback", 
+      tip:"Add a node for feedback themes.",
+      content: {
+        keyIdea: "Peer feedback is crucial for improving your microlearning design. Structured feedback helps you identify strengths and areas for improvement in your learning content.",
+        concepts: [
+          "Clarity: Is the outcome observable and measurable?",
+          "Relevance: Does the scenario match the target role and tools?",
+          "Brevity: Can it be completed in under 120 seconds?"
+        ],
+        example: "Feedback on a customer service microlearning: 'The outcome is clear, but the scenario doesn't match our actual customer service software. Also, the checklist has 7 steps - too many for microlearning. Consider reducing to 4 key actions.'",
+        reflection: "Who in your network could provide valuable feedback on your microlearning project?",
+        images: [
+          "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&h=600&q=60",
+          "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=900&h=600&q=60"
+        ],
+        quiz: {
+          question: "What's the most important aspect of peer feedback for microlearning?",
+          options: ["Grammar and spelling", "Visual design", "Clarity of the learning outcome", "Length of content"],
+          correct: 2,
+          explanation: "Clarity of the learning outcome is most important because it determines whether learners can actually achieve the intended goal."
+        },
+        matchColumn: {
+          left: ["Clarity", "Relevance", "Brevity", "Engagement"],
+          right: ["Observable outcome", "Matches role context", "Under 120 seconds", "Interactive elements"]
+        }
+      },
+      map:{center:"Feedback Themes", nodes:[
+      {id:"F1", label:"Clarity", x:240,y:120, note:"Is the outcome observable?"},
+      {id:"F2", label:"Relevance", x:560,y:160, note:"Scenario matches role & tools."},
+      {id:"F3", label:"Brevity", x:180,y:300, note:"Under 120 seconds to complete."},
+      ], edges:[["center","F1"],["center","F2"],["center","F3"]] }
+    },
+    { 
+      title:"Section 8 — Assessment & Next Steps", 
+      tip:"Map your answers' rationale.",
+      content: {
+        keyIdea: "Assessment in microlearning focuses on performance rather than recall. Understanding analytics and next steps helps you create a continuous learning journey.",
+        concepts: [
+          "Performance Task: Do the thing, not recall facts",
+          "Analytics: Track completion, time-on-task, and error patterns",
+          "Next Steps: Provide personalized next nugget recommendations"
+        ],
+        example: "Instead of asking 'What are the steps in the LEAST method?', ask learners to role-play de-escalating an angry customer using the method. This tests application, not memorization.",
+        reflection: "How will you measure the success of your microlearning project?",
+        images: [
+          "https://images.unsplash.com/photo-1556157382-97eda2aa2ede?auto=format&fit=crop&w=900&h=600&q=60",
+          "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=900&h=600&q=60"
+        ],
+        quiz: {
+          question: "What's the best way to assess microlearning effectiveness?",
+          options: ["Multiple choice tests", "Performance-based tasks", "Essay questions", "Oral presentations"],
+          correct: 1,
+          explanation: "Performance-based tasks are best because they test whether learners can actually apply the skill in real situations."
+        },
+        accordion: [
+          { title: "Performance Assessment", content: "Role-playing, simulations, case studies, real-world applications, peer demonstrations" },
+          { title: "Analytics to Track", content: "Completion rates, time spent, error patterns, retry attempts, satisfaction scores" },
+          { title: "Next Steps Planning", content: "Skill gaps identified, prerequisite content, advanced topics, related skills, personalized pathways" }
+        ]
+      },
+      map:{center:"Assessment", nodes:[
+      {id:"A8a", label:"Performance Task", x:240,y:120, note:"Do the thing, not recall facts."},
+      {id:"A8b", label:"Analytics", x:560,y:140, note:"Completion, time-on-task, error patterns."},
+      {id:"A8c", label:"Next Steps", x:380,y:320, note:"Personalized next nugget."},
+      ], edges:[["center","A8a"],["center","A8b"],["center","A8c"]] }
+    }
+  ];
+
+  const FLASHCARDS = [
+    {q:"What is microlearning in one sentence?", a:"A short, single-outcome learning experience (3–7 minutes) designed for the flow of work.", image:"https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=400&h=300&q=60"},
+    {q:"Name one ideal use case.", a:"Just-in-time guidance surfaced inside the tool where the task happens.", image:"https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=400&h=300&q=60"},
+    {q:"Give the SCQA pattern in order.", a:"Situation → Complication → Question → Answer.", image:"https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=400&h=300&q=60"},
+    {q:"Write a micro-outcome starter.", a:"After this, I can… [perform a specific task] under [context].", image:"https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=400&h=300&q=60"},
+    {q:"One common pitfall?", a:"Shrinking slides without refocusing on one outcome and a practice task.", image:"https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&h=300&q=60"},
+    {q:"What's the optimal duration for microlearning?", a:"3-7 minutes to maintain focus while providing sufficient content depth.", image:"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&h=300&q=60"},
+    {q:"What does SCQA stand for?", a:"Situation-Complication-Question-Answer, a framework for creating engaging scenarios.", image:"https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=400&h=300&q=60"},
+    {q:"What's the biggest red flag for overstuffing?", a:"If you need subsections, you likely have multiple outcomes.", image:"https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&h=300&q=60"},
+    {q:"What's the optimal spacing for review?", a:"24h, 3d, 7d intervals provide optimal retention for microlearning content.", image:"https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=400&h=300&q=60"},
+    {q:"What makes a good outcome statement?", a:"Specific, observable, and measurable - something you can clearly demonstrate doing.", image:"https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=400&h=300&q=60"},
+    {q:"What's the best way to assess microlearning?", a:"Performance-based tasks that test whether learners can apply the skill in real situations.", image:"https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=400&h=300&q=60"},
+    {q:"What's most important in peer feedback?", a:"Clarity of the learning outcome because it determines whether learners can achieve the intended goal.", image:"https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=400&h=300&q=60"}
+  ];
+
+  /* ---------- State ---------- */
+  let state = {
+    mode: localStorage.getItem("defaultMode") || "standard",
+    unit: 0,
+    flashIndex: 0,
+    flashFace: "q",
+    activeNode: null
+  };
+
+  /* ---------- Elements ---------- */
+  const modePanels = {
+    standard: document.getElementById("mode-standard"),
+    flashcard: document.getElementById("mode-flashcard"),
+    video: document.getElementById("mode-video"),
+    audio: document.getElementById("mode-audio"),
+    mindmap: document.getElementById("mode-mindmap"),
+  };
+  const tabs = [...document.querySelectorAll('[role="tab"]')];
+  const crumb = document.getElementById("crumb");
+  const reco = document.getElementById("reco");
+  const standardTitle = document.getElementById("standard-title");
+  const outlineButtons = [...document.querySelectorAll('.nav-btn[data-unit]')];
+  const unitPrev = document.getElementById("unitPrev");
+  const unitNext = document.getElementById("unitNext");
+
+  /* Settings */
+  const dlg = document.getElementById("settings");
+  document.getElementById("openSettings").addEventListener("click", ()=> dlg.showModal());
+  dlg.addEventListener("close", ()=>{
+    if (dlg.returnValue === "ok") {
+      const scale = document.getElementById("fontScale").value;
+      const def = document.getElementById("defaultMode").value;
+      document.documentElement.style.fontSize = scale + "%";
+      localStorage.setItem("defaultMode", def);
+    }
+  });
+
+  /* ---------- Helpers ---------- */
+  function selectMode(mode){
+    // Pause video when switching away from video mode
+    const video = document.getElementById("video");
+    if (state.mode === "video" && mode !== "video" && video) {
+      video.pause();
+      // Store current time for resume functionality
+      localStorage.setItem("videoProgress", video.currentTime);
+    }
+    
+    state.mode = mode;
+    Object.entries(modePanels).forEach(([k,el])=> el.classList.toggle("active", k===mode));
+    tabs.forEach(t=>{
+      const is = t.dataset.mode===mode;
+      t.setAttribute("aria-selected", is);
+      t.tabIndex = is ? 0 : -1;
+    });
+    
+    // Update sidebar content based on mode
+    updateSidebarContent(mode);
+    
+    updateMeta();
+    
+    // Show continue learning button if returning to video with progress
+    if (mode === "video" && video && localStorage.getItem("videoProgress")) {
+      // Small delay to ensure video element is ready
+      setTimeout(() => {
+        showContinueLearningButton();
+      }, 100);
+    }
+  }
+  function selectUnit(i){
+    state.unit = Math.max(0, Math.min(UNITS.length-1, i));
+    outlineButtons.forEach(btn=> btn.setAttribute("aria-current", String(btn.dataset.unit==state.unit)));
+    standardTitle.textContent = UNITS[state.unit].title;
+    reco.innerHTML = `<strong>Tip:</strong> ${UNITS[state.unit].tip}`;
+    renderStandardContent();
+    renderMindMap();
+    updateMeta();
+  }
+  function updateMeta(){
+    crumb.textContent = `Unit ${state.unit+1} / ${UNITS.length} • ${({
+      standard:"Standard", flashcard:"Flashcard", video:"Video", audio:"Audio", mindmap:"Mind Map"
+    })[state.mode]}`;
+  }
+  
+  function updateSidebarContent(mode) {
+    // Hide all sidebar content sections
+    const sidebarContents = document.querySelectorAll('.sidebar-content');
+    sidebarContents.forEach(content => {
+      content.style.display = 'none';
+    });
+    
+    // Show the appropriate sidebar content based on mode
+    const targetSidebar = document.getElementById(`sidebar-${mode}`);
+    if (targetSidebar) {
+      targetSidebar.style.display = 'block';
+    }
+    
+    // Handle mode-specific setup
+    switch(mode) {
+      case 'video':
+        // Set up video timestamp navigation
+        setupVideoTimestampNavigation();
+        break;
+      case 'audio':
+        // Set up audio transcript
+        setupAudioTranscript();
+        break;
+      case 'mindmap':
+        // Set up mindmap node details
+        setupMindmapNodeDetails();
+        break;
+    }
+  }
+  
+  function setupVideoTimestampNavigation() {
+    // Use the existing timestamp notes setup function
+    setupTimestampNotes();
+  }
+  
+  function setupAudioTranscript() {
+    // Load transcript content into sidebar
+    const sidebarTranscriptContent = document.getElementById('sidebarTranscriptContent');
+    
+    if (sidebarTranscriptContent) {
+      // Load transcript data directly into sidebar
+      loadSidebarTranscript();
+      
+      // Wait a bit for the transcript to be loaded before setting up click handlers
+      setTimeout(() => {
+        const sidebarTranscriptLines = sidebarTranscriptContent.querySelectorAll('.transcript-line');
+        const audio = document.getElementById('audio');
+        
+        if (sidebarTranscriptLines.length > 0 && audio) {
+          sidebarTranscriptLines.forEach(line => {
+            if (line) {
+              line.addEventListener('click', () => {
+                const time = parseFloat(line.dataset.time || 0);
+                if (!isNaN(time) && audio) {
+                  audio.currentTime = time;
+                  audio.play();
+                }
+              });
+            }
+          });
+        }
+      }, 100);
+      
+      // Override the updateTranscript function to work with sidebar
+      window.updateTranscript = function(currentTime) {
+        updateSidebarTranscript(currentTime);
+      };
+    }
+  }
+  
+  function loadSidebarTranscript() {
+    const sidebarTranscriptContent = document.getElementById('sidebarTranscriptContent');
+    if (sidebarTranscriptContent && window.transcriptData) {
+      console.log('Loading transcript with', window.transcriptData.length, 'items');
+      sidebarTranscriptContent.innerHTML = window.transcriptData.map((item, index) => 
+        `<div class="transcript-line" data-time="${item.time}" data-index="${index}">
+          <span class="transcript-timestamp">${formatTime(item.time)}</span>
+          <span class="transcript-text">${item.text}</span>
+        </div>`
+      ).join('');
+      console.log('Transcript loaded successfully');
+    } else {
+      console.log('Transcript loading failed - elements not found:', {
+        sidebarTranscriptContent: !!sidebarTranscriptContent,
+        transcriptData: !!window.transcriptData
+      });
+    }
+  }
+  
+  function updateSidebarTranscript(currentTime) {
+    const sidebarTranscriptContent = document.getElementById('sidebarTranscriptContent');
+    if (!sidebarTranscriptContent || !window.transcriptData) return;
+    
+    const lines = sidebarTranscriptContent.querySelectorAll('.transcript-line');
+    if (lines.length === 0) return;
+    
+    let activeIndex = -1;
+    
+    // Find the current line based on time
+    for (let i = 0; i < window.transcriptData.length; i++) {
+      if (currentTime >= window.transcriptData[i].time) {
+        activeIndex = i;
+      } else {
+        break;
+      }
+    }
+    
+    // Update active states
+    lines.forEach((line, index) => {
+      if (line) {
+        if (index === activeIndex) {
+          line.classList.add('active');
+        } else {
+          line.classList.remove('active');
+        }
+      }
+    });
+    
+    // Auto-scroll to active line
+    if (activeIndex >= 0 && activeIndex < lines.length) {
+      const activeLine = lines[activeIndex];
+      if (activeLine) {
+        try {
+          // Check if the active line is already visible to avoid unnecessary scrolling
+          const container = sidebarTranscriptContent;
+          const containerRect = container.getBoundingClientRect();
+          const lineRect = activeLine.getBoundingClientRect();
+          
+          // Only scroll if the line is not fully visible
+          const isVisible = lineRect.top >= containerRect.top && 
+                           lineRect.bottom <= containerRect.bottom;
+          
+          if (!isVisible) {
+            // Smooth scroll to the active line
+            activeLine.scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'center',
+              inline: 'nearest'
+            });
+          }
+        } catch (error) {
+          console.log('Scroll error (non-critical):', error);
+        }
+      }
+    }
+  }
+  
+  function setupMindmapNodeDetails() {
+    // Set up mindmap node click handlers to update sidebar details
+    const mindmapNodeDetails = document.getElementById('mindmapNodeDetails');
+    
+    // Show default message initially
+    if (mindmapNodeDetails) {
+      mindmapNodeDetails.innerHTML = `
+        <p style="color: var(--muted); font-size: 14px; margin: 12px 0;">Select a concept node to see detailed information here.</p>
+      `;
+    }
+    
+    // Override the existing mindmap node click handler to also update sidebar
+    const originalRenderMindMap = window.renderMindMap;
+    if (originalRenderMindMap) {
+      window.renderMindMap = function() {
+        // Call original function
+        originalRenderMindMap();
+        
+        // Add enhanced click handlers for sidebar integration
+        setTimeout(() => {
+          const nodes = document.querySelectorAll('.node');
+          nodes.forEach(node => {
+            // Remove existing listeners to avoid duplicates
+            node.removeEventListener('click', handleMindmapNodeClick);
+            node.addEventListener('click', handleMindmapNodeClick);
+          });
+        }, 1000); // Wait for animation to complete
+      };
+    }
+  }
+  
+  function handleMindmapNodeClick(event) {
+    const node = event.currentTarget;
+    const nodeId = node.dataset.nodeId;
+    const nodeLabel = node.querySelector('text')?.textContent || 'Unknown';
+    
+    // Update sidebar with detailed information
+    const mindmapNodeDetails = document.getElementById('mindmapNodeDetails');
+    if (mindmapNodeDetails) {
+      // Get detailed information based on node
+      const nodeInfo = getMindmapNodeInfo(nodeId, nodeLabel);
+      mindmapNodeDetails.innerHTML = nodeInfo;
+    }
+  }
+  
+  function getMindmapNodeInfo(nodeId, nodeLabel) {
+    // Enhanced node information based on the current unit and node
+    const unit = UNITS[state.unit];
+    const nodeData = unit.map.nodes.find(n => n.id === nodeId);
+    
+    if (!nodeData) {
+      return `
+        <h4>${nodeLabel}</h4>
+        <p>Click on a mindmap node to see detailed information here.</p>
+      `;
+    }
+    
+    // Get detailed information based on node type and content
+    let details = '';
+    
+    switch(nodeLabel.toLowerCase()) {
+      case 'microlearning':
+        details = `
+          <h4>Microlearning</h4>
+          <p>Short, focused learning units designed for quick consumption and retention.</p>
+          <ul>
+            <li>Duration: 3-5 minutes</li>
+            <li>Single learning objective</li>
+            <li>Mobile-friendly format</li>
+            <li>Just-in-time delivery</li>
+          </ul>
+        `;
+        break;
+      case 'ai design':
+        details = `
+          <h4>AI Design Partnership</h4>
+          <p>Using AI as a collaborative design partner rather than just a content generator.</p>
+          <ul>
+            <li>Prompt engineering techniques</li>
+            <li>Iterative refinement process</li>
+            <li>Human-AI collaboration</li>
+            <li>Quality assurance methods</li>
+          </ul>
+        `;
+        break;
+      case 'prompt patterns':
+        details = `
+          <h4>Prompt Patterns</h4>
+          <p>Structured approaches to crafting effective AI prompts for learning content.</p>
+          <ul>
+            <li>Context setting</li>
+            <li>Role definition</li>
+            <li>Output formatting</li>
+            <li>Iteration strategies</li>
+          </ul>
+        `;
+        break;
+      default:
+        details = `
+          <h4>${nodeLabel}</h4>
+          <p>${nodeData.note || 'Click on different nodes to explore concepts and their relationships.'}</p>
+        `;
+    }
+    
+    return details;
+  }
+
+  /* ---------- Tabs ---------- */
+  tabs.forEach(tab=>{
+    tab.addEventListener("click", ()=> selectMode(tab.dataset.mode));
+    tab.addEventListener("keydown", (e)=>{
+      const i = tabs.indexOf(tab);
+      if (e.key==="ArrowRight"){ (tabs[i+1]||tabs[0]).focus(); }
+      if (e.key==="ArrowLeft"){ (tabs[i-1]||tabs[tabs.length-1]).focus(); }
+      if (e.key==="Enter"||e.key===" "){ selectMode(tab.dataset.mode); }
+    });
+  });
+
+  /* ---------- Outline + elevator ---------- */
+  outlineButtons.forEach(btn=> btn.addEventListener("click", ()=> selectUnit(+btn.dataset.unit)));
+  unitPrev.addEventListener("click", ()=> selectUnit(state.unit-1));
+  unitNext.addEventListener("click", ()=> selectUnit(state.unit+1));
+
+  /* ---------- Standard Content Rendering ---------- */
+  function renderStandardContent(){
+    const content = document.getElementById("standard-content");
+    const unit = UNITS[state.unit];
+    if (!unit.content) return;
+    
+    let html = `
+      <div class="row">
+        <div>
+          <p><strong>Key idea.</strong> ${unit.content.keyIdea}</p>
+          <ul class="concept-list">
+            ${unit.content.concepts.map(concept => `<li>${concept}</li>`).join("")}
+          </ul>
+        </div>
+        <div class="imgph">
+          <img src="${unit.content.images[0]}" alt="Learning concept illustration" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="imgph">
+          <img src="${unit.content.images[1]}" alt="Applied example illustration" />
+        </div>
+        <div>
+          <div class="example-box">
+            <strong>Applied example.</strong> ${unit.content.example}
+          </div>
+          <div class="reflection-box">
+            <strong>Reflect:</strong> ${unit.content.reflection}
+          </div>
+        </div>
+      </div>
+    `;
+    
+    // Add interactive quiz if available
+    if (unit.content.quiz) {
+      html += `
+        <div class="interactive-quiz">
+          <div class="quiz-question">${unit.content.quiz.question}</div>
+          <div class="quiz-options">
+            ${unit.content.quiz.options.map((option, index) => 
+              `<div class="quiz-option" data-index="${index}">${option}</div>`
+            ).join("")}
+          </div>
+          <div class="quiz-explanation">${unit.content.quiz.explanation}</div>
+        </div>
+      `;
+    }
+    
+    // Add accordion if available
+    if (unit.content.accordion) {
+      html += `
+        <div class="accordion">
+          ${unit.content.accordion.map((item, index) => `
+            <div class="accordion-item">
+              <div class="accordion-header" data-index="${index}">
+                ${item.title}
+                <span>+</span>
+              </div>
+              <div class="accordion-content">
+                ${item.content}
+              </div>
+            </div>
+          `).join("")}
+        </div>
+      `;
+    }
+    
+    // Add match column if available
+    if (unit.content.matchColumn) {
+      html += `
+        <div class="match-column">
+          <div class="match-column-left">
+            <h4>Match the following:</h4>
+            ${unit.content.matchColumn.left.map((item, index) => 
+              `<div class="match-item" data-side="left" data-index="${index}">${item}</div>`
+            ).join("")}
+          </div>
+          <div class="match-column-right">
+            <h4>With:</h4>
+            ${unit.content.matchColumn.right.map((item, index) => 
+              `<div class="match-item" data-side="right" data-index="${index}">${item}</div>`
+            ).join("")}
+          </div>
+        </div>
+      `;
+    }
+    
+    content.innerHTML = html;
+    
+    // Add event listeners for interactive elements
+    addInteractiveListeners();
+  }
+  
+  function addInteractiveListeners(){
+    // Quiz interactions
+    document.querySelectorAll('.quiz-option').forEach(option => {
+      option.addEventListener('click', function() {
+        const quiz = this.closest('.interactive-quiz');
+        const options = quiz.querySelectorAll('.quiz-option');
+        const explanation = quiz.querySelector('.quiz-explanation');
+        const unit = UNITS[state.unit];
+        
+        // Remove previous selections
+        options.forEach(opt => {
+          opt.classList.remove('selected', 'correct', 'incorrect');
+        });
+        
+        // Mark selected option
+        this.classList.add('selected');
+        
+        // Check answer
+        const selectedIndex = parseInt(this.dataset.index);
+        if (selectedIndex === unit.content.quiz.correct) {
+          this.classList.add('correct');
+        } else {
+          this.classList.add('incorrect');
+          options[unit.content.quiz.correct].classList.add('correct');
+        }
+        
+        // Show explanation
+        explanation.style.display = 'block';
+      });
+    });
+    
+    // Accordion interactions
+    document.querySelectorAll('.accordion-header').forEach(header => {
+      header.addEventListener('click', function() {
+        const content = this.nextElementSibling;
+        const isActive = content.classList.contains('active');
+        
+        // Close all accordions
+        document.querySelectorAll('.accordion-content').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.accordion-header').forEach(h => h.classList.remove('active'));
+        
+        // Toggle current accordion
+        if (!isActive) {
+          content.classList.add('active');
+          this.classList.add('active');
+        }
+      });
+    });
+    
+    // Match column interactions
+    let selectedLeft = null;
+    let selectedRight = null;
+    
+    document.querySelectorAll('.match-item').forEach(item => {
+      item.addEventListener('click', function() {
+        const side = this.dataset.side;
+        const index = parseInt(this.dataset.index);
+        
+        if (side === 'left') {
+          // Clear previous left selection
+          document.querySelectorAll('.match-item[data-side="left"]').forEach(i => i.classList.remove('selected'));
+          selectedLeft = index;
+          this.classList.add('selected');
+        } else {
+          // Clear previous right selection
+          document.querySelectorAll('.match-item[data-side="right"]').forEach(i => i.classList.remove('selected'));
+          selectedRight = index;
+          this.classList.add('selected');
+        }
+        
+        // Check for match
+        if (selectedLeft !== null && selectedRight !== null) {
+          if (selectedLeft === selectedRight) {
+            document.querySelectorAll('.match-item[data-side="left"]')[selectedLeft].classList.add('matched');
+            document.querySelectorAll('.match-item[data-side="right"]')[selectedRight].classList.add('matched');
+          }
+          selectedLeft = null;
+          selectedRight = null;
+        }
+      });
+    });
+  }
+
+  /* ---------- Flashcards ---------- */
+  const cardFace = document.getElementById("card-face");
+  const cardImage = document.getElementById("card-image");
+  const cardText = document.getElementById("card-text");
+  const flipCard = document.getElementById("flipCard");
+  const nextCard = document.getElementById("nextCard");
+  const prevCard = document.getElementById("prevCard");
+  const fcDots = document.getElementById("fcDots");
+  
+  function renderFlash(){
+    fcDots.innerHTML = FLASHCARDS.map((_,i)=>`<div class="dot ${i===state.flashIndex?"active":""}"></div>`).join("");
+    const item = FLASHCARDS[state.flashIndex];
+    
+    if (state.flashFace === "q") {
+      cardText.textContent = "Q" + (state.flashIndex + 1) + ". " + item.q;
+      if (item.image) {
+        cardImage.innerHTML = `<img src="${item.image}" alt="Flashcard illustration" />`;
+      } else {
+        cardImage.innerHTML = "";
+      }
+    } else {
+      cardText.textContent = "A. " + item.a;
+      if (item.image) {
+        cardImage.innerHTML = `<img src="${item.image}" alt="Flashcard illustration" />`;
+      } else {
+        cardImage.innerHTML = "";
+      }
+    }
+  }
+  
+  flipCard?.addEventListener("click", ()=>{ state.flashFace = state.flashFace==="q"?"a":"q"; renderFlash(); });
+  nextCard?.addEventListener("click", ()=>{ state.flashIndex = (state.flashIndex+1)%FLASHCARDS.length; state.flashFace="q"; renderFlash(); });
+  prevCard?.addEventListener("click", ()=>{ state.flashIndex = (state.flashIndex-1+FLASHCARDS.length)%FLASHCARDS.length; state.flashFace="q"; renderFlash(); });
+
+  /* ---------- Video timed notes ---------- */
+  const video = document.getElementById("video");
+  
+  // Handle timestamp notes in both main content and sidebar
+  function setupTimestampNotes() {
+    document.querySelectorAll(".note").forEach(n=> {
+      // Remove existing listeners to avoid duplicates
+      n.removeEventListener("click", handleTimestampClick);
+      n.addEventListener("click", handleTimestampClick);
+    });
+  }
+  
+  function handleTimestampClick(event) {
+    const t = Number(event.target.dataset.t||0); 
+    if (!isNaN(t) && video){ 
+      video.currentTime = t; 
+      video.play(); 
+    }
+  }
+  
+  // Initial setup
+  setupTimestampNotes();
+  
+  /* ---------- Continue Learning Functionality ---------- */
+  function showContinueLearningButton() {
+    const videoWrap = document.querySelector('.video-wrap');
+    const videoElement = document.getElementById('video');
+    const savedTime = localStorage.getItem("videoProgress");
+    
+    console.log('Checking continue learning:', { savedTime, videoElement, videoWrap });
+    
+    if (!savedTime || parseFloat(savedTime) < 5) {
+      console.log('No saved progress or less than 5 seconds');
+      return; // Don't show if less than 5 seconds
+    }
+    
+    // Remove existing overlay if any
+    const existingOverlay = videoWrap.querySelector('.continue-learning-overlay');
+    const existingContainer = videoWrap.querySelector('[style*="position: absolute"]');
+    if (existingOverlay) existingOverlay.remove();
+    if (existingContainer) existingContainer.remove();
+    
+    const overlay = document.createElement('div');
+    overlay.className = 'continue-learning-overlay';
+    overlay.innerHTML = `
+      <div class="continue-learning-content">
+        <h3>Continue Learning</h3>
+        <p>You were at ${formatVideoTime(parseFloat(savedTime))}. Would you like to continue from where you left off?</p>
+        <div class="continue-learning-buttons">
+          <button class="continue-btn primary" id="continueFromSaved">Continue</button>
+          <button class="continue-btn secondary" id="startFromBeginning">Start Over</button>
+        </div>
+      </div>
+    `;
+    
+    // Position overlay directly over the video element
+    videoWrap.style.position = 'relative';
+    videoElement.style.position = 'relative';
+    
+    // Create a container for the overlay that covers the video
+    const overlayContainer = document.createElement('div');
+    overlayContainer.style.position = 'absolute';
+    overlayContainer.style.top = '0';
+    overlayContainer.style.left = '0';
+    overlayContainer.style.width = '100%';
+    overlayContainer.style.height = '100%';
+    overlayContainer.style.zIndex = '1000';
+    
+    overlayContainer.appendChild(overlay);
+    videoWrap.appendChild(overlayContainer);
+    
+    console.log('Continue learning overlay added');
+    
+    // Add event listeners
+    document.getElementById('continueFromSaved').addEventListener('click', () => {
+      videoElement.currentTime = parseFloat(savedTime);
+      videoElement.play();
+      overlayContainer.remove();
+    });
+    
+    document.getElementById('startFromBeginning').addEventListener('click', () => {
+      videoElement.currentTime = 0;
+      localStorage.removeItem("videoProgress");
+      overlayContainer.remove();
+    });
+  }
+  
+  function formatVideoTime(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  }
+  
+  // Clear progress when video ends
+  video.addEventListener('ended', () => {
+    localStorage.removeItem("videoProgress");
+  });
+  
+  // Test function - you can call this from browser console to test
+  window.testContinueLearning = function() {
+    localStorage.setItem("videoProgress", "30"); // Set 30 seconds for testing
+    showContinueLearningButton();
+  };
+
+  /* ---------- Audio ---------- */
+  const audio = document.getElementById("audio");
+  const audioSpeed = document.getElementById("audioSpeed");
+  
+  // Transcript data
+  window.transcriptData = [
+    { time: 0, text: "Welcome back to the deep dive. Today, we're really getting into the weeds on, designing microlearning with AI." },
+    { time: 6, text: "We've looked at some fascinating source material and the goal, cut through all the hype and find a focused, almost surgical way to create learning that actually works and works quickly." },
+    { time: 16, text: "So for you, the listener, think of this as a shortcut. We wanna show you how you AI not just, you know, churning out content, but as a real design partner." },
+    { time: 26, text: "How do you take, say, a massive technical manual and turn it into something targeted, something that slots right into how people actually work today." },
+    { time: 34, text: "And, Bebe, the first thing is to get super clear on what microlearning actually is. Because, honestly, the term gets thrown around quite a bit." },
+    { time: 40, text: "We're not just talking about, you know, chopping up longer videos. It's really about delivering these focused, surgical experiences." },
+    { time: 47, text: "And the definition we're working with is strict. Three to seven minutes long." },
+    { time: 50, text: "That's tough. And here's the absolute core constraint. Each little nugget, each piece of content, it has to tackle only one thing, one task, one decision, maybe one concept." },
+    { time: 63, text: "Just one. That singular focus is key." },
+    { time: 65, text: "So why is that singular focus so critical? You mentioned reducing cognitive load. For listeners, maybe not steeped in an instructional design, what does that actually mean in practice?" },
+    { time: 76, text: "It feels like clarity, like efficiency. Cognitive alert is basically, the mental bandwidth you need new stuff." },
+    { time: 84, text: "If you throw a sixty minute module at someone, their brain is constantly working overtime trying to filter, remember different steps, connect the dots. It's exhausting." },
+    { time: 94, text: "But shrink it down to five minutes. One single objective. You remove all that mental filtering, and this is why it speeds up time to competence." },
+    { time: 103, text: "People can actually absorb and then immediately apply that one specific thing they just learned. Our sources have this great analogy, the learning monolith." },
+    { time: 111, text: "Think of that huge, daunting, 60 customer service module. Monolith." },
+    { time: 115, text: "Like this giant block of training. Instead of that, you break it down. You create five distinct, surgical micro lessons." },
+    { time: 123, text: "So maybe one lesson on verifying identity, another on calibrating tone for tricky calls, another for diagnosing common issues, then one for escalation rules, and maybe one for good post call notes." },
+    { time: 132, text: "You see, five distinct things. Deconstruction first. And then step two, which is absolutely vital." },
+    { time: 139, text: "Every single one of those five pieces has to end with a quick scenario and a single actionable checklist. It forces application." },
+    { time: 146, text: "That structure is nonnegotiable for making it stick. I really like that dismantling the monolith. It reframes microlearning." },
+    { time: 152, text: "It's not just short content. It's a deliberate strategy. And connecting that strategy to the bigger picture, it sounds like it really shines when you need that just in time knowledge." },
+    { time: 162, text: "That's the so what. Right? That's the core benefit. And you see it immediately in the use cases. Take onboarding." },
+    { time: 167, text: "Instead of that day one info dump, you deliver the essentials, how to log in, the right tone for emails, key safety points in these bite sized chunks they can access right when they need them." },
+    { time: 176, text: "Instead of trying to remember page 37 of the manual eight hours ago. Exactly. And compliance training too, you mentioned this." },
+    { time: 184, text: "It's usually, let's be honest, pretty soul crushing stuff. But here, you can transform it." },
+    { time: 191, text: "Instead of a massive regulatory overview nobody remembers, focus on one specific risk per nugget. Give a quick scenario, then the action checklist." },
+    { time: 201, text: "Making it practical, not just abstract rules. Yes. But the real payoff, I think, is that true just in time support." },
+    { time: 207, text: "Surfacing these nuggets inside the tools people are already using. Well, imagine a support agent is, staring at a screen for some legacy system they rarely use." },
+    { time: 216, text: "They click a function. And instead of them having to stop, search a clunky knowledge base, find the right section. Boom." },
+    { time: 223, text: "A two minute micro lesson on that specific function just pops up. Context is everything there. Learning in the flow of work." },
+    { time: 231, text: "That's the phrase. Learning in the flow of work. Now this is where it gets really interesting, I thought." },
+    { time: 238, text: "The sales team example you pulled out. Instead of dragging reps into those long monthly training sessions covering everything under the sun, short three minute micro lessons, what triggers them though?" },
+    { time: 247, text: "The trigger is everything. It's not just scheduled training anymore. It's dynamic." },
+    { time: 252, text: "So maybe a customer emails with a really specific tricky question about feature x. That email, maybe through some smart routing, could trigger a three minute lesson right to the rep's inbox on handling that exact objection." },
+    { time: 264, text: "Or, say, a competitor launches a new product, Pam. The system pushes out a micro lesson. Here are the two arguments." },
+    { time: 272, text: "So the knowledge is immediate. It's current. And therefore, it's immediately applicable. That's the power." },
+    { time: 276, text: "And that immediacy, that specificity, it transitions us perfectly into using AI effectively for this. Because what's fascinating and what the sources really hammer home is that even with amazing AI tools, the output quality is totally dependent on the prompt you give it." },
+    { time: 284, text: "Garbage in, garbage out, basically. Exactly. You can't just say, hey, AI. Make me a lesson on customer service. You'll get generic fluff." },
+    { time: 295, text: "So structure is needed. The source has mentioned QA. Situation, complication, question, answer. Tell me more about why that specific framework is good for scenarios." },
+    { time: 304, text: "It forces relevance. At CQA, it comes from, consulting, actually. It makes the AI first set the scene situation, then identify the specific problem or challenge, complication." },
+    { time: 315, text: "Then it frowns the learner's specific dilemma question and then structures the micro lesson content around solving that answer." },
+    { time: 325, text: "So it's not just telling a story. It's building a mini case study. Precisely. It cuts out all the stuff and focuses only on the problem solving path, essential for keeping it under, say, five minutes." },
+    { time: 335, text: "And beyond SCQA, you mentioned constraints, the role plus constraints pattern. Yes. You have to tell the AI who it should be, act as a coach, act as a senior engineer, act as an angry customer, and then give strict rules for the output." },
+    { time: 344, text: "Like literally saying, you must output this as a four step checklist and keep it under a 100 words. Exactly like that." },
+    { time: 350, text: "You define the persona and the output format constraints. If you don't, the AI defaults to its usual, you know, rambling. You lose the micro aspect instantly." },
+    { time: 357, text: "So the anti pattern is being vague. You absolutely have to specify the desired outcome. The learner must be able to do the specific thing and who the audience is." },
+    { time: 364, text: "Couldn't say it better myself. Outcome and audience are nonnegotiable for a good prompt. Let's look at that before and after prompt example from the sources because it really shows the difference." },
+    { time: 374, text: "The vague one was just Create a lesson about customer service. Utterly useless. And the effective one. So much better." },
+    { time: 378, text: "It was. Act as a customer service trainer. Create a three minute for new agents on handling angry customers." },
+    { time: 382, text: "Include one SCQA framed scenario, three key de escalation freezes, and a four step practice checklist. See, that's night and day." },
+    { time: 387, text: "You've told the AI exactly what job to do, what elements to include, and what format to use. It guarantees actionable output." },
+    { time: 394, text: "So let's unpack this further. Even with great prompts, it sounds like it's easy to mess this up. What are the big design mistakes people make, the common pitfalls?" },
+    { time: 401, text: "And the number one, the absolute cardinal sin is that single outcome principle we talked about. It's overstuffing." },
+    { time: 408, text: "Overstuffing. Meaning, trying to cram too much in. Exactly. If you find yourself needing subsections or a little table of contents or you're covering two, three, four distinct skills in one micro lesson, you've broken the model." },
+    { time: 418, text: "But wait. If the topics are related, isn't it more efficient to group them? Why is putting, say, five related steps in one five minute module actually bad?" },
+    { time: 425, text: "Because it fragments the learner's focus. You shift from teaching competence in one thing, teaching recall of many things. The cognitive load shoots back up." },
+    { time: 433, text: "There is this great or rather terrible example in the sources. A company made a five minute microlearning on customer service excellence." },
+    { time: 438, text: "Sounds good. Right? But when they look closely, it packed in, like, eight different skills. Tone, product knowledge, regulations, upselling, everything." },
+    { time: 449, text: "The result. Total confusion. Retention plummeted. They didn't improve competence in any single area." },
+    { time: 456, text: "They basically just shrunk the monolith's font size. Rule one, each sections, you need separate micro lessons. Break it down further." },
+    { time: 476, text: "The second major mistake, no practice. Simple as that. Every single nugget, every single one must include a short scenario, quick question, some kind of action activity." },
+    { time: 483, text: "If the learner doesn't do something with the information immediately It doesn't stick. It doesn't translate to competence, information in, information out." },
+    { time: 491, text: "And the third common mistake is lack of context. Microlearning is short, but it can't exist in a total vacuum." },
+    { time: 496, text: "If someone needs prior knowledge, you have to provide it, either linked to prerequisite nuggets or, at the very least, include a super brief, maybe thirty second recap at the start." },
+    { time: 503, text: "So they're not lost before they even begin the main point. Exactly them, then give them the focused skill." },
+    { time: 510, text: "We've used AI smartly. We've crafted this perfect single outcome five minute gem. We've avoided overstuffing and included practice." },
+    { time: 516, text: "Now the final piece, making sure it actually sticks. How do we ensure retention that seems to move into strategy around review and retrieval?" },
+    { time: 521, text: "Absolutely. And this is where we lean hard on cognitive science principles. The first big one is spaced repetition." },
+    { time: 526, text: "The research is really clear here. Reviewing isn't enough. You need to prompt that retrieval practice at increasing intervals." },
+    { time: 533, text: "Like a schedule? A specific schedule. The common one is review twenty four hours later, then again three days later, then again seven days later." },
+    { time: 543, text: "That timing forces the brain to work a little harder to retrieve the info just as it's starting to fade, which really strengthens the memory trace." },
+    { time: 547, text: "Interesting. Specific timing. Then there's interleaved practice. This sounds a bit weird mixing different related skills together instead of drilling one." },
+    { time: 556, text: "It does sound counterintuitive, doesn't it? But it's incredibly effective for building flexible knowledge." },
+    { time: 562, text: "Instead of practicing skill a 10 times, then skill b 10 times, you mix them up, a b a c b a c. Why? What does that mixing achieve?" },
+    { time: 571, text: "It forces the brain to learn how to differentiate. When should I use a versus b versus c? This improves the ability to choose the right skill in a real world situation under pressure, better knowledge transfer." },
+    { time: 578, text: "I like that sale team example again for this. They practice objection handling daily with two minute micro lessons." },
+    { time: 582, text: "But crucially, they mix the types of objection timing features every day that forces them to differentiate their responses on the fly." },
+    { time: 585, text: "Exactly right. And that differentiation practice leads us straight into the final assessment. How do you measure if this is working?" },
+    { time: 590, text: "Since microlearning is all about performance, about doing, your assessment has to reflect that. Forget simple recall quizzes." },
+    { time: 596, text: "So testing the application, not just the definition. Precisely. You need to assess what the learner can now do." },
+    { time: 604, text: "How does that change how we track success? It's not just completion rates anymore, is it? No. Completion rates are almost meaningless here." },
+    { time: 611, text: "You need to look at time on task for the practice activities. But, critically, error patterns. Where are people stumbling in the scenarios?" },
+    { time: 622, text: "That data tells you where the learning gaps actually are, not just if they clicked complete. And the sources give that really clear example of a good application test, didn't they?" },
+    { time: 628, text: "Yes. The least method for deescalation, the weak test is list the four steps of least. Let's just recall." },
+    { time: 635, text: "The strong test is, okay, here's a simulated chat with an angry customer. Use the least method to deescalate. That test real that tells you if they've achieved competence." },
+    { time: 644, text: "That makes perfect sense. So let's try and blow this down. Four key takeaways for you, the listener, to really nail microlearning design, especially with AI." },
+    { time: 653, text: "One, stick ruthlessly to one outcome per nugget. Dismantle that monolith. Two, use that SEQA framework in your AI prompts. It forces relevant scenarios." },
+    { time: 666, text: "Three, always include practice every single time. An activity, a checklist, something to do. Non negotiable." },
+    { time: 671, text: "And four, focus your assessment on performance and application, not just recall. Crack those error patterns." },
+    { time: 677, text: "Get those four things right, and you're well on your way to using microlearning effectively. You've got the shortcut to competence." },
+    { time: 683, text: "And maybe a final thought for you to mull over. Building on all this. If you are tracking those specific error patterns through performance analytics, what happens when you start integrating personalized recommendations?" },
+    { time: 691, text: "Imagine the AI noticing a learner struggles with, say, pricing objections. It could automatically serve up the next best nugget specifically targeting that weakness." },
+    { time: 696, text: "How might that kind of personalized driven pathway fundamentally change how quickly people reach true demonstrable competence in your specific field? That's where this gets really powerful." }
+  ];
+  
+  let currentTranscriptIndex = 0;
+  
+  // Load transcript (now handled by sidebar setup)
+  function loadTranscript() {
+    // Transcript loading is now handled by setupAudioTranscript()
+    // This function is kept for compatibility but does nothing
+  }
+  
+  // Format time as MM:SS
+  function formatTime(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  }
+  
+  // Update transcript based on current time (now handled by sidebar)
+  function updateTranscript(currentTime) {
+    // This function is now overridden by setupAudioTranscript()
+    // The actual implementation is in updateSidebarTranscript()
+  }
+  
+  // Click to seek (now handled by sidebar setup)
+  function setupTranscriptClicks() {
+    // This function is now handled by setupAudioTranscript()
+    // Click handlers are set up in the sidebar transcript
+  }
+  
+  // Initialize transcript
+  loadTranscript();
+  setupTranscriptClicks();
+  
+  // Audio event listeners
+  audioSpeed?.addEventListener("input", ()=> audio.playbackRate = Number(audioSpeed.value));
+  
+  audio.addEventListener('timeupdate', () => {
+    updateTranscript(audio.currentTime);
+  });
+  
+  audio.addEventListener('play', () => {
+    updateTranscript(audio.currentTime);
+  });
+  
+  audio.addEventListener('pause', () => {
+    updateTranscript(audio.currentTime);
+  });
+
+  /* ---------- Mind map rendering (animated SVG) ---------- */
+  function renderMindMap(){
+    const svg = document.getElementById("mindmap");
+    const side = document.getElementById("mmSide");
+    svg.innerHTML = "";
+    const {center, nodes, edges} = UNITS[state.unit].map;
+
+    // Draw edges with animation
+    edges.forEach(([a,b], index)=>{
+      const pa = a==="center" ? {x:400,y:210} : nodes.find(n=>n.id===a);
+      const pb = nodes.find(n=>n.id===b);
+      if (!pa || !pb) return;
+      const line = document.createElementNS("http://www.w3.org/2000/svg","line");
+      line.setAttribute("x1", pa.x); line.setAttribute("y1", pa.y);
+      line.setAttribute("x2", pb.x); line.setAttribute("y2", pb.y);
+      line.setAttribute("stroke", "#c9cef6"); line.setAttribute("stroke-width", "2");
+      line.classList.add("edge");
+      line.style.opacity = "0";
+      line.style.strokeDasharray = "10,5";
+      line.style.strokeDashoffset = "15";
+      svg.appendChild(line);
+      
+      // Animate edge drawing
+      setTimeout(() => {
+        line.style.transition = "all 0.8s ease-out";
+        line.style.opacity = "1";
+        line.style.strokeDashoffset = "0";
+      }, index * 200);
+    });
+
+    // Draw center with animation
+    setTimeout(() => {
+    const centerG = nodeGroup(svg, 400, 210, center, "center");
+      centerG.classList.add("fade-in");
+    svg.appendChild(centerG);
+    }, 300);
+
+    // Draw nodes with staggered animation
+    nodes.forEach((n, index) => {
+      setTimeout(() => {
+      const g = nodeGroup(svg, n.x, n.y, n.label, n.id);
+        g.classList.add("fade-in");
+      g.addEventListener("click", ()=>{
+          // Remove active class from all nodes
+        document.querySelectorAll(".node").forEach(el=> el.classList.remove("active"));
+          document.querySelectorAll(".edge").forEach(el=> el.classList.remove("active"));
+          
+          // Add active class to clicked node
+        g.classList.add("active");
+          
+          // Add pulse animation
+          g.classList.add("pulse");
+          setTimeout(() => g.classList.remove("pulse"), 600);
+          
+          // Update side panel
+        side.innerHTML = `<strong>${n.label}</strong><p>${n.note||"No note."}</p>`;
+          
+          // Highlight connected edges
+          edges.forEach(([a,b]) => {
+            if (a === n.id || b === n.id) {
+              const edgeElements = svg.querySelectorAll('.edge');
+              edges.forEach((edge, edgeIndex) => {
+                if ((edge[0] === a && edge[1] === b) || (edge[0] === b && edge[1] === a)) {
+                  if (edgeElements[edgeIndex]) {
+                    edgeElements[edgeIndex].classList.add("active");
+                  }
+                }
+              });
+            }
+          });
+        });
+        
+        // Add hover effects
+        g.addEventListener("mouseenter", () => {
+          g.style.transform = "scale(1.05)";
+        });
+        
+        g.addEventListener("mouseleave", () => {
+          if (!g.classList.contains("active")) {
+            g.style.transform = "scale(1)";
+          }
+        });
+        
+      svg.appendChild(g);
+      }, 500 + (index * 200));
+    });
+
+    function nodeGroup(svg, x,y, label, id){
+      const g = document.createElementNS("http://www.w3.org/2000/svg","g");
+      g.classList.add("node"); 
+      g.setAttribute("data-id", id); 
+      g.setAttribute("transform", `translate(${x-60},${y-22})`);
+      
+      const rect = document.createElementNS("http://www.w3.org/2000/svg","rect");
+      rect.setAttribute("rx","12"); 
+      rect.setAttribute("width","120"); 
+      rect.setAttribute("height","44");
+      rect.setAttribute("fill","#eef1ff"); 
+      rect.setAttribute("stroke","#95a0ff"); 
+      rect.setAttribute("stroke-width","2");
+      
+      const text = document.createElementNS("http://www.w3.org/2000/svg","text");
+      text.setAttribute("x","60"); 
+      text.setAttribute("y","26"); 
+      text.setAttribute("text-anchor","middle");
+      text.textContent = label;
+      
+      g.appendChild(rect); 
+      g.appendChild(text);
+      return g;
+    }
+  }
+
+  /* ---------- ByteAI Assistant ---------- */
+  const byteaiButton = document.getElementById("byteaiButton");
+  const byteaiChat = document.getElementById("byteaiChat");
+  const byteaiClose = document.getElementById("byteaiClose");
+  const byteaiInput = document.getElementById("byteaiInput");
+  const byteaiSend = document.getElementById("byteaiSend");
+  const byteaiMessages = document.getElementById("byteaiMessages");
+  
+  let isByteaiOpen = false;
+  
+  // ByteAI responses for general learning topics
+  const byteaiResponses = {
+    // Study Techniques
+    "study": "Effective study techniques include active recall (testing yourself), spaced repetition (reviewing at increasing intervals), and the Feynman technique (explaining concepts in simple terms). Try the Pomodoro Technique: 25 minutes of focused study followed by 5-minute breaks.",
+    "memory": "To improve memory, use techniques like chunking (breaking information into smaller pieces), visualization, mnemonics, and the method of loci (associating information with familiar places). Regular practice and sleep are crucial for memory consolidation.",
+    "focus": "To improve focus, eliminate distractions, use the Pomodoro Technique, practice mindfulness, and create a dedicated study space. Turn off notifications and work in 25-50 minute focused sessions.",
+    "pomodoro": "The Pomodoro Technique involves working for 25 minutes, then taking a 5-minute break. After 4 pomodoros, take a longer 15-30 minute break. This helps maintain focus and prevents burnout.",
+    
+    // Learning Methods
+    "active recall": "Active recall is testing yourself on material without looking at notes. It's more effective than passive reading. Try covering your notes and explaining concepts out loud or writing them from memory.",
+    "spaced repetition": "Spaced repetition involves reviewing material at increasing intervals (1 day, 3 days, 1 week, etc.). This strengthens long-term memory and is more efficient than cramming.",
+    "feynman": "The Feynman Technique: 1) Choose a concept, 2) Explain it in simple terms as if teaching a child, 3) Identify gaps in your understanding, 4) Review and simplify further. This reveals what you don't truly understand.",
+    "mind mapping": "Mind mapping helps organize information visually. Start with a central topic, add branches for main ideas, then sub-branches for details. Use colors, images, and keywords to make connections memorable.",
+    
+    // Learning Challenges
+    "procrastination": "To overcome procrastination: break tasks into smaller steps, use the 2-minute rule (if it takes less than 2 minutes, do it now), eliminate perfectionism, and create accountability. Start with the easiest part first.",
+    "motivation": "Maintain motivation by setting clear goals, celebrating small wins, connecting learning to your values, and finding study partners. Remember your 'why' and visualize your success.",
+    "overwhelmed": "When feeling overwhelmed: prioritize tasks, break them into smaller steps, focus on one thing at a time, and ask for help. Remember that progress, not perfection, is the goal.",
+    "retention": "To improve retention: use active recall, spaced repetition, teach others, create associations, and get adequate sleep. Regular review is more important than long study sessions.",
+    
+    // Subject-Specific Help
+    "math": "For math: practice regularly, understand concepts before memorizing formulas, work through problems step-by-step, and don't be afraid to make mistakes. Each error is a learning opportunity.",
+    "science": "For science: understand the underlying principles, use visual aids and diagrams, conduct experiments when possible, and connect concepts to real-world applications.",
+    "language": "For language learning: immerse yourself as much as possible, practice speaking regularly, use flashcards for vocabulary, and don't worry about making mistakes - they're part of learning.",
+    "history": "For history: create timelines, understand cause and effect relationships, use stories to remember facts, and connect events to broader themes and patterns.",
+    
+    // Exam Preparation
+    "exam": "For exam prep: start early, create a study schedule, practice with past papers, use active recall, and get adequate sleep. Don't cram the night before - review lightly and rest.",
+    "test anxiety": "To manage test anxiety: prepare thoroughly, practice relaxation techniques, get enough sleep, eat well, and remember that some anxiety is normal and can actually improve performance.",
+    "time management": "For better time management: use a calendar, prioritize tasks, set realistic goals, eliminate time-wasters, and include breaks in your schedule. The key is consistency, not perfection."
+  };
+  
+  function getByteaiResponse(userMessage) {
+    const message = userMessage.toLowerCase();
+    
+    // Check for specific keywords and return relevant responses
+    for (const [key, response] of Object.entries(byteaiResponses)) {
+      if (message.includes(key)) {
+        return response;
+      }
+    }
+    
+    // General learning advice
+    if (message.includes("help") || message.includes("learn")) {
+      return "I'm here to help with all your learning questions! I can assist with study techniques, memory strategies, focus improvement, exam preparation, motivation, and any subject-specific challenges. What would you like to learn about?";
+    }
+    
+    if (message.includes("difficult") || message.includes("hard") || message.includes("struggle")) {
+      return "Learning challenges are normal and part of the process! Try breaking difficult concepts into smaller parts, using different learning methods (visual, auditory, kinesthetic), and don't hesitate to ask for help. Remember, struggling with material actually strengthens your understanding.";
+    }
+    
+    if (message.includes("fast") || message.includes("quick") || message.includes("speed")) {
+      return "While there are techniques to learn more efficiently, true learning takes time and practice. Focus on understanding rather than speed, use active recall and spaced repetition, and be patient with yourself. Quality learning is more important than quick learning.";
+    }
+    
+    if (message.includes("remember") || message.includes("forget")) {
+      return "Memory is improved through active recall, spaced repetition, and making connections between new and existing knowledge. Try teaching others, using mnemonics, and getting adequate sleep. Regular review is key to long-term retention.";
+    }
+    
+    return "I'm ByteAI, your personal learning assistant! I can help with study techniques, memory strategies, focus improvement, exam preparation, motivation, and any learning challenges you're facing. What specific topic would you like to explore?";
+  }
+  
+  function addByteaiMessage(text, isUser = false) {
+    const messageDiv = document.createElement("div");
+    messageDiv.className = `byteai-message ${isUser ? 'byteai-user' : 'byteai-bot'}`;
+    
+    // Add animation class
+    if (isUser) {
+      messageDiv.classList.add('message-sending');
+    } else {
+      messageDiv.classList.add('byteai-response');
+    }
+    
+    if (isUser) {
+      messageDiv.innerHTML = `<div class="byteai-text">${text}</div>`;
+    } else {
+      messageDiv.innerHTML = `
+        <div class="byteai-avatar">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="8" fill="#4a4af9" opacity="0.8"/>
+            <circle cx="8" cy="8" r="3" fill="#4a4af9" opacity="0.6"/>
+            <circle cx="16" cy="8" r="2" fill="#4a4af9" opacity="0.7"/>
+            <circle cx="8" cy="16" r="2" fill="#4a4af9" opacity="0.5"/>
+            <circle cx="16" cy="16" r="3" fill="#4a4af9" opacity="0.6"/>
+          </svg>
+        </div>
+        <div class="byteai-text">${text}</div>
+      `;
+    }
+    
+    byteaiMessages.appendChild(messageDiv);
+    byteaiMessages.scrollTop = byteaiMessages.scrollHeight;
+    
+    // Remove animation class after animation completes
+    setTimeout(() => {
+      messageDiv.classList.remove('message-sending', 'byteai-response');
+    }, 500);
+  }
+  
+  function sendByteaiMessage() {
+    const message = byteaiInput.value.trim();
+    if (!message) return;
+    
+    // Add user message
+    addByteaiMessage(message, true);
+    byteaiInput.value = "";
+    
+    // Simulate typing delay
+    setTimeout(() => {
+      const response = getByteaiResponse(message);
+      addByteaiMessage(response);
+    }, 1000);
+  }
+  
+  // Event listeners
+  if (byteaiButton) {
+    byteaiButton.addEventListener("click", () => {
+      isByteaiOpen = !isByteaiOpen;
+      if (byteaiChat) {
+        byteaiChat.style.display = isByteaiOpen ? "flex" : "none";
+      }
+      if (isByteaiOpen && byteaiInput) {
+        byteaiInput.focus();
+      }
+    });
+  }
+  
+  if (byteaiClose) {
+    byteaiClose.addEventListener("click", () => {
+      isByteaiOpen = false;
+      if (byteaiChat) {
+        byteaiChat.style.display = "none";
+      }
+    });
+  }
+  
+  if (byteaiSend) {
+    byteaiSend.addEventListener("click", sendByteaiMessage);
+  }
+  
+  if (byteaiInput) {
+    byteaiInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        sendByteaiMessage();
+      }
+    });
+  }
+  
+  // Close ByteAI chat when clicking outside
+  document.addEventListener("click", (e) => {
+    if (isByteaiOpen && byteaiChat && byteaiButton && 
+        !byteaiChat.contains(e.target) && !byteaiButton.contains(e.target)) {
+      isByteaiOpen = false;
+      byteaiChat.style.display = "none";
+    }
+  });
+
+  /* ---------- Text Selection and Drag-Drop Features ---------- */
+  let selectedText = "";
+  let selectionPopup = document.getElementById("selectionPopup");
+  let askByteaiBtn = document.getElementById("askByteaiBtn");
+  let cancelSelectionBtn = document.getElementById("cancelSelectionBtn");
+  let byteaiDropZone = document.getElementById("byteaiDropZone");
+  let byteaiCursor = document.getElementById("byteaiCursor");
+  let isDragging = false;
+  let dragData = null;
+
+  // Text selection handler
+  function handleTextSelection() {
+    const selection = window.getSelection();
+    const text = selection.toString().trim();
+    
+    if (text.length > 0) {
+      selectedText = text;
+      showSelectionPopup();
+    } else {
+      hideSelectionPopup();
+    }
+  }
+
+  // Enhanced text selection with better coverage
+  function enableTextSelection() {
+    // Make all text content selectable
+    const selectableElements = document.querySelectorAll('p, div, span, li, h1, h2, h3, h4, h5, h6, .byteai-text, .concept-list li, .example-box, .reflection-box, .quiz-question, .accordion-content, .match-item');
+    
+    selectableElements.forEach(element => {
+      // Ensure text is selectable
+      element.style.userSelect = 'text';
+      element.style.webkitUserSelect = 'text';
+      element.style.mozUserSelect = 'text';
+      element.style.msUserSelect = 'text';
+      
+      // Add hover effect to indicate selectability
+      element.addEventListener('mouseenter', function() {
+        this.style.cursor = 'text';
+      });
+      
+      element.addEventListener('mouseleave', function() {
+        this.style.cursor = 'default';
+      });
+    });
+  }
+
+  // Show selection popup
+  function showSelectionPopup() {
+    const selection = window.getSelection();
+    if (selection.rangeCount > 0) {
+      const range = selection.getRangeAt(0);
+      const rect = range.getBoundingClientRect();
+      
+      selectionPopup.style.left = (rect.left + rect.width / 2) + 'px';
+      selectionPopup.style.top = (rect.top - 10) + 'px';
+      selectionPopup.classList.add('show', 'entering');
+      
+      // Add text selection highlight animation
+      const selectedElement = range.commonAncestorContainer.parentElement;
+      if (selectedElement) {
+        selectedElement.classList.add('text-selected');
+        setTimeout(() => {
+          selectedElement.classList.remove('text-selected');
+        }, 300);
+      }
+    }
+  }
+
+  // Hide selection popup
+  function hideSelectionPopup() {
+    selectionPopup.classList.remove('show');
+    selectedText = "";
+  }
+
+  // Ask ByteAI with selected text
+  function askByteaiWithSelection() {
+    if (selectedText) {
+      // Always open ByteAI chat and ensure it's visible
+      isByteaiOpen = true;
+      byteaiChat.style.display = "flex";
+      
+      // Add highlight animation to indicate content transfer
+      byteaiChat.classList.add('highlight', 'transfer-success');
+      setTimeout(() => {
+        byteaiChat.classList.remove('highlight', 'transfer-success');
+      }, 800);
+      
+      // Scroll to bottom to show the new message
+      setTimeout(() => {
+        byteaiMessages.scrollTop = byteaiMessages.scrollHeight;
+      }, 100);
+      
+      // Automatically send the message to ByteAI
+      const message = `Can you explain more about: "${selectedText}"`;
+      
+      // Add user message to chat
+      addByteaiMessage(message, true);
+      
+      // Show typing indicator
+      const typingIndicator = document.createElement('div');
+      typingIndicator.className = 'byteai-message byteai-bot typing-indicator';
+      typingIndicator.innerHTML = `
+        <div class="byteai-avatar">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="8" fill="#4a4af9" opacity="0.8"/>
+            <circle cx="8" cy="8" r="3" fill="#4a4af9" opacity="0.6"/>
+            <circle cx="16" cy="8" r="2" fill="#4a4af9" opacity="0.7"/>
+            <circle cx="8" cy="16" r="2" fill="#4a4af9" opacity="0.5"/>
+            <circle cx="16" cy="16" r="3" fill="#4a4af9" opacity="0.6"/>
+          </svg>
+        </div>
+        <div class="typing-indicator">
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+        </div>
+      `;
+      byteaiMessages.appendChild(typingIndicator);
+      byteaiMessages.scrollTop = byteaiMessages.scrollHeight;
+      
+      // Simulate typing delay and get response
+      setTimeout(() => {
+        // Remove typing indicator
+        typingIndicator.remove();
+        
+        const response = getByteaiResponse(message);
+        addByteaiMessage(response);
+      }, 1500);
+      
+      // Hide popup
+      hideSelectionPopup();
+      
+      // Clear selection
+      window.getSelection().removeAllRanges();
+    }
+  }
+
+  // Make text draggable
+  function makeTextDraggable() {
+    const selection = window.getSelection();
+    if (selection.rangeCount > 0) {
+      const range = selection.getRangeAt(0);
+      const text = selection.toString().trim();
+      
+      if (text.length > 0) {
+        // Create a temporary draggable element
+        const dragElement = document.createElement('div');
+        dragElement.textContent = text;
+        dragElement.style.position = 'absolute';
+        dragElement.style.top = '-1000px';
+        dragElement.style.left = '-1000px';
+        dragElement.style.pointerEvents = 'none';
+        dragElement.style.opacity = '0.5';
+        dragElement.style.background = '#4a4af9';
+        dragElement.style.color = 'white';
+        dragElement.style.padding = '8px 12px';
+        dragElement.style.borderRadius = '8px';
+        dragElement.style.fontSize = '14px';
+        dragElement.style.fontWeight = '600';
+        dragElement.style.zIndex = '10000';
+        document.body.appendChild(dragElement);
+        
+        // Set drag data
+        dragData = {
+          text: text,
+          element: dragElement
+        };
+        
+        isDragging = true;
+        document.body.classList.add('dragging');
+        
+        // Remove the element after a short delay
+        setTimeout(() => {
+          if (dragElement.parentNode) {
+            dragElement.parentNode.removeChild(dragElement);
+          }
+        }, 100);
+      }
+    }
+  }
+
+  // Drag and drop handlers
+  function handleDragStart(e) {
+    if (selectedText) {
+      e.dataTransfer.setData('text/plain', selectedText);
+      e.dataTransfer.effectAllowed = 'copy';
+      isDragging = true;
+    }
+  }
+
+  function handleDragOver(e) {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'copy';
+    byteaiDropZone.classList.add('drag-over');
+  }
+
+  function handleDragLeave(e) {
+    if (!byteaiDropZone.contains(e.relatedTarget)) {
+      byteaiDropZone.classList.remove('drag-over');
+    }
+  }
+
+  function handleDrop(e) {
+    e.preventDefault();
+    byteaiDropZone.classList.remove('drag-over');
+    
+    const text = e.dataTransfer.getData('text/plain');
+    if (text) {
+      // Always open ByteAI chat and ensure it's visible
+      isByteaiOpen = true;
+      byteaiChat.style.display = "flex";
+      
+      // Add highlight animation to indicate content transfer
+      byteaiChat.classList.add('highlight', 'transfer-success');
+      setTimeout(() => {
+        byteaiChat.classList.remove('highlight', 'transfer-success');
+      }, 800);
+      
+      // Scroll to bottom to show the new message
+      setTimeout(() => {
+        byteaiMessages.scrollTop = byteaiMessages.scrollHeight;
+      }, 100);
+      
+      // Automatically send the message to ByteAI
+      const message = `Can you explain more about: "${text}"`;
+      
+      // Add user message to chat
+      addByteaiMessage(message, true);
+      
+      // Show typing indicator
+      const typingIndicator = document.createElement('div');
+      typingIndicator.className = 'byteai-message byteai-bot typing-indicator';
+      typingIndicator.innerHTML = `
+        <div class="byteai-avatar">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="8" fill="#4a4af9" opacity="0.8"/>
+            <circle cx="8" cy="8" r="3" fill="#4a4af9" opacity="0.6"/>
+            <circle cx="16" cy="8" r="2" fill="#4a4af9" opacity="0.7"/>
+            <circle cx="8" cy="16" r="2" fill="#4a4af9" opacity="0.5"/>
+            <circle cx="16" cy="16" r="3" fill="#4a4af9" opacity="0.6"/>
+          </svg>
+        </div>
+        <div class="typing-indicator">
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+          <div class="typing-dot"></div>
+        </div>
+      `;
+      byteaiMessages.appendChild(typingIndicator);
+      byteaiMessages.scrollTop = byteaiMessages.scrollHeight;
+      
+      // Simulate typing delay and get response
+      setTimeout(() => {
+        // Remove typing indicator
+        typingIndicator.remove();
+        
+        const response = getByteaiResponse(message);
+        addByteaiMessage(response);
+      }, 1500);
+      
+      // Clear selection
+      window.getSelection().removeAllRanges();
+    }
+    
+    isDragging = false;
+  }
+
+  // Event listeners for text selection
+  document.addEventListener('mouseup', handleTextSelection);
+  document.addEventListener('keyup', handleTextSelection);
+  document.addEventListener('selectionchange', handleTextSelection);
+  
+  // Enhanced text selection for better coverage
+  document.addEventListener('mousedown', function(e) {
+    // Allow text selection on all elements
+    if (e.target.closest('.stage')) {
+      e.target.style.userSelect = 'text';
+      e.target.style.webkitUserSelect = 'text';
+    }
+  });
+
+  // Custom ByteAI cursor functionality
+  function updateByteaiCursor(e) {
+    if (!byteaiCursor) return;
+    
+    const isOverSelectableText = e.target.closest('.stage') && 
+      (e.target.tagName === 'P' || e.target.tagName === 'DIV' || e.target.tagName === 'SPAN' || 
+       e.target.tagName === 'LI' || e.target.tagName === 'H1' || e.target.tagName === 'H2' || 
+       e.target.tagName === 'H3' || e.target.tagName === 'H4' || e.target.tagName === 'H5' || 
+       e.target.tagName === 'H6' || e.target.classList.contains('concept-list') ||
+       e.target.classList.contains('example-box') || e.target.classList.contains('reflection-box') ||
+       e.target.classList.contains('quiz-question') || e.target.classList.contains('accordion-content') ||
+       e.target.classList.contains('match-item') || e.target.classList.contains('byteai-text'));
+    
+    if (isOverSelectableText) {
+      byteaiCursor.style.left = (e.clientX + 10) + 'px';
+      byteaiCursor.style.top = (e.clientY - 10) + 'px';
+      byteaiCursor.classList.add('show');
+    } else {
+      byteaiCursor.classList.remove('show');
+    }
+  }
+
+  // Mouse move handler for custom cursor
+  document.addEventListener('mousemove', updateByteaiCursor);
+  
+  // Hide cursor when mouse leaves the window
+  document.addEventListener('mouseleave', function() {
+    if (byteaiCursor) {
+      byteaiCursor.classList.remove('show');
+    }
+  });
+  
+  // Event listeners for popup buttons
+  askByteaiBtn.addEventListener('click', askByteaiWithSelection);
+  cancelSelectionBtn.addEventListener('click', hideSelectionPopup);
+  
+  // Event listeners for drag and drop
+  document.addEventListener('dragstart', handleDragStart);
+  byteaiDropZone.addEventListener('dragover', handleDragOver);
+  byteaiDropZone.addEventListener('dragleave', handleDragLeave);
+  byteaiDropZone.addEventListener('drop', handleDrop);
+  
+  // Make selected text draggable on mouse down
+  document.addEventListener('mousedown', (e) => {
+    // Small delay to allow text selection
+    setTimeout(() => {
+      const selection = window.getSelection();
+      if (selection.toString().trim().length > 0) {
+        // Add drag functionality to selected text
+        const range = selection.getRangeAt(0);
+        const textNode = range.startContainer;
+        
+        if (textNode.nodeType === Node.TEXT_NODE) {
+          const parentElement = textNode.parentElement;
+          if (parentElement) {
+            parentElement.draggable = true;
+            parentElement.addEventListener('dragstart', (e) => {
+              e.dataTransfer.setData('text/plain', selection.toString().trim());
+              e.dataTransfer.effectAllowed = 'copy';
+            });
+          }
+        }
+      }
+    }, 100);
+  });
+  
+  // Hide popup when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!selectionPopup.contains(e.target) && !window.getSelection().toString().trim()) {
+      hideSelectionPopup();
+    }
+  });
+
+  /* ---------- Init ---------- */
+  selectUnit(0);
+  selectMode(state.mode);
+  renderFlash();
+  
+  // Enable enhanced text selection
+  enableTextSelection();
+  
+  // Re-enable text selection when content changes
+  const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      if (mutation.type === 'childList') {
+        enableTextSelection();
+      }
+    });
+  });
+  
+  // Observe the stage for content changes
+  const stage = document.querySelector('.stage');
+  if (stage) {
+    observer.observe(stage, { childList: true, subtree: true });
+  }
+</script>
+
+<!-- ByteAI Assistant - Fixed Position -->
+<div class="byteai-assistant" id="byteaiAssistant">
+  <div class="byteai-button" id="byteaiButton" title="Ready to chat about learning? I'm ByteAI and I'm here to help!">
+    <div class="byteai-icon">
+      <img 
+        src="/images/icons/ByteB_black.png" 
+        alt="ByteAI Assistant" 
+        width="256" 
+        height="256"
+        style="display:block;"
+      />
+    </div>
+  </div>
+  <div class="byteai-chat" id="byteaiChat" style="display: none;">
+    <div class="byteai-header">
+      <h4>ByteAI Learning Assistant</h4>
+      <button class="byteai-close" id="byteaiClose">×</button>
+    </div>
+    <div class="byteai-messages" id="byteaiMessages">
+      <div class="byteai-message byteai-bot">
+        <div class="byteai-avatar">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="8" fill="#4a4af9" opacity="0.8"/>
+            <circle cx="8" cy="8" r="3" fill="#4a4af9" opacity="0.6"/>
+            <circle cx="16" cy="8" r="2" fill="#4a4af9" opacity="0.7"/>
+            <circle cx="8" cy="16" r="2" fill="#4a4af9" opacity="0.5"/>
+            <circle cx="16" cy="16" r="3" fill="#4a4af9" opacity="0.6"/>
+          </svg>
+        </div>
+        <div class="byteai-text">Hi! I'm ByteAI, your learning assistant. What would you like to learn about today?</div>
+      </div>
+    </div>
+    <div class="byteai-input-area drop-zone" id="byteaiDropZone">
+      <input type="text" id="byteaiInput" placeholder="Ask ByteAI about learning, study techniques, memory strategies, focus, or motivation..." />
+      <button class="byteai-send" id="byteaiSend">Send</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

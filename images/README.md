@@ -1,55 +1,61 @@
-# ByteNimbus Images Directory
+# ByteVerse Images Directory
 
-This directory contains all the images, logos, and visual assets for the ByteNimbus website.
+This directory contains all the images, logos, and visual assets for the ByteVerse website.
 
 ## Folder Structure
 
 ```
 public/images/
-├── logos/          # Company logos and brand assets
-│   ├── bytenimbus-logo.svg
-│   ├── byteverse-logo.svg
-│   ├── byteai-logo.svg
-│   └── favicon.svg
-├── icons/          # UI icons and small graphics
-│   ├── email-icon.svg
-│   ├── linkedin-icon.svg
-│   ├── github-icon.svg
-│   └── feature-icons/
+├── icons/          # Main ByteVerse brand icons and UI graphics
+│   ├── ByteB_black.png      # Main ByteVerse logo (black)
+│   ├── ByteB_white.png      # Main ByteVerse logo (white)
+│   ├── bytefooter.png       # Footer/contact icon
+│   ├── byterow_black.png    # LinkedIn icon (black)
+│   ├── byterow_white.png    # LinkedIn icon (white)
+│   ├── bytesquare_black.png # GitHub icon (black)
+│   └── bytesquare_white.png # GitHub icon (white)
+├── ByteVerse-Brand-Pack/    # Complete brand asset collection
+│   ├── ByteAI/             # ByteAI product logos
+│   ├── ByteAnalytics/      # ByteAnalytics product logos
+│   ├── ByteGenie/          # ByteGenie product logos
+│   ├── ByteHub/            # ByteHub product logos
+│   ├── ByteLab/            # ByteLab product logos
+│   ├── ByteNimbus/         # ByteNimbus product logos
+│   ├── ByteSim/            # ByteSim product logos
+│   ├── ByteTok/            # ByteTok product logos
+│   └── ByteVerse/          # ByteVerse product logos
 ├── hero/           # Hero section images and banners
-│   ├── hero-background.jpg
-│   ├── demo-screenshots/
-│   └── product-showcase/
 ├── avatars/        # Profile pictures and avatars
-│   ├── dhani-avatar.jpg
-│   └── team-photos/
 └── README.md       # This file
 ```
 
 ## Usage in Components
 
-### Logos
+### Main ByteVerse Logo
 ```jsx
-<img src="/images/logos/bytenimbus-logo.svg" alt="ByteNimbus Logo" />
+<img src="/images/icons/ByteB_white.png" alt="ByteVerse Logo" className="w-7 h-7" />
 ```
 
-### Icons
+### Social Media Icons
 ```jsx
-<img src="/images/icons/email-icon.svg" alt="Email" className="w-5 h-5" />
+<img src="/images/icons/byterow_black.png" alt="LinkedIn" className="w-4 h-4" />
+<img src="/images/icons/bytesquare_black.png" alt="GitHub" className="w-4 h-4" />
+<img src="/images/icons/bytefooter.png" alt="Contact" className="w-4 h-4" />
 ```
 
-### Hero Images
+### Product Logos
 ```jsx
-<img src="/images/hero/hero-background.jpg" alt="ByteNimbus Hero" />
+<img src="/images/ByteVerse-Brand-Pack/ByteAI/transparent/ByteAI_transparent_512.png" alt="ByteAI Logo" />
 ```
 
 ## Image Guidelines
 
-- **Format**: Use SVG for logos and icons, JPG/PNG for photos
+- **Format**: Use PNG for main brand icons, SVG for scalable graphics, JPG/PNG for photos
 - **Optimization**: Compress images for web performance
 - **Alt Text**: Always include descriptive alt text
 - **Responsive**: Use appropriate sizes for different screen sizes
-- **Branding**: Maintain consistent ByteNimbus/ByteVerse branding
+- **Branding**: Maintain consistent ByteVerse branding across all components
+- **Color Variants**: Use white icons on dark backgrounds (current implementation), black icons on light backgrounds
 
 ## File Naming Convention
 
