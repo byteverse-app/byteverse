@@ -120,17 +120,6 @@ import GradientBlinds from './components/GradientBlinds'
 └── vite.config.js
 ```
 
----
-
-## 🔮 Roadmap hooks (ByteVerse consistency)
-
-- Add **ByteAnalytics** badge to footer once analytics is ready (e.g. Plausible/Umami)
-- Replace hero **video** with real demo (Loom, MP4)
-- Add **/docs** with design system tokens used across ByteVerse
-- Create shared GitHub Issue templates + project board
-
----
-
 ## 🙏 Credits & License
 
 - Gradient shader concept inspired by: reactbits.dev (Gradient Blinds)
