@@ -11,6 +11,7 @@ import FAQ from './components/FAQ'
 import CTA from './components/CTA'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
+import Error503Overlay from './components/Error503Overlay'
 
 export default function App() {
   return (
@@ -29,6 +30,7 @@ export default function App() {
         <Contact />
       </main>
       <Footer />
+      <Error503Overlay />
     </div>
   )
 }
