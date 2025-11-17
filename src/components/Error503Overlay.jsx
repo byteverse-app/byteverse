@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 export default function Error503Overlay() {
   // Toggle the overlay: Set to true to show, false to hide
@@ -6,13 +6,81 @@ export default function Error503Overlay() {
   const ENABLE_503_OVERLAY = true // Change this to false to disable
   
   const showOverlay = ENABLE_503_OVERLAY || import.meta.env.VITE_SHOW_503_OVERLAY === 'true'
+  const overlayRef = useRef(null)
+  const [forceRender, setForceRender] = useState(0)
+
+  useEffect(() => {
+    if (!showOverlay) return
+
+    let observer = null
+    let interval = null
+
+    // Small delay to ensure ref is set
+    const timeoutId = setTimeout(() => {
+      // Prevent interaction with underlying content
+      document.body.style.pointerEvents = 'none'
+      const overlayElement = overlayRef.current
+      if (overlayElement) {
+        overlayElement.style.pointerEvents = 'auto'
+      }
+
+      // Monitor if overlay is removed from DOM
+      const checkOverlay = () => {
+        const currentElement = overlayRef.current
+        if (currentElement && !document.body.contains(currentElement)) {
+          // Overlay was removed, force re-render
+          setForceRender(prev => prev + 1)
+        }
+      }
+
+      // Use MutationObserver to watch for removal
+      observer = new MutationObserver((mutations) => {
+        const currentElement = overlayRef.current
+        if (!currentElement) {
+          setForceRender(prev => prev + 1)
+          return
+        }
+        
+        mutations.forEach((mutation) => {
+          mutation.removedNodes.forEach((node) => {
+            if (node === currentElement || (node.contains && node.contains(currentElement))) {
+              setForceRender(prev => prev + 1)
+            }
+          })
+        })
+        checkOverlay()
+      })
+
+      // Start observing
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      })
+
+      // Also check periodically as a backup
+      interval = setInterval(checkOverlay, 100)
+    }, 10)
+
+    return () => {
+      clearTimeout(timeoutId)
+      if (observer) observer.disconnect()
+      if (interval) clearInterval(interval)
+      document.body.style.pointerEvents = ''
+    }
+  }, [showOverlay, forceRender])
 
   if (!showOverlay) {
     return null
   }
 
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm">
+    <div 
+      key={`error-503-overlay-${forceRender}`}
+      ref={overlayRef}
+      data-error-503-overlay="true"
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm"
+      style={{ pointerEvents: 'auto' }}
+    >
       <div className="text-center px-6 max-w-2xl mx-auto">
         <div className="mb-6">
           <h1 className="text-6xl md:text-8xl font-bold text-white mb-2">503</h1>
