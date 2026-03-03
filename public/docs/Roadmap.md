@@ -2,7 +2,7 @@
 
 ## Phase 1: Foundation (Q1 2024)
 - [x] Landing page and branding
-- [x] Lesson Seed JSON format
+- [x] Core content and learner model
 - [ ] Basic multimodal generation
 - [ ] Core switching interface
 

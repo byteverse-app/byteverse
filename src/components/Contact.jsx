@@ -13,27 +13,32 @@ export default function Contact() {
     setSubmitStatus(null)
 
     try {
-      // Using Formspree - you need to replace 'YOUR_FORM_ID' with your actual Formspree form ID
-      // Go to https://formspree.io/ to get your form ID
       const response = await fetch('https://formspree.io/f/xpwypvng', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
         body: JSON.stringify({
           email: email,
           subject: subject,
           message: message,
-          _replyto: email, // This ensures replies go to the sender
+          type: 'contact_form',
+          _subject: `ByteVerse Contact: ${subject}`,
+          _replyto: email,
         }),
       })
 
-      if (response.ok) {
+      const responseData = await response.json().catch(() => ({}))
+      
+      // Formspree returns 200 OK on success, or 200 with errors field
+      if (response.ok && !responseData.errors) {
         setSubmitStatus('success')
         setEmail('')
         setMessage('')
         setSubject('')
       } else {
+        console.error('Formspree error:', responseData)
         setSubmitStatus('error')
       }
     } catch (error) {
@@ -45,20 +50,22 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="container-narrow py-20">
-      <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4">
-          Let's Build the Future of Learning Together
+    <section id="contact" className="py-32 md:py-40 px-4 md:px-6 max-w-7xl mx-auto">
+      <div className="text-center mb-16">
+        <div className="font-space text-[10px] font-bold tracking-[0.5em] text-[#7D7DFF] uppercase mb-6">Get in Touch</div>
+        <h2 className="font-syne text-4xl md:text-6xl font-extrabold tracking-tighter mb-6 text-white">
+          Let's Build the Future <br />
+          <span className="text-white/20 italic">of Learning Together</span>
         </h2>
-        <p className="text-lg text-white/80 max-w-3xl mx-auto">
-          Join the conversation about how technology can transform learning experiences and make education more meaningful for everyone.
+        <p className="font-space text-gray-400 text-lg max-w-3xl mx-auto font-light leading-relaxed">
+          Join the conversation about how technology can transform learning experiences. ByteAI learns with you; for you.
         </p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-12">
         {/* Contact Form */}
-        <div className="nimbus-card p-8">
-          <h3 className="text-2xl font-semibold mb-6">Get in Touch</h3>
+        <div className="apple-glass p-10 rounded-[2.5rem] border border-white/10">
+          <h3 className="font-syne text-2xl font-bold mb-6 text-white tracking-tight">Send a Message</h3>
           
           {/* Success/Error Messages */}
           {submitStatus === 'success' && (
@@ -81,7 +88,7 @@ export default function Contact() {
                 </svg>
                 <p className="text-red-400 font-medium">Failed to send message</p>
               </div>
-              <p className="text-red-300 text-sm mt-1">Please try again or contact me directly at connect@dhanikeshkarunanithi.com</p>
+              <p className="text-red-300 text-sm mt-1">Please try again or contact us directly at missioncontrol@byteverse.app</p>
             </div>
           )}
           
@@ -116,7 +123,7 @@ export default function Contact() {
                 style={{ backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
               >
                 <option value="" style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', color: 'white' }}>Select a topic</option>
-                <option value="Collaboration on ByteNimbus" style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', color: 'white' }}>Collaboration on ByteNimbus</option>
+                <option value="Collaboration on ByteVerse" style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', color: 'white' }}>Collaboration on ByteVerse</option>
                 <option value="Feedback & Suggestions" style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', color: 'white' }}>Feedback & Suggestions</option>
                 <option value="Future of Learning Discussion" style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', color: 'white' }}>Future of Learning Discussion</option>
                 <option value="Technology in Education" style={{ backgroundColor: 'rgba(0, 0, 0, 0.8)', color: 'white' }}>Technology in Education</option>
@@ -137,7 +144,7 @@ export default function Contact() {
                 disabled={isSubmitting}
                 rows={6}
                 className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 focus:outline-none focus:border-white/40 text-white placeholder-white/50 resize-none disabled:opacity-50 disabled:cursor-not-allowed"
-                placeholder="Share your thoughts on the future of learning, collaboration ideas, or feedback on ByteNimbus..."
+                placeholder="Share your thoughts on the future of learning, collaboration ideas, or feedback on ByteVerse..."
               />
             </div>
             
@@ -163,8 +170,8 @@ export default function Contact() {
 
         {/* Discussion Topics */}
         <div className="space-y-8">
-          <div className="nimbus-card p-8">
-            <h3 className="text-2xl font-semibold mb-6">Let's Discuss</h3>
+          <div className="apple-glass p-8 rounded-[2rem] border border-white/10">
+            <h3 className="font-syne text-2xl font-bold mb-6 text-white tracking-tight">Let's Discuss</h3>
             <div className="space-y-4">
               <div>
                 <h4 className="font-semibold text-white mb-2">AI-Powered Learning</h4>
@@ -196,18 +203,18 @@ export default function Contact() {
             </div>
           </div>
 
-          <div className="nimbus-card p-8">
-            <h3 className="text-2xl font-semibold mb-6">Connect with Dhani</h3>
+          <div className="apple-glass p-8 rounded-[2rem] border border-white/10">
+            <h3 className="font-syne text-2xl font-bold mb-6 text-white tracking-tight">Connect with Dhani</h3>
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <img src="/images/icons/bytefooter.png" alt="Email" className="w-5 h-5" />
                 <div>
                   <h4 className="font-semibold text-white mb-1">Email</h4>
                   <a 
-                    href="mailto:connect@dhanikeshkarunanithi.com" 
+                    href="mailto:missioncontrol@byteverse.app" 
                     className="text-white/70 hover:text-white transition text-sm"
                   >
-                    connect@dhanikeshkarunanithi.com
+                    missioncontrol@byteverse.app
                   </a>
                 </div>
               </div>

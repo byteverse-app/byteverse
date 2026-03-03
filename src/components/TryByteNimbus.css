@@ -1,5 +1,5 @@
-/* TryByteNimbus Section Background Styles */
-.try-bytenimbus-section {
+/* TryByteVerse Section Background Styles */
+.try-byteverse-section {
   --shadow-color: 0deg 0% 0%;
   --primary: #fff;
   --secondary: hsl(0 0% 10%);
@@ -13,7 +13,7 @@
   --font-width-max: 1500;
 }
 
-.try-bytenimbus-section::before {
+.try-byteverse-section::before {
   --size: 45px;
   --line: color-mix(in hsl, canvasText, transparent 80%);
   content: '';

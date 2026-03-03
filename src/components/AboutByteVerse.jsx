@@ -59,25 +59,25 @@ export default function AboutByteVerse() {
             </div>
           </div>
 
-          {/* ByteNimbus - Design-Heavy Content Generator */}
+          {/* ByteVerse - AI-Powered Learning Platform */}
           <div className="nimbus-card p-6">
             <div className="flex items-center gap-4 mb-4">
               <img 
-                src="/images/ByteVerse-Brand-Pack/ByteNimbus/transparent/ByteNimbus_transparent_512.png" 
-                alt="ByteNimbus Logo" 
+                src="/images/ByteVerse-Brand-Pack/ByteVerse/transparent/ByteVerse_transparent_512.png" 
+                alt="ByteVerse Logo" 
                 className="w-12 h-12"
               />
               <div>
-                <h3 className="text-xl font-semibold">ByteNimbus</h3>
-                <p className="text-sm text-white/60">Design-Heavy Content Generator</p>
+                <h3 className="text-xl font-semibold">ByteVerse</h3>
+                <p className="text-sm text-white/60">AI-Powered Learning Platform</p>
               </div>
             </div>
             <p className="text-white/70 text-sm mb-3">
-              Nimbus is the studio in the sky. It blends visual craft with AI speed—beautiful, 
+              ByteVerse is the comprehensive learning platform. It blends visual craft with AI speed—beautiful, 
               on-brand learning collateral at the push of a button.
             </p>
             <div className="text-xs text-white/50">
-              <strong>Symbolism:</strong> Creative cloud + pen-nib diamond + export arrow.
+              <strong>Symbolism:</strong> Connected universe where everything orbits purpose.
             </div>
           </div>
 

@@ -127,7 +127,7 @@ export default function WaitlistAdmin() {
     <div className="min-h-screen bg-gray-900 text-white p-8">
       <div className="max-w-6xl mx-auto">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">ByteNimbus Waitlist Admin</h1>
+          <h1 className="text-3xl font-bold mb-2">ByteVerse Waitlist Admin</h1>
           <p className="text-gray-400">Manage waitlist entries and grant access to users</p>
         </div>
 

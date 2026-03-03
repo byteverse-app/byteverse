@@ -18,7 +18,9 @@ export default {
         }
       },
       fontFamily: { 
-        ui: ['Inter', 'system-ui', 'sans-serif'] 
+        ui: ['Inter', 'system-ui', 'sans-serif'],
+        syne: ['Syne', 'sans-serif'],
+        space: ['Space Grotesk', 'sans-serif']
       },
       borderRadius: { 
         lg: '1.25rem', 

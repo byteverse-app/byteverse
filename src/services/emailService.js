@@ -1,4 +1,4 @@
-// Email Service for ByteNimbus Waitlist
+// Email Service for ByteVerse Waitlist
 // This service handles all email notifications for the waitlist system
 
 export class EmailService {
@@ -10,10 +10,10 @@ export class EmailService {
   async sendWelcomeEmail(userData) {
     const emailData = {
       to: userData.email,
-      subject: 'Welcome to ByteNimbus Waitlist! 🚀',
+      subject: 'Welcome to ByteVerse Waitlist! 🚀',
       template: 'welcome',
       userData: userData,
-      _replyto: 'connect@dhanikeshkarunanithi.com'
+      _replyto: 'missioncontrol@byteverse.app'
     }
 
     return this.sendEmail(emailData)
@@ -23,10 +23,10 @@ export class EmailService {
   async sendAccessGrantedEmail(userData) {
     const emailData = {
       to: userData.email,
-      subject: '🎉 ByteNimbus Access Granted - You\'re In!',
+      subject: '🎉 ByteVerse Access Granted - You\'re In!',
       template: 'access_granted',
       userData: userData,
-      _replyto: 'connect@dhanikeshkarunanithi.com'
+      _replyto: 'missioncontrol@byteverse.app'
     }
 
     return this.sendEmail(emailData)
@@ -35,8 +35,8 @@ export class EmailService {
   // Send admin notification when someone joins waitlist
   async sendAdminNotification(userData) {
     const emailData = {
-      to: 'connect@dhanikeshkarunanithi.com',
-      subject: 'New ByteNimbus Waitlist Signup',
+      to: 'missioncontrol@byteverse.app',
+      subject: 'New ByteVerse Waitlist Signup',
       template: 'admin_notification',
       userData: userData,
       _replyto: userData.email
@@ -49,11 +49,11 @@ export class EmailService {
   async sendCustomMessage(userData, message) {
     const emailData = {
       to: userData.email,
-      subject: 'Message from ByteNimbus Team',
+      subject: 'Message from ByteVerse Team',
       template: 'custom_message',
       userData: userData,
       customMessage: message,
-      _replyto: 'connect@dhanikeshkarunanithi.com'
+      _replyto: 'missioncontrol@byteverse.app'
     }
 
     return this.sendEmail(emailData)
@@ -91,23 +91,23 @@ export const emailTemplates = {
   welcome: (userData) => `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
       <div style="text-align: center; margin-bottom: 30px;">
-        <h1 style="color: white; margin: 0;">Welcome to ByteNimbus! 🚀</h1>
+        <h1 style="color: white; margin: 0;">Welcome to ByteVerse! 🚀</h1>
         <p style="color: rgba(255,255,255,0.9); margin: 10px 0;">You're now on the waitlist for the future of AI-powered learning design.</p>
       </div>
       
       <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
         <h2 style="color: white; margin-top: 0;">What happens next?</h2>
         <ul style="color: rgba(255,255,255,0.9); line-height: 1.6;">
-          <li>We'll notify you as soon as ByteNimbus is ready for you to try</li>
+          <li>We'll notify you as soon as ByteVerse is ready for you to try</li>
           <li>You'll get early access to new features and updates</li>
           <li>We'll share insights about the future of learning technology</li>
         </ul>
       </div>
       
       <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
-        <h3 style="color: white; margin-top: 0;">What is ByteNimbus?</h3>
+        <h3 style="color: white; margin-top: 0;">What is ByteVerse?</h3>
         <p style="color: rgba(255,255,255,0.9); line-height: 1.6;">
-          ByteNimbus is an AI-powered platform that transforms how you create learning content. 
+          ByteVerse is an AI-powered platform that transforms how you create learning content. 
           Following the ADDIE framework and Bloom's Taxonomy, it generates complete microlearning 
           modules from any topic you provide.
         </p>
@@ -116,10 +116,10 @@ export const emailTemplates = {
       <div style="text-align: center; margin-top: 30px;">
         <p style="color: rgba(255,255,255,0.8); font-size: 14px;">
           Questions? Reply to this email or reach out at 
-          <a href="mailto:connect@dhanikeshkarunanithi.com" style="color: white;">connect@dhanikeshkarunanithi.com</a>
+          <a href="mailto:missioncontrol@byteverse.app" style="color: white;">missioncontrol@byteverse.app</a>
         </p>
         <p style="color: rgba(255,255,255,0.6); font-size: 12px; margin-top: 20px;">
-          You're receiving this because you joined the ByteNimbus waitlist.
+          You're receiving this because you joined the ByteVerse waitlist.
         </p>
       </div>
     </div>
@@ -128,14 +128,14 @@ export const emailTemplates = {
   access_granted: (userData) => `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white;">
       <div style="text-align: center; margin-bottom: 30px;">
-        <h1 style="color: white; margin: 0;">🎉 You're In! ByteNimbus Access Granted</h1>
+        <h1 style="color: white; margin: 0;">🎉 You're In! ByteVerse Access Granted</h1>
         <p style="color: rgba(255,255,255,0.9); margin: 10px 0;">Welcome to the future of AI-powered learning design!</p>
       </div>
       
       <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; margin-bottom: 20px;">
-        <h2 style="color: white; margin-top: 0;">Your ByteNimbus Access</h2>
+        <h2 style="color: white; margin-top: 0;">Your ByteVerse Access</h2>
         <p style="color: rgba(255,255,255,0.9); line-height: 1.6;">
-          Congratulations! You now have access to ByteNimbus. Here's what you can do:
+          Congratulations! You now have access to ByteVerse. Here's what you can do:
         </p>
         <ul style="color: rgba(255,255,255,0.9); line-height: 1.6;">
           <li>Generate complete microlearning modules from any topic</li>
@@ -146,8 +146,8 @@ export const emailTemplates = {
       </div>
       
       <div style="text-align: center; margin: 30px 0;">
-        <a href="https://bytenimbus.com" style="background: white; color: #4facfe; padding: 15px 30px; text-decoration: none; border-radius: 25px; font-weight: bold; display: inline-block;">
-          Start Using ByteNimbus
+        <a href="https://byteverse.app" style="background: white; color: #4facfe; padding: 15px 30px; text-decoration: none; border-radius: 25px; font-weight: bold; display: inline-block;">
+          Start Using ByteVerse
         </a>
       </div>
       
@@ -162,7 +162,7 @@ export const emailTemplates = {
       <div style="text-align: center; margin-top: 30px;">
         <p style="color: rgba(255,255,255,0.8); font-size: 14px;">
           Questions? Reply to this email or reach out at 
-          <a href="mailto:connect@dhanikeshkarunanithi.com" style="color: white;">connect@dhanikeshkarunanithi.com</a>
+          <a href="mailto:missioncontrol@byteverse.app" style="color: white;">missioncontrol@byteverse.app</a>
         </p>
       </div>
     </div>
@@ -171,7 +171,7 @@ export const emailTemplates = {
   admin_notification: (userData) => `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background: #1a1a1a; color: white;">
       <div style="text-align: center; margin-bottom: 30px;">
-        <h1 style="color: #4facfe; margin: 0;">New ByteNimbus Waitlist Signup</h1>
+        <h1 style="color: #4facfe; margin: 0;">New ByteVerse Waitlist Signup</h1>
         <p style="color: #ccc; margin: 10px 0;">Someone just joined the waitlist!</p>
       </div>
       
@@ -198,14 +198,14 @@ export const emailTemplates = {
       </div>
       
       <div style="text-align: center; margin: 30px 0;">
-        <a href="https://bytenimbus.com/admin" style="background: #4facfe; color: white; padding: 15px 30px; text-decoration: none; border-radius: 25px; font-weight: bold; display: inline-block;">
+        <a href="https://byteverse.app/admin" style="background: #4facfe; color: white; padding: 15px 30px; text-decoration: none; border-radius: 25px; font-weight: bold; display: inline-block;">
           Manage Waitlist
         </a>
       </div>
       
       <div style="text-align: center; margin-top: 30px;">
         <p style="color: #999; font-size: 12px;">
-          This is an automated notification from the ByteNimbus waitlist system.
+          This is an automated notification from the ByteVerse waitlist system.
         </p>
       </div>
     </div>
@@ -214,7 +214,7 @@ export const emailTemplates = {
   custom_message: (userData, customMessage) => `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
       <div style="text-align: center; margin-bottom: 30px;">
-        <h1 style="color: white; margin: 0;">Message from ByteNimbus Team</h1>
+        <h1 style="color: white; margin: 0;">Message from ByteVerse Team</h1>
         <p style="color: rgba(255,255,255,0.9); margin: 10px 0;">Hello ${userData.name || 'there'}!</p>
       </div>
       
@@ -228,7 +228,7 @@ export const emailTemplates = {
       <div style="text-align: center; margin-top: 30px;">
         <p style="color: rgba(255,255,255,0.8); font-size: 14px;">
           Questions? Reply to this email or reach out at 
-          <a href="mailto:connect@dhanikeshkarunanithi.com" style="color: white;">connect@dhanikeshkarunanithi.com</a>
+          <a href="mailto:missioncontrol@byteverse.app" style="color: white;">missioncontrol@byteverse.app</a>
         </p>
       </div>
     </div>

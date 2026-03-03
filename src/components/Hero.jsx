@@ -28,7 +28,7 @@ export default function Hero() {
           ByteAI powered
         </div>
         <h1 className="text-5xl md:text-7xl font-semibold tracking-tight leading-[1.05] drop-shadow-glow">
-          ByteVerse — <span className="text-white/80">Learn your way</span>
+          ByteVerse — <span className="text-white/80">Learns with you</span>
         </h1>
         <p className="mt-6 text-lg md:text-xl text-white/80 max-w-3xl mx-auto">
           Choose how you learn — text, flashcards, video, audio, or mind maps — all generated from the same Lesson Seed.

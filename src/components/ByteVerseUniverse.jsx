@@ -649,11 +649,11 @@ export default function ByteVerseUniverse() {
     },
     {
       id: "pendulum-wave",
-      product: "ByteNimbus",
-      title: "Design-Heavy Content Generator",
-      description: "Nimbus is the studio in the sky. It blends visual craft with AI speed—beautiful, on-brand learning collateral at the push of a button.",
-      symbolism: "Creative cloud + pen-nib diamond + export arrow.",
-      logo: "/images/ByteVerse-Brand-Pack/ByteNimbus/transparent/ByteNimbus_transparent_512.png"
+      product: "ByteVerse",
+      title: "AI-Powered Learning Platform",
+      description: "ByteVerse is the comprehensive learning platform. It blends visual craft with AI speed—beautiful, on-brand learning collateral at the push of a button.",
+      symbolism: "Connected universe where everything orbits purpose.",
+      logo: "/images/ByteVerse-Brand-Pack/ByteVerse/transparent/ByteVerse_transparent_512.png"
     },
     {
       id: "pulse-wave",

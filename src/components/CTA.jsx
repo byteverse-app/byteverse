@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { motion } from 'framer-motion'
 import { emailService } from '../services/emailService'
 
 export default function CTA() {
@@ -27,28 +28,40 @@ export default function CTA() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         },
         body: JSON.stringify({
-          ...userData,
+          email: email,
+          name: name || 'Not provided',
+          company: company || 'Not provided',
           type: 'waitlist_signup',
-          _subject: 'New ByteNimbus Waitlist Signup',
+          _subject: 'New ByteVerse Waitlist Signup',
           _replyto: email,
+          message: `Waitlist signup from ${name || 'Anonymous'}. Company: ${company || 'Not provided'}. Signup date: ${new Date().toISOString()}`,
         }),
       })
 
-      if (response.ok) {
-        // Send welcome email to user
-        await emailService.sendWelcomeEmail(userData)
-        
-        // Send admin notification
-        await emailService.sendAdminNotification(userData)
-        
+      const responseData = await response.json().catch(() => ({}))
+      
+      // Formspree returns 200 OK on success, or 200 with errors field
+      if (response.ok && !responseData.errors) {
         setSubmitStatus('success')
         setEmail('')
         setName('')
         setCompany('')
         setShowDetails(false)
+        
+        // Try to send welcome email (non-blocking, don't wait for it)
+        emailService.sendWelcomeEmail(userData).catch(err => {
+          console.log('Welcome email optional:', err)
+        })
+        
+        // Try to send admin notification (non-blocking, don't wait for it)
+        emailService.sendAdminNotification(userData).catch(err => {
+          console.log('Admin notification optional:', err)
+        })
       } else {
+        console.error('Formspree error:', responseData)
         setSubmitStatus('error')
       }
     } catch (error) {
@@ -60,10 +73,54 @@ export default function CTA() {
   }
 
   return (
-    <section id="waitlist" className="container-narrow py-20">
-      <div className="nimbus-card p-8 text-center">
-        <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">Transform Your Learning Design</h2>
-        <p className="mt-2 text-white/70">Join the waitlist and be among the first to experience the complete ByteVerse ecosystem.</p>
+    <section id="waitlist" className="py-32 md:py-40 px-4 md:px-6 max-w-7xl mx-auto">
+      <div className="apple-glass p-12 rounded-[3rem] border border-white/10 text-center relative overflow-hidden">
+        <div className="absolute -top-40 -right-40 w-96 h-96 bg-[#7D7DFF]/10 blur-[150px] rounded-full" />
+        <div className="relative z-10">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.8 }}
+          className="font-space text-[10px] font-bold tracking-[0.5em] text-[#7D7DFF] uppercase mb-6"
+        >
+          Join the Journey
+        </motion.div>
+        <motion.h2 
+          initial={{ opacity: 0, y: 40, scale: 0.95 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="font-syne text-4xl md:text-6xl font-extrabold tracking-tighter mb-6 text-white"
+        >
+          Get Early Access
+        </motion.h2>
+        <motion.p 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="font-space text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-8 font-light leading-relaxed"
+        >
+          Join the waitlist and be among the first to experience the complete ByteVerse ecosystem — or explore the platform on GitHub today.
+        </motion.p>
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.8, delay: 0.15 }}
+          className="mb-12"
+        >
+          <a 
+            href="https://github.com/lorddannykay/ByteOS" 
+            target="_blank" 
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-white/20 text-white font-syne font-bold hover:bg-white/10 transition-all duration-300"
+          >
+            View on GitHub
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" /></svg>
+          </a>
+        </motion.div>
         
         {/* Success Message */}
         {submitStatus === 'success' && (
@@ -90,7 +147,7 @@ export default function CTA() {
               <h3 className="text-red-400 font-semibold text-lg">Something went wrong</h3>
             </div>
             <p className="text-red-300 text-sm">
-              Please try again or contact us directly at connect@dhanikeshkarunanithi.com
+              Please try again or contact us directly at missioncontrol@byteverse.app
             </p>
           </div>
         )}
@@ -106,12 +163,12 @@ export default function CTA() {
                 placeholder="you@company.com"
                 required
                 disabled={isSubmitting}
-                className="px-4 py-3 rounded-full bg-white/10 border border-white/20 focus:outline-none focus:border-white/40 w-72 text-white placeholder-white/50 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-6 py-4 rounded-full bg-white/10 border border-white/20 focus:outline-none focus:border-white/40 w-full md:w-80 text-white placeholder-white/50 disabled:opacity-50 disabled:cursor-not-allowed font-space"
               />
               <button 
                 type="submit"
                 disabled={isSubmitting || !email.trim()}
-                className="px-6 py-3 rounded-full bg-white text-black font-medium hover:opacity-90 transition hover:scale-105 transform duration-200 shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center gap-2"
+                className="px-8 py-4 rounded-full bg-white text-black font-syne font-bold hover:bg-[#7D7DFF] hover:text-white transition-all duration-500 hover:scale-105 transform shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center gap-2"
               >
                 {isSubmitting ? (
                   <>
@@ -143,7 +200,7 @@ export default function CTA() {
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Your name (optional)"
                   disabled={isSubmitting}
-                  className="px-4 py-2 rounded-full bg-white/10 border border-white/20 focus:outline-none focus:border-white/40 w-48 text-white placeholder-white/50 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-4 py-2 rounded-full bg-white/10 border border-white/20 focus:outline-none focus:border-white/40 w-full md:w-48 text-white placeholder-white/50 disabled:opacity-50 disabled:cursor-not-allowed font-space text-sm"
                 />
                 <input
                   type="text"
@@ -151,7 +208,7 @@ export default function CTA() {
                   onChange={(e) => setCompany(e.target.value)}
                   placeholder="Company (optional)"
                   disabled={isSubmitting}
-                  className="px-4 py-2 rounded-full bg-white/10 border border-white/20 focus:outline-none focus:border-white/40 w-48 text-white placeholder-white/50 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-4 py-2 rounded-full bg-white/10 border border-white/20 focus:outline-none focus:border-white/40 w-full md:w-48 text-white placeholder-white/50 disabled:opacity-50 disabled:cursor-not-allowed font-space text-sm"
                 />
                 <button
                   type="button"
@@ -165,9 +222,10 @@ export default function CTA() {
           </form>
         )}
 
-        <p className="mt-3 text-xs text-white/50">
+        <p className="mt-6 text-sm text-white/50 font-space">
           We'll only email for launch updates and ByteVerse ecosystem news. No spam, ever.
         </p>
+        </div>
       </div>
     </section>
   )

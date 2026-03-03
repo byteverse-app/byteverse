@@ -19,7 +19,7 @@ export default function ByteCourseModal({ isOpen, onClose }) {
             </div>
             <div>
               <h3 className="font-semibold text-gray-900 text-lg">ByteCourse Interactive Demo</h3>
-              <p className="text-sm text-gray-600">Experience multimodal learning from a single lesson seed</p>
+              <p className="text-sm text-gray-600">Experience personalized, multimodal learning</p>
             </div>
           </div>
           <button

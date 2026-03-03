@@ -20,7 +20,7 @@ public/images/
 │   ├── ByteGenie/          # ByteGenie product logos
 │   ├── ByteHub/            # ByteHub product logos
 │   ├── ByteLab/            # ByteLab product logos
-│   ├── ByteNimbus/         # ByteNimbus product logos
+│   ├── ByteNimbus/         # ByteNimbus product logos (legacy - now part of ByteVerse)
 │   ├── ByteSim/            # ByteSim product logos
 │   ├── ByteTok/            # ByteTok product logos
 │   └── ByteVerse/          # ByteVerse product logos

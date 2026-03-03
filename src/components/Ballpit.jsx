@@ -552,8 +552,8 @@ class Y extends c {
   }
 }
 
-// ByteNimbus product features for different ball types
-const BYTENIMBUS_FEATURES = {
+// ByteVerse product features for different ball types
+const BYTEVERSE_FEATURES = {
   ai: [
     { name: 'ByteAI Engine', color: '#7D7DFF' },
     { name: 'Content Generator', color: '#5227FF' },
@@ -671,12 +671,12 @@ class Z extends d {
   }
   
   createTextLabels() {
-    // Create text labels for ByteNimbus features
+    // Create text labels for ByteVerse features
     const allFeatures = [
-      ...BYTENIMBUS_FEATURES.ai,
-      ...BYTENIMBUS_FEATURES.framework,
-      ...BYTENIMBUS_FEATURES.features,
-      ...BYTENIMBUS_FEATURES.content
+      ...BYTEVERSE_FEATURES.ai,
+      ...BYTEVERSE_FEATURES.framework,
+      ...BYTEVERSE_FEATURES.features,
+      ...BYTEVERSE_FEATURES.content
     ];
     
     for (let idx = 0; idx < this.count; idx++) {

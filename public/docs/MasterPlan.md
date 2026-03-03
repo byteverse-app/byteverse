@@ -1,16 +1,16 @@
 # ByteVerse Master Plan
 
 ## Vision
-ByteVerse is an open-source AI learning ecosystem that transforms a single lesson seed into multimodal experiences — text, flashcards, audio, video, and mind maps. Built for learners and creators alike.
+ByteVerse is an open-source AI learning ecosystem that personalizes and adapts learning — text, flashcards, audio, and video. Built for learners and creators alike.
 
 ## Core Principles
-- **One seed. Infinite ways to learn.**
-- Align once, reuse everywhere
+- **Learns with you, for you.**
+- Memory and contextual awareness for a holistic experience
 - Switch anytime without losing progress
 - AI-powered creation and adaptation
 
 ## Roadmap
-- [ ] Core Lesson Seed format
+- [ ] Core content and learner-memory model
 - [ ] Multimodal generation engine
 - [ ] Seamless switching interface
 - [ ] Analytics and adaptation

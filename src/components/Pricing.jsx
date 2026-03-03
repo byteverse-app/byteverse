@@ -7,7 +7,7 @@ export default function Pricing() {
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
             <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">Forever Free</h2>
-            <p className="mt-2 text-white/70">ByteNimbus will always be free - democratizing AI-powered learning design for everyone.</p>
+            <p className="mt-2 text-white/70">ByteVerse will always be free - democratizing AI-powered learning design for everyone.</p>
           </div>
           <div className="text-right md:w-72">
             <div className="text-4xl font-semibold">Free</div>

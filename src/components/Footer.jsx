@@ -21,7 +21,7 @@ export default function Footer() {
           {/* Links */}
           <div className="flex items-center gap-6 text-sm text-white/60">
             <a href="/docs/MasterPlan.md" className="hover:text-white transition">Master Plan</a>
-            <a href="#seed" className="hover:text-white transition">Seed</a>
+            <a href="#features" className="hover:text-white transition">Features</a>
             <a href="/docs/Roadmap.md" className="hover:text-white transition">Roadmap</a>
             <a href="mailto:Conect@dhanikeshkarunanithi.com" className="hover:text-white transition flex items-center gap-2">
               <img src="/images/icons/bytefooter.png" alt="Contact" className="w-4 h-4" />
