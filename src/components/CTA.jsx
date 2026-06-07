@@ -112,7 +112,7 @@ export default function CTA() {
           className="mb-12"
         >
           <a 
-            href="https://github.com/lorddannykay/ByteOS" 
+            href="https://github.com/Dhanikesh-Karunanithi" 
             target="_blank" 
             rel="noreferrer"
             className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-white/20 text-white font-syne font-bold hover:bg-white/10 transition-all duration-300"

@@ -33,7 +33,7 @@ const Footer = () => {
     { name: 'Connect', links: [
       { name: 'Waitlist', href: '#waitlist' },
       { name: 'Contact', href: '#contact' },
-      { name: 'GitHub', href: 'https://github.com/lorddannykay/ByteOS' },
+      { name: 'GitHub', href: 'https://github.com/Dhanikesh-Karunanithi' },
       { name: 'LinkedIn', href: 'https://www.linkedin.com/in/dhanikesh-karunanithi/' }
     ]}
   ];
@@ -77,15 +77,6 @@ const Footer = () => {
             </div>
           ))}
         </div>
-      </div>
-
-      {/* Creator & credibility */}
-      <div className="max-w-7xl mx-auto pt-8">
-        <p className="text-sm text-white/70 font-space">
-          By Dhanikesh Karunanithi — Global Head of Learning Tech & Data Strategy;
-          2× Gold Stevie (2024), Brandon Hall Gold & Silver (2022);
-          creator of the ByteAI/ByteVerse ecosystem.
-        </p>
       </div>
 
       <div className="max-w-7xl mx-auto pt-20 mt-20 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-6 font-space text-[9px] font-bold tracking-[0.4em] text-white/20 uppercase">

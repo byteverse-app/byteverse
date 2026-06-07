@@ -142,7 +142,7 @@ const Hero = () => {
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </a>
             <a 
-              href="https://github.com/lorddannykay/ByteOS"
+              href="https://github.com/Dhanikesh-Karunanithi"
               target="_blank"
               rel="noreferrer"
               className="px-8 sm:px-12 py-4 sm:py-6 border border-white/10 text-white/80 font-syne font-bold text-sm tracking-tight rounded-full hover:bg-white/5 transition-all w-full sm:w-auto min-h-[48px] flex items-center justify-center"

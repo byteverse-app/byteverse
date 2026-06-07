@@ -31,7 +31,7 @@ export default function Footer() {
               <img src="/images/icons/byterow_black.png" alt="LinkedIn" className="w-4 h-4" />
               LinkedIn
             </a>
-            <a href="https://github.com/lorddannykay" target="_blank" rel="noreferrer" className="hover:text-white transition flex items-center gap-2">
+            <a href="https://github.com/Dhanikesh-Karunanithi" target="_blank" rel="noreferrer" className="hover:text-white transition flex items-center gap-2">
               <img src="/images/icons/bytesquare_black.png" alt="GitHub" className="w-4 h-4" />
               GitHub
             </a>

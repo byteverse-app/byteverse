@@ -6,7 +6,29 @@ const Founder = () => {
     {
       id: "01",
       title: "Meet Dhani",
-      content: "Dhani is the Founder of ByteVerse and Global Head of Learning Tech and Data Strategy. He leads the vision behind the ByteVerse ecosystem—an AI-powered learning platform built to be intuitive, adaptive, and free from traditional barriers. A lifelong learner, he has spent years seeking methods that put the learner first; that same drive now powers ByteVerse."
+      content: (
+        <>
+          Dhani is the Founder of ByteVerse and founder of{' '}
+          <a
+            href="https://teachwithsudar.com"
+            target="_blank"
+            rel="noreferrer"
+            className="text-[#7D7DFF] hover:text-white transition-colors"
+          >
+            Sudar
+          </a>
+          —an AI learning ecosystem (
+          <a
+            href="https://teachwithsudar.com"
+            target="_blank"
+            rel="noreferrer"
+            className="text-[#7D7DFF] hover:text-white transition-colors"
+          >
+            teachwithsudar.com
+          </a>
+          ). He is also Global Head of Learning Tech & Data Strategy at a global CX MNC. He leads the vision behind the ByteVerse ecosystem—an AI-powered learning platform built to be intuitive, adaptive, and free from traditional barriers. A lifelong learner, he has spent years seeking methods that put the learner first; that same drive now powers ByteVerse.
+        </>
+      )
     },
     {
       id: "02",

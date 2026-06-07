@@ -218,6 +218,19 @@ export default function Contact() {
                   </a>
                 </div>
               </div>
+
+              <div className="flex items-center gap-3">
+                <img src="/images/icons/bytefooter.png" alt="Founder email" className="w-5 h-5" />
+                <div>
+                  <h4 className="font-semibold text-white mb-1">Founder</h4>
+                  <a 
+                    href="mailto:connect@dhanikeshkarunanithi.com" 
+                    className="text-white/70 hover:text-white transition text-sm"
+                  >
+                    connect@dhanikeshkarunanithi.com
+                  </a>
+                </div>
+              </div>
               
               <div className="flex items-center gap-3">
                 <img src="/images/icons/byterow_black.png" alt="LinkedIn" className="w-5 h-5" />
@@ -239,23 +252,15 @@ export default function Contact() {
                 <div>
                   <h4 className="font-semibold text-white mb-1">GitHub</h4>
                   <a 
-                    href="https://github.com/lorddannykay" 
+                    href="https://github.com/Dhanikesh-Karunanithi" 
                     target="_blank" 
                     rel="noreferrer"
                     className="text-white/70 hover:text-white transition text-sm"
                   >
-                    github.com/lorddannykay
+                    github.com/Dhanikesh-Karunanithi
                   </a>
                 </div>
               </div>
-            </div>
-            
-            <div className="mt-6 p-4 rounded-xl bg-white/5 border border-white/10">
-              <p className="text-sm text-white/80">
-                <strong>Note:</strong> I tend to procrastinate (who doesn't?), but if you find this project interesting 
-                and would love to collaborate, please reach out! Maybe I'll leave my astrophysics rabbit holes and choose to 
-                continue building this with you! 🌌
-              </p>
             </div>
           </div>
         </div>

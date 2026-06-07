@@ -145,25 +145,29 @@
   .ctl{width:40px;height:40px;border-radius:14px;border:none;background:#ccffe7;display:grid;place-items:center;cursor:pointer;box-shadow:inset 0 0 0 2px #b0ffd8}
   .ctl svg{width:18px;height:18px;fill:#09a86a}
   /* ByteAI Assistant */
-  .byteai-assistant{position:fixed;bottom:20px;right:20px;z-index:1000;display:flex;justify-content:center}
+  .byteai-assistant{position:fixed;bottom:20px;right:20px;z-index:1000;display:flex;flex-direction:column;align-items:flex-end}
   .byteai-button{background:none;border:none;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;transition:all 0.3s ease}
   .byteai-button:hover{transform:scale(1.1)}
   .byteai-button:active{transform:scale(0.95)}
   .byteai-icon{
-    --icon-size: 96px;
-    --icon-color: #4a4af9;
+    --icon-size: 56px;
     width: var(--icon-size);
     height: var(--icon-size);
-    color: var(--icon-color);
     display: inline-block;
-    filter: drop-shadow(0 0 8px color-mix(in srgb, currentColor 50%, transparent));
+    background: #fff;
+    border-radius: 50%;
+    padding: 4px;
+    box-shadow: 0 4px 16px rgba(10,12,38,.15);
+    border: 2px solid #e8e9f5;
     transition: all 0.3s ease;
   }
-  .byteai-icon > svg { width: 100%; height: 100%; display: block; }
+  .byteai-icon > svg,
+  .byteai-icon > img { width: 100%; height: 100%; display: block; object-fit: contain; border-radius: 8px; }
   .byteai-button:hover .byteai-icon{
-    filter: drop-shadow(0 0 12px color-mix(in srgb, currentColor 70%, transparent));
+    box-shadow: 0 6px 20px rgba(74,74,249,.35);
+    transform: translateY(-2px);
   }
-  .byteai-chat{position:absolute;bottom:60px;left:0;right:0;width:100%;height:350px;background:rgba(255,255,255,0.15);backdrop-filter:blur(20px) saturate(150%) contrast(110%) brightness(105%);-webkit-backdrop-filter:blur(20px) saturate(150%) contrast(110%) brightness(105%);border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.1),inset 0 1px 0 rgba(255,255,255,0.3);border:1px solid rgba(255,255,255,0.2);display:flex;flex-direction:column;overflow:hidden;z-index:1000;transition:all 0.3s ease}
+  .byteai-chat{position:absolute;bottom:72px;right:0;left:auto;width:360px;height:350px;background:rgba(255,255,255,0.15);backdrop-filter:blur(20px) saturate(150%) contrast(110%) brightness(105%);-webkit-backdrop-filter:blur(20px) saturate(150%) contrast(110%) brightness(105%);border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.1),inset 0 1px 0 rgba(255,255,255,0.3);border:1px solid rgba(255,255,255,0.2);display:flex;flex-direction:column;overflow:hidden;z-index:1000;transition:all 0.3s ease}
   .byteai-chat:hover{backdrop-filter:blur(25px) saturate(180%) contrast(120%) brightness(110%);-webkit-backdrop-filter:blur(25px) saturate(180%) contrast(120%) brightness(110%);transform:scale(1.01)}
   .byteai-header{background:rgba(74,74,249,0.25);backdrop-filter:blur(10px) saturate(120%);-webkit-backdrop-filter:blur(10px) saturate(120%);color:#000;padding:16px;display:flex;justify-content:space-between;align-items:center;border-radius:16px 16px 0 0;border-bottom:1px solid rgba(255,255,255,0.2);box-shadow:inset 0 1px 0 rgba(255,255,255,0.2)}
   .byteai-header h4{margin:0;font-size:14px;font-weight:700}
@@ -171,7 +175,12 @@
   .byteai-close:hover{background:rgba(255,255,255,.2)}
   .byteai-messages{flex:1;padding:16px;overflow-y:auto;display:flex;flex-direction:column;gap:12px}
   .byteai-message{display:flex;gap:8px;align-items:flex-start}
-  .byteai-message.byteai-bot .byteai-avatar{width:32px;height:32px;border-radius:50%;background:#f0f2ff;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;border:2px solid #e8e9f5}
+  .byteai-message.byteai-bot .byteai-avatar{width:32px;height:32px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;border:2px solid #e8e9f5;padding:3px}
+  .byteai-message.byteai-bot .byteai-avatar img{width:100%;height:100%;object-fit:contain}
+  .media-fallback{display:none;margin-top:12px;padding:20px;border-radius:14px;background:#f8f9fb;border:2px dashed #d6d8ea;text-align:center;color:#63678a}
+  .media-fallback.show{display:block}
+  .media-fallback strong{display:block;color:#2a2e7a;margin-bottom:8px;font-size:15px}
+  .media-fallback p{margin:0;font-size:14px;line-height:1.5}
   .byteai-message.byteai-user{flex-direction:row-reverse}
   .byteai-message.byteai-user .byteai-text{background:#4a4af9;color:#fff}
   .byteai-text{background:#f8f9fb;padding:12px 16px;border-radius:16px;font-size:14px;line-height:1.5;max-width:85%;word-wrap:break-word;border:1px solid #e8e9f5}
@@ -185,18 +194,37 @@
   .byteai-send:disabled{background:#ccc;cursor:not-allowed;transform:none}
   dialog{border:none;border-radius:16px;padding:0;box-shadow:0 20px 60px rgba(10,12,38,.25)}
   .sheet{padding:16px;background:#fff;min-width:320px}.sheet h3{margin:0 0 12px 0}.field{margin:10px 0;display:grid;gap:6px}.sheet .btns{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
+  .settings-toggle{display:flex;align-items:center;gap:10px;font-weight:600;color:#2a2e7a;cursor:pointer}
+  .settings-toggle input{width:16px;height:16px;accent-color:#4a4af9;cursor:pointer}
+  .field-hint{font-size:12px;color:#63678a;line-height:1.4;margin:0}
+  body.byteai-cursor-disabled .byteai-cursor{display:none!important}
+  body.byteai-cursor-disabled .stage p:hover,
+  body.byteai-cursor-disabled .stage div:hover,
+  body.byteai-cursor-disabled .stage span:hover,
+  body.byteai-cursor-disabled .stage li:hover,
+  body.byteai-cursor-disabled .stage .concept-list li:hover,
+  body.byteai-cursor-disabled .stage .example-box:hover,
+  body.byteai-cursor-disabled .stage .reflection-box:hover{cursor:text}
+  body.byteai-cursor-disabled .stage::before{content:"Tip: Select any text to ask ByteAI about it"}
   
   /* Text Selection Popup */
-  .selection-popup{position:absolute;background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:12px;padding:12px 16px;box-shadow:0 8px 32px rgba(0,0,0,0.15);border:1px solid rgba(255,255,255,0.3);z-index:1001;display:none;min-width:200px;max-width:300px}
+  .selection-popup{position:fixed;background:rgba(255,255,255,0.98);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:14px;padding:12px 14px;box-shadow:0 12px 40px rgba(74,74,249,0.18);border:1px solid rgba(74,74,249,0.15);z-index:10001;display:none;min-width:220px;max-width:320px;transform:translate(-50%, calc(-100% - 12px))}
   .selection-popup.show{display:block;animation:popupFadeIn 0.2s ease-out}
-  .selection-popup-content{display:flex;align-items:center;gap:8px;font-size:14px;color:#2a2e7a}
-  .selection-popup-icon{width:20px;height:20px;color:#4a4af9;flex-shrink:0}
-  .selection-popup-text{flex:1;font-weight:600}
-  .selection-popup-buttons{display:flex;gap:8px;margin-top:8px}
-  .selection-popup-btn{background:#4a4af9;color:#fff;border:none;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s ease}
+  .selection-popup-content{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:#2a2e7a}
+  .selection-popup-icon{width:22px;height:22px;flex-shrink:0;background:#fff;border-radius:50%;padding:2px;border:1px solid #e8e9f5}
+  .selection-popup-icon img{width:100%;height:100%;object-fit:contain;display:block;filter:brightness(0) saturate(100%) invert(32%) sepia(89%) saturate(2878%) hue-rotate(228deg) brightness(99%) contrast(97%)}
+  .selection-popup-text{flex:1;font-weight:600;line-height:1.4}
+  .selection-popup-preview{font-size:12px;color:#63678a;font-weight:500;margin-top:4px;font-style:italic;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .selection-popup-buttons{display:flex;gap:8px;margin-top:10px}
+  .selection-popup-btn{background:#4a4af9;color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s ease;flex:1}
   .selection-popup-btn:hover{background:#3a3ae9;transform:translateY(-1px)}
-  .selection-popup-btn.secondary{background:#e8e9f5;color:#2a2e7a}
+  .selection-popup-btn.secondary{background:#e8e9f5;color:#2a2e7a;flex:0}
   .selection-popup-btn.secondary:hover{background:#d6d8ea}
+  .byteai-selection-label{font-size:11px;text-transform:uppercase;letter-spacing:0.06em;color:rgba(255,255,255,0.75);margin-bottom:6px;font-weight:600}
+  .byteai-selection-quote{margin:0 0 8px 0;padding:8px 10px;border-left:3px solid rgba(255,255,255,0.5);background:rgba(255,255,255,0.12);border-radius:0 8px 8px 0;font-size:13px;line-height:1.45;font-style:italic}
+  .byteai-demo-badge{display:inline-block;margin-top:10px;padding:4px 8px;border-radius:6px;background:rgba(74,74,249,0.1);color:#3840ff;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.04em}
+  .byteai-cursor.has-selection{background:rgba(74,74,249,1);cursor:pointer;box-shadow:0 6px 20px rgba(74,74,249,0.45);pointer-events:auto}
+  .byteai-cursor.has-selection .byteai-cursor-label{text-decoration:underline;text-underline-offset:2px}
   
   /* Drag and Drop Styling */
   .dragging{opacity:0.5;transform:scale(0.95);transition:all 0.2s ease}
@@ -219,14 +247,11 @@
   .stage .byteai-text{cursor:pointer;user-select:text;-webkit-user-select:text}
   
   /* Custom ByteAI cursor */
-  .byteai-cursor{position:absolute;pointer-events:none;z-index:10000;display:flex;align-items:center;gap:4px;background:rgba(74,74,249,0.95);color:#fff;padding:4px 8px;border-radius:6px;font-size:12px;font-weight:600;box-shadow:0 4px 12px rgba(74,74,249,0.3);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.2);opacity:0;transform:scale(0.8);transition:all 0.2s ease}
+  .byteai-cursor{position:fixed;pointer-events:none;z-index:10000;display:flex;align-items:center;gap:6px;background:rgba(74,74,249,0.95);color:#fff;padding:5px 10px;border-radius:999px;font-size:12px;font-weight:600;box-shadow:0 4px 12px rgba(74,74,249,0.3);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.2);opacity:0;transform:scale(0.8);transition:opacity 0.15s ease, transform 0.15s ease;left:0;top:0}
   .byteai-cursor.show{opacity:1;transform:scale(1);animation:byteaiCursorPulse 2s ease-in-out infinite}
-  .byteai-cursor-icon{width:16px;height:16px;background:#fff;border-radius:2px;position:relative;display:flex;align-items:center;justify-content:center}
-  .byteai-cursor-icon::before{content:"";width:2px;height:12px;background:#4a4af9;border-radius:1px;position:absolute;animation:byteaiCursorBlink 1s ease-in-out infinite}
-  .byteai-cursor-icon::after{content:"";width:6px;height:6px;border:2px solid #4a4af9;border-top:none;border-right:none;position:absolute;top:2px;left:2px;transform:rotate(-45deg)}
-  
+  .byteai-cursor-icon{width:18px;height:18px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;padding:1px}
+  .byteai-cursor-icon img{width:100%;height:100%;object-fit:contain;display:block;filter:brightness(0) saturate(100%) invert(32%) sepia(89%) saturate(2878%) hue-rotate(228deg) brightness(99%) contrast(97%)}
   @keyframes byteaiCursorPulse{0%,100%{box-shadow:0 4px 12px rgba(74,74,249,0.3)}50%{box-shadow:0 6px 16px rgba(74,74,249,0.5)}}
-  @keyframes byteaiCursorBlink{0%,50%{opacity:1}51%,100%{opacity:0.3}}
   
   /* Hover effects for selectable text */
   .stage p:hover, .stage div:hover, .stage span:hover, .stage li:hover{cursor:none;background:rgba(74,74,249,0.02);border-radius:4px;transition:background 0.2s ease}
@@ -343,32 +368,6 @@
           </div>
         </div>
         
-        
-        <!-- Text Selection Popup -->
-        <div class="selection-popup" id="selectionPopup">
-          <div class="selection-popup-content">
-            <div class="selection-popup-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="12" cy="12" r="8" fill="#4a4af9" opacity="0.8"/>
-                <circle cx="8" cy="8" r="3" fill="#4a4af9" opacity="0.6"/>
-                <circle cx="16" cy="8" r="2" fill="#4a4af9" opacity="0.7"/>
-                <circle cx="8" cy="16" r="2" fill="#4a4af9" opacity="0.5"/>
-                <circle cx="16" cy="16" r="3" fill="#4a4af9" opacity="0.6"/>
-              </svg>
-            </div>
-            <div class="selection-popup-text">Want to learn more about this?</div>
-          </div>
-          <div class="selection-popup-buttons">
-            <button class="selection-popup-btn" id="askByteaiBtn">Ask ByteAI</button>
-            <button class="selection-popup-btn secondary" id="cancelSelectionBtn">Cancel</button>
-          </div>
-        </div>
-        
-        <!-- Custom ByteAI Cursor -->
-        <div class="byteai-cursor" id="byteaiCursor">
-          <div class="byteai-cursor-icon"></div>
-          <span>ByteAI</span>
-        </div>
       </aside>
 
       <main class="stage-wrap">
@@ -411,7 +410,10 @@
                 <source src="assets/AI microlearning.mp4" type="video/mp4">
                 Your browser does not support the video element.
               </video>
-              <!-- Timestamp navigation moved to sidebar -->
+              <div class="media-fallback" id="video-fallback" role="status">
+                <strong>Demo video not bundled</strong>
+                <p>Standard, Flashcard, and Mind Map modes are fully interactive. Drop <code>AI microlearning.mp4</code> into <code>bytecourse/assets/</code> to enable playback.</p>
+              </div>
             </div>
           </section>
 
@@ -436,7 +438,10 @@
                     <source src="assets/Audiolesson.m4a" type="audio/mp4">
                     Your browser does not support the audio element.
                   </audio>
-                  <!-- Transcript moved to sidebar for better accessibility -->
+                  <div class="media-fallback" id="audio-fallback" role="status">
+                    <strong>Demo audio not bundled</strong>
+                    <p>The live transcript in the sidebar still works. Drop <code>Audiolesson.m4a</code> into <code>bytecourse/assets/</code> to enable playback.</p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -488,12 +493,76 @@
           <option value="mindmap">Mind Map</option>
         </select>
       </div>
+      <div class="field">
+        <label class="settings-toggle" for="byteaiCursorEnabled">
+          <input type="checkbox" id="byteaiCursorEnabled" checked />
+          Show ByteAI hover cursor
+        </label>
+        <p class="field-hint">When enabled, a ByteAI pill follows your mouse over lesson text. The selection popup and chat assistant still work when this is off.</p>
+      </div>
       <div class="btns">
         <button class="btn" value="cancel">Cancel</button>
         <button class="btn primary" value="ok">Save</button>
       </div>
     </form>
   </dialog>
+
+<!-- ByteAI hover cursor -->
+<div class="byteai-cursor" id="byteaiCursor">
+  <div class="byteai-cursor-icon">
+    <img src="/images/icons/ByteB_black.png" alt="" width="18" height="18" />
+  </div>
+  <span class="byteai-cursor-label" id="byteaiCursorLabel">ByteAI</span>
+</div>
+
+<!-- Text Selection Popup -->
+<div class="selection-popup" id="selectionPopup">
+  <div class="selection-popup-content">
+    <div class="selection-popup-icon">
+      <img src="/images/icons/ByteB_black.png" alt="" width="18" height="18" />
+    </div>
+    <div>
+      <div class="selection-popup-text">Ask ByteAI about this selection</div>
+      <div class="selection-popup-preview" id="selectionPreview"></div>
+    </div>
+  </div>
+  <div class="selection-popup-buttons">
+    <button class="selection-popup-btn" id="askByteaiBtn">Send to chat</button>
+    <button class="selection-popup-btn secondary" id="cancelSelectionBtn">Cancel</button>
+  </div>
+</div>
+
+<!-- ByteAI Assistant - Fixed Position -->
+<div class="byteai-assistant" id="byteaiAssistant">
+  <div class="byteai-button" id="byteaiButton" title="Ready to chat about learning? I'm ByteAI and I'm here to help!">
+    <div class="byteai-icon">
+      <img
+        src="/images/icons/ByteB_black.png"
+        alt="ByteAI Assistant"
+        width="44"
+        height="44"
+      />
+    </div>
+  </div>
+  <div class="byteai-chat" id="byteaiChat" style="display: none;">
+    <div class="byteai-header">
+      <h4>ByteAI Learning Assistant</h4>
+      <button class="byteai-close" id="byteaiClose">×</button>
+    </div>
+    <div class="byteai-messages" id="byteaiMessages">
+      <div class="byteai-message byteai-bot">
+        <div class="byteai-avatar">
+          <img src="/images/icons/ByteB_black.png" alt="ByteAI" width="24" height="24" />
+        </div>
+        <div class="byteai-text">Hi! I'm ByteAI, your learning assistant. What would you like to learn about today?</div>
+      </div>
+    </div>
+    <div class="byteai-input-area drop-zone" id="byteaiDropZone">
+      <input type="text" id="byteaiInput" placeholder="Ask ByteAI about learning, study techniques, memory strategies, focus, or motivation..." />
+      <button class="byteai-send" id="byteaiSend">Send</button>
+    </div>
+  </div>
+</div>
 
 <script>
   /* ---------- Enhanced lesson data ---------- */
@@ -812,15 +881,54 @@
 
   /* Settings */
   const dlg = document.getElementById("settings");
-  document.getElementById("openSettings").addEventListener("click", ()=> dlg.showModal());
+  const fontScaleInput = document.getElementById("fontScale");
+  const defaultModeInput = document.getElementById("defaultMode");
+  const byteaiCursorEnabledInput = document.getElementById("byteaiCursorEnabled");
+
+  function isByteaiCursorEnabled() {
+    return localStorage.getItem("byteaiCursorEnabled") !== "0";
+  }
+
+  function applyByteaiCursorPreference(enabled) {
+    document.body.classList.toggle("byteai-cursor-disabled", !enabled);
+    const cursor = document.getElementById("byteaiCursor");
+    if (cursor) cursor.classList.remove("show", "has-selection");
+  }
+
+  function loadSettingsIntoForm() {
+    if (fontScaleInput) {
+      fontScaleInput.value = localStorage.getItem("fontScale") || "100";
+    }
+    if (defaultModeInput) {
+      defaultModeInput.value = localStorage.getItem("defaultMode") || "standard";
+    }
+    if (byteaiCursorEnabledInput) {
+      byteaiCursorEnabledInput.checked = isByteaiCursorEnabled();
+    }
+  }
+
+  document.getElementById("openSettings").addEventListener("click", () => {
+    loadSettingsIntoForm();
+    dlg.showModal();
+  });
+
   dlg.addEventListener("close", ()=>{
     if (dlg.returnValue === "ok") {
-      const scale = document.getElementById("fontScale").value;
-      const def = document.getElementById("defaultMode").value;
+      const scale = fontScaleInput.value;
+      const def = defaultModeInput.value;
+      const cursorEnabled = byteaiCursorEnabledInput.checked;
       document.documentElement.style.fontSize = scale + "%";
+      localStorage.setItem("fontScale", scale);
       localStorage.setItem("defaultMode", def);
+      localStorage.setItem("byteaiCursorEnabled", cursorEnabled ? "1" : "0");
+      applyByteaiCursorPreference(cursorEnabled);
     }
   });
+
+  applyByteaiCursorPreference(isByteaiCursorEnabled());
+  if (fontScaleInput && localStorage.getItem("fontScale")) {
+    document.documentElement.style.fontSize = localStorage.getItem("fontScale") + "%";
+  }
 
   /* ---------- Helpers ---------- */
   function selectMode(mode){
@@ -1713,6 +1821,7 @@
   }
 
   /* ---------- ByteAI Assistant ---------- */
+  const BYTEAI_AVATAR = '<img src="/images/icons/ByteB_black.png" alt="ByteAI" width="24" height="24" />';
   const byteaiButton = document.getElementById("byteaiButton");
   const byteaiChat = document.getElementById("byteaiChat");
   const byteaiClose = document.getElementById("byteaiClose");
@@ -1754,6 +1863,109 @@
     "time management": "For better time management: use a calendar, prioritize tasks, set realistic goals, eliminate time-wasters, and include breaks in your schedule. The key is consistency, not perfection."
   };
   
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  function truncateText(text, max = 140) {
+    const trimmed = text.trim();
+    return trimmed.length > max ? trimmed.slice(0, max - 1) + '…' : trimmed;
+  }
+
+  function getByteaiSelectionDemoResponse(excerpt) {
+    const lower = excerpt.toLowerCase();
+    let insight = 'This passage highlights a key learning point from the lesson you are viewing.';
+
+    if (lower.includes('microlearning') || lower.includes('nugget') || lower.includes('3–7') || lower.includes('3-7')) {
+      insight = 'Microlearning works best when each lesson targets one clear outcome in 3–7 minutes and fits naturally into the flow of work.';
+    } else if (lower.includes('scqa') || lower.includes('prompt') || lower.includes('role')) {
+      insight = 'Structured prompt patterns like SCQA and role + constraints help AI generate sharper, scenario-driven lesson content.';
+    } else if (lower.includes('onboarding') || lower.includes('just-in-time') || lower.includes('compliance')) {
+      insight = 'These use cases show where microlearning delivers the most value: onboarding basics, in-the-moment guidance, and focused compliance scenarios.';
+    } else if (lower.includes('quiz') || lower.includes('assessment') || lower.includes('retrieval') || lower.includes('review')) {
+      insight = 'Retrieval practice and performance-based checks are more effective than passive review for microlearning retention.';
+    } else if (lower.includes('reflect') || lower.includes('example') || lower.includes('practice')) {
+      insight = 'Reflection prompts and applied examples turn content into actionable learning — a core microlearning design principle.';
+    }
+
+    const snippet = truncateText(excerpt, 160);
+    return `<p>Here's a quick take on what you highlighted:</p>
+      <blockquote class="byteai-selection-quote" style="margin:8px 0;padding:8px 10px;border-left:3px solid #cfd6ff;background:#f0f2ff;border-radius:0 8px 8px 0;font-size:13px;color:#2a2e7a;">"${escapeHtml(snippet)}"</blockquote>
+      <p>${insight}</p>
+      <span class="byteai-demo-badge">Demo response</span>
+      <p style="margin:10px 0 0;font-size:13px;color:#63678a;">In the full ByteVerse product, ByteAI reads your uploaded sources, course outline, and learner context to give grounded, personalized answers — not canned demo replies.</p>`;
+  }
+
+  function addByteaiSelectionMessage(excerpt) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'byteai-message byteai-user message-sending';
+    const snippet = truncateText(excerpt, 200);
+    messageDiv.innerHTML = `
+      <div class="byteai-text">
+        <div class="byteai-selection-label">Selected from lesson</div>
+        <blockquote class="byteai-selection-quote">${escapeHtml(snippet)}</blockquote>
+        <div>Can you explain this?</div>
+      </div>
+    `;
+    byteaiMessages.appendChild(messageDiv);
+    byteaiMessages.scrollTop = byteaiMessages.scrollHeight;
+    setTimeout(() => messageDiv.classList.remove('message-sending'), 500);
+  }
+
+  function showByteaiTypingIndicator() {
+    const typingIndicator = document.createElement('div');
+    typingIndicator.className = 'byteai-message byteai-bot typing-indicator';
+    typingIndicator.innerHTML = `
+      <div class="byteai-avatar">${BYTEAI_AVATAR}</div>
+      <div class="typing-indicator">
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+      </div>
+    `;
+    byteaiMessages.appendChild(typingIndicator);
+    byteaiMessages.scrollTop = byteaiMessages.scrollHeight;
+    return typingIndicator;
+  }
+
+  function openByteaiChatWithHighlight() {
+    isByteaiOpen = true;
+    if (byteaiChat) byteaiChat.style.display = 'flex';
+    if (byteaiChat) {
+      byteaiChat.classList.add('highlight', 'transfer-success');
+      setTimeout(() => byteaiChat.classList.remove('highlight', 'transfer-success'), 800);
+    }
+    if (byteaiInput) byteaiInput.value = '';
+  }
+
+  function sendSelectionToByteAI(text) {
+    const excerpt = text?.trim();
+    if (!excerpt || !byteaiMessages) return;
+
+    openByteaiChatWithHighlight();
+    addByteaiSelectionMessage(excerpt);
+
+    const typingIndicator = showByteaiTypingIndicator();
+
+    setTimeout(() => {
+      typingIndicator.remove();
+      const messageDiv = document.createElement('div');
+      messageDiv.className = 'byteai-message byteai-bot byteai-response';
+      messageDiv.innerHTML = `
+        <div class="byteai-avatar">${BYTEAI_AVATAR}</div>
+        <div class="byteai-text">${getByteaiSelectionDemoResponse(excerpt)}</div>
+      `;
+      byteaiMessages.appendChild(messageDiv);
+      byteaiMessages.scrollTop = byteaiMessages.scrollHeight;
+      setTimeout(() => messageDiv.classList.remove('byteai-response'), 500);
+    }, 1200);
+
+    hideSelectionPopup();
+    window.getSelection().removeAllRanges();
+  }
+
   function getByteaiResponse(userMessage) {
     const message = userMessage.toLowerCase();
     
@@ -1796,19 +2008,11 @@
     }
     
     if (isUser) {
-      messageDiv.innerHTML = `<div class="byteai-text">${text}</div>`;
+      messageDiv.innerHTML = `<div class="byteai-text">${escapeHtml(text)}</div>`;
     } else {
       messageDiv.innerHTML = `
-        <div class="byteai-avatar">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="8" fill="#4a4af9" opacity="0.8"/>
-            <circle cx="8" cy="8" r="3" fill="#4a4af9" opacity="0.6"/>
-            <circle cx="16" cy="8" r="2" fill="#4a4af9" opacity="0.7"/>
-            <circle cx="8" cy="16" r="2" fill="#4a4af9" opacity="0.5"/>
-            <circle cx="16" cy="16" r="3" fill="#4a4af9" opacity="0.6"/>
-          </svg>
-        </div>
-        <div class="byteai-text">${text}</div>
+        <div class="byteai-avatar">${BYTEAI_AVATAR}</div>
+        <div class="byteai-text">${text.includes('<') ? text : escapeHtml(text)}</div>
       `;
     }
     
@@ -1872,8 +2076,10 @@
   
   // Close ByteAI chat when clicking outside
   document.addEventListener("click", (e) => {
-    if (isByteaiOpen && byteaiChat && byteaiButton && 
-        !byteaiChat.contains(e.target) && !byteaiButton.contains(e.target)) {
+    if (isByteaiOpen && byteaiChat && byteaiButton &&
+        !byteaiChat.contains(e.target) && !byteaiButton.contains(e.target) &&
+        !(selectionPopup && selectionPopup.contains(e.target)) &&
+        !(byteaiCursor && byteaiCursor.contains(e.target))) {
       isByteaiOpen = false;
       byteaiChat.style.display = "none";
     }
@@ -1884,10 +2090,27 @@
   let selectionPopup = document.getElementById("selectionPopup");
   let askByteaiBtn = document.getElementById("askByteaiBtn");
   let cancelSelectionBtn = document.getElementById("cancelSelectionBtn");
+  let selectionPreview = document.getElementById("selectionPreview");
+  let byteaiCursorLabel = document.getElementById("byteaiCursorLabel");
   let byteaiDropZone = document.getElementById("byteaiDropZone");
   let byteaiCursor = document.getElementById("byteaiCursor");
   let isDragging = false;
   let dragData = null;
+
+  function updateSelectionUI() {
+    const hasSelection = selectedText.length > 0;
+    if (byteaiCursor && isByteaiCursorEnabled()) {
+      byteaiCursor.classList.toggle('has-selection', hasSelection);
+    } else if (byteaiCursor) {
+      byteaiCursor.classList.remove('has-selection');
+    }
+    if (byteaiCursorLabel) {
+      byteaiCursorLabel.textContent = hasSelection ? 'Ask ByteAI' : 'ByteAI';
+    }
+    if (selectionPreview) {
+      selectionPreview.textContent = hasSelection ? `"${truncateText(selectedText, 80)}"` : '';
+    }
+  }
 
   // Text selection handler
   function handleTextSelection() {
@@ -1896,6 +2119,7 @@
     
     if (text.length > 0) {
       selectedText = text;
+      updateSelectionUI();
       showSelectionPopup();
     } else {
       hideSelectionPopup();
@@ -1927,13 +2151,14 @@
 
   // Show selection popup
   function showSelectionPopup() {
+    if (!selectionPopup) return;
     const selection = window.getSelection();
     if (selection.rangeCount > 0) {
       const range = selection.getRangeAt(0);
       const rect = range.getBoundingClientRect();
       
       selectionPopup.style.left = (rect.left + rect.width / 2) + 'px';
-      selectionPopup.style.top = (rect.top - 10) + 'px';
+      selectionPopup.style.top = rect.top + 'px';
       selectionPopup.classList.add('show', 'entering');
       
       // Add text selection highlight animation
@@ -1949,70 +2174,16 @@
 
   // Hide selection popup
   function hideSelectionPopup() {
+    if (!selectionPopup) return;
     selectionPopup.classList.remove('show');
     selectedText = "";
+    updateSelectionUI();
   }
 
   // Ask ByteAI with selected text
   function askByteaiWithSelection() {
     if (selectedText) {
-      // Always open ByteAI chat and ensure it's visible
-      isByteaiOpen = true;
-      byteaiChat.style.display = "flex";
-      
-      // Add highlight animation to indicate content transfer
-      byteaiChat.classList.add('highlight', 'transfer-success');
-      setTimeout(() => {
-        byteaiChat.classList.remove('highlight', 'transfer-success');
-      }, 800);
-      
-      // Scroll to bottom to show the new message
-      setTimeout(() => {
-        byteaiMessages.scrollTop = byteaiMessages.scrollHeight;
-      }, 100);
-      
-      // Automatically send the message to ByteAI
-      const message = `Can you explain more about: "${selectedText}"`;
-      
-      // Add user message to chat
-      addByteaiMessage(message, true);
-      
-      // Show typing indicator
-      const typingIndicator = document.createElement('div');
-      typingIndicator.className = 'byteai-message byteai-bot typing-indicator';
-      typingIndicator.innerHTML = `
-        <div class="byteai-avatar">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="8" fill="#4a4af9" opacity="0.8"/>
-            <circle cx="8" cy="8" r="3" fill="#4a4af9" opacity="0.6"/>
-            <circle cx="16" cy="8" r="2" fill="#4a4af9" opacity="0.7"/>
-            <circle cx="8" cy="16" r="2" fill="#4a4af9" opacity="0.5"/>
-            <circle cx="16" cy="16" r="3" fill="#4a4af9" opacity="0.6"/>
-          </svg>
-        </div>
-        <div class="typing-indicator">
-          <div class="typing-dot"></div>
-          <div class="typing-dot"></div>
-          <div class="typing-dot"></div>
-        </div>
-      `;
-      byteaiMessages.appendChild(typingIndicator);
-      byteaiMessages.scrollTop = byteaiMessages.scrollHeight;
-      
-      // Simulate typing delay and get response
-      setTimeout(() => {
-        // Remove typing indicator
-        typingIndicator.remove();
-        
-        const response = getByteaiResponse(message);
-        addByteaiMessage(response);
-      }, 1500);
-      
-      // Hide popup
-      hideSelectionPopup();
-      
-      // Clear selection
-      window.getSelection().removeAllRanges();
+      sendSelectionToByteAI(selectedText);
     }
   }
 
@@ -2072,75 +2243,23 @@
   function handleDragOver(e) {
     e.preventDefault();
     e.dataTransfer.dropEffect = 'copy';
-    byteaiDropZone.classList.add('drag-over');
+    if (byteaiDropZone) byteaiDropZone.classList.add('drag-over');
   }
 
   function handleDragLeave(e) {
-    if (!byteaiDropZone.contains(e.relatedTarget)) {
+    if (byteaiDropZone && !byteaiDropZone.contains(e.relatedTarget)) {
       byteaiDropZone.classList.remove('drag-over');
     }
   }
 
   function handleDrop(e) {
     e.preventDefault();
-    byteaiDropZone.classList.remove('drag-over');
+    if (byteaiDropZone) byteaiDropZone.classList.remove('drag-over');
+    if (!byteaiChat || !byteaiMessages) return;
     
     const text = e.dataTransfer.getData('text/plain');
     if (text) {
-      // Always open ByteAI chat and ensure it's visible
-      isByteaiOpen = true;
-      byteaiChat.style.display = "flex";
-      
-      // Add highlight animation to indicate content transfer
-      byteaiChat.classList.add('highlight', 'transfer-success');
-      setTimeout(() => {
-        byteaiChat.classList.remove('highlight', 'transfer-success');
-      }, 800);
-      
-      // Scroll to bottom to show the new message
-      setTimeout(() => {
-        byteaiMessages.scrollTop = byteaiMessages.scrollHeight;
-      }, 100);
-      
-      // Automatically send the message to ByteAI
-      const message = `Can you explain more about: "${text}"`;
-      
-      // Add user message to chat
-      addByteaiMessage(message, true);
-      
-      // Show typing indicator
-      const typingIndicator = document.createElement('div');
-      typingIndicator.className = 'byteai-message byteai-bot typing-indicator';
-      typingIndicator.innerHTML = `
-        <div class="byteai-avatar">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="8" fill="#4a4af9" opacity="0.8"/>
-            <circle cx="8" cy="8" r="3" fill="#4a4af9" opacity="0.6"/>
-            <circle cx="16" cy="8" r="2" fill="#4a4af9" opacity="0.7"/>
-            <circle cx="8" cy="16" r="2" fill="#4a4af9" opacity="0.5"/>
-            <circle cx="16" cy="16" r="3" fill="#4a4af9" opacity="0.6"/>
-          </svg>
-        </div>
-        <div class="typing-indicator">
-          <div class="typing-dot"></div>
-          <div class="typing-dot"></div>
-          <div class="typing-dot"></div>
-        </div>
-      `;
-      byteaiMessages.appendChild(typingIndicator);
-      byteaiMessages.scrollTop = byteaiMessages.scrollHeight;
-      
-      // Simulate typing delay and get response
-      setTimeout(() => {
-        // Remove typing indicator
-        typingIndicator.remove();
-        
-        const response = getByteaiResponse(message);
-        addByteaiMessage(response);
-      }, 1500);
-      
-      // Clear selection
-      window.getSelection().removeAllRanges();
+      sendSelectionToByteAI(text);
     }
     
     isDragging = false;
@@ -2162,7 +2281,7 @@
 
   // Custom ByteAI cursor functionality
   function updateByteaiCursor(e) {
-    if (!byteaiCursor) return;
+    if (!byteaiCursor || !isByteaiCursorEnabled()) return;
     
     const isOverSelectableText = e.target.closest('.stage') && 
       (e.target.tagName === 'P' || e.target.tagName === 'DIV' || e.target.tagName === 'SPAN' || 
@@ -2174,12 +2293,25 @@
        e.target.classList.contains('match-item') || e.target.classList.contains('byteai-text'));
     
     if (isOverSelectableText) {
-      byteaiCursor.style.left = (e.clientX + 10) + 'px';
-      byteaiCursor.style.top = (e.clientY - 10) + 'px';
+      byteaiCursor.style.left = (e.clientX + 12) + 'px';
+      byteaiCursor.style.top = (e.clientY + 12) + 'px';
       byteaiCursor.classList.add('show');
-    } else {
-      byteaiCursor.classList.remove('show');
+      if (selectedText.length > 0) {
+        byteaiCursor.classList.add('has-selection');
+        if (byteaiCursorLabel) byteaiCursorLabel.textContent = 'Ask ByteAI';
+      }
+    } else if (!selectedText.length) {
+      byteaiCursor.classList.remove('show', 'has-selection');
     }
+  }
+
+  if (byteaiCursor) {
+    byteaiCursor.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (selectedText) {
+        sendSelectionToByteAI(selectedText);
+      }
+    });
   }
 
   // Mouse move handler for custom cursor
@@ -2193,14 +2325,16 @@
   });
   
   // Event listeners for popup buttons
-  askByteaiBtn.addEventListener('click', askByteaiWithSelection);
-  cancelSelectionBtn.addEventListener('click', hideSelectionPopup);
+  if (askByteaiBtn) askByteaiBtn.addEventListener('click', askByteaiWithSelection);
+  if (cancelSelectionBtn) cancelSelectionBtn.addEventListener('click', hideSelectionPopup);
   
   // Event listeners for drag and drop
   document.addEventListener('dragstart', handleDragStart);
-  byteaiDropZone.addEventListener('dragover', handleDragOver);
-  byteaiDropZone.addEventListener('dragleave', handleDragLeave);
-  byteaiDropZone.addEventListener('drop', handleDrop);
+  if (byteaiDropZone) {
+    byteaiDropZone.addEventListener('dragover', handleDragOver);
+    byteaiDropZone.addEventListener('dragleave', handleDragLeave);
+    byteaiDropZone.addEventListener('drop', handleDrop);
+  }
   
   // Make selected text draggable on mouse down
   document.addEventListener('mousedown', (e) => {
@@ -2228,73 +2362,66 @@
   
   // Hide popup when clicking outside
   document.addEventListener('click', (e) => {
-    if (!selectionPopup.contains(e.target) && !window.getSelection().toString().trim()) {
+    if (selectionPopup && !selectionPopup.contains(e.target) &&
+        !(byteaiCursor && byteaiCursor.contains(e.target)) &&
+        !window.getSelection().toString().trim()) {
       hideSelectionPopup();
     }
   });
 
-  /* ---------- Init ---------- */
-  selectUnit(0);
-  selectMode(state.mode);
-  renderFlash();
-  
-  // Enable enhanced text selection
-  enableTextSelection();
-  
-  // Re-enable text selection when content changes
-  const observer = new MutationObserver(function(mutations) {
-    mutations.forEach(function(mutation) {
-      if (mutation.type === 'childList') {
-        enableTextSelection();
-      }
-    });
-  });
-  
-  // Observe the stage for content changes
-  const stage = document.querySelector('.stage');
-  if (stage) {
-    observer.observe(stage, { childList: true, subtree: true });
-  }
-</script>
+  function setupMediaFallbacks() {
+    const videoEl = document.getElementById('video');
+    const audioEl = document.getElementById('audio');
+    const videoFallback = document.getElementById('video-fallback');
+    const audioFallback = document.getElementById('audio-fallback');
 
-<!-- ByteAI Assistant - Fixed Position -->
-<div class="byteai-assistant" id="byteaiAssistant">
-  <div class="byteai-button" id="byteaiButton" title="Ready to chat about learning? I'm ByteAI and I'm here to help!">
-    <div class="byteai-icon">
-      <img 
-        src="/images/icons/ByteB_black.png" 
-        alt="ByteAI Assistant" 
-        width="256" 
-        height="256"
-        style="display:block;"
-      />
-    </div>
-  </div>
-  <div class="byteai-chat" id="byteaiChat" style="display: none;">
-    <div class="byteai-header">
-      <h4>ByteAI Learning Assistant</h4>
-      <button class="byteai-close" id="byteaiClose">×</button>
-    </div>
-    <div class="byteai-messages" id="byteaiMessages">
-      <div class="byteai-message byteai-bot">
-        <div class="byteai-avatar">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="8" fill="#4a4af9" opacity="0.8"/>
-            <circle cx="8" cy="8" r="3" fill="#4a4af9" opacity="0.6"/>
-            <circle cx="16" cy="8" r="2" fill="#4a4af9" opacity="0.7"/>
-            <circle cx="8" cy="16" r="2" fill="#4a4af9" opacity="0.5"/>
-            <circle cx="16" cy="16" r="3" fill="#4a4af9" opacity="0.6"/>
-          </svg>
-        </div>
-        <div class="byteai-text">Hi! I'm ByteAI, your learning assistant. What would you like to learn about today?</div>
-      </div>
-    </div>
-    <div class="byteai-input-area drop-zone" id="byteaiDropZone">
-      <input type="text" id="byteaiInput" placeholder="Ask ByteAI about learning, study techniques, memory strategies, focus, or motivation..." />
-      <button class="byteai-send" id="byteaiSend">Send</button>
-    </div>
-  </div>
-</div>
+    function showFallback(mediaEl, fallbackEl) {
+      if (mediaEl) mediaEl.style.display = 'none';
+      if (fallbackEl) fallbackEl.classList.add('show');
+    }
+
+    async function checkMedia(url, mediaEl, fallbackEl) {
+      try {
+        const res = await fetch(url, { method: 'HEAD' });
+        if (!res.ok) showFallback(mediaEl, fallbackEl);
+      } catch {
+        showFallback(mediaEl, fallbackEl);
+      }
+    }
+
+    if (videoEl && videoFallback) {
+      videoEl.addEventListener('error', () => showFallback(videoEl, videoFallback));
+      checkMedia('assets/AI microlearning.mp4', videoEl, videoFallback);
+    }
+    if (audioEl && audioFallback) {
+      audioEl.addEventListener('error', () => showFallback(audioEl, audioFallback));
+      checkMedia('assets/Audiolesson.m4a', audioEl, audioFallback);
+    }
+  }
+
+  /* ---------- Init ---------- */
+  function initDemo() {
+    selectUnit(0);
+    selectMode(state.mode);
+    renderFlash();
+    setupMediaFallbacks();
+    enableTextSelection();
+
+    const stage = document.querySelector('.stage');
+    if (stage) {
+      const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.type === 'childList') {
+            enableTextSelection();
+          }
+        });
+      });
+      observer.observe(stage, { childList: true, subtree: true });
+    }
+  }
+
+  initDemo();
+</script>
 
 </body>
 </html>

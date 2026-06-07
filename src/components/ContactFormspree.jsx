@@ -237,23 +237,15 @@ export default function ContactFormspree() {
                 <div>
                   <h4 className="font-semibold text-white mb-1">GitHub</h4>
                   <a 
-                    href="https://github.com/lorddannykay" 
+                    href="https://github.com/Dhanikesh-Karunanithi" 
                     target="_blank" 
                     rel="noreferrer"
                     className="text-white/70 hover:text-white transition text-sm"
                   >
-                    github.com/lorddannykay
+                    github.com/Dhanikesh-Karunanithi
                   </a>
                 </div>
               </div>
-            </div>
-            
-            <div className="mt-6 p-4 rounded-xl bg-white/5 border border-white/10">
-              <p className="text-sm text-white/80">
-                <strong>Note:</strong> I tend to procrastinate (who doesn't?), but if you find this project interesting 
-                and would love to collaborate, please reach out! Maybe I'll leave my astrophysics rabbit holes and choose to 
-                continue building this with you! 🌌
-              </p>
             </div>
           </div>
         </div>
