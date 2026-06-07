@@ -1,11 +1,21 @@
 import type { Metadata } from "next";
 import { Inter, Syne, Space_Grotesk } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const syne = Syne({ subsets: ["latin"], weight: ["700", "800"], variable: "--font-syne" });
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space" });
+const blou = localFont({
+  src: [
+    { path: "./fonts/blou-w90-black.woff2", weight: "900" },
+    { path: "./fonts/blou-w90-black.woff", weight: "900" },
+  ],
+  variable: "--font-blou",
+  display: "block",
+  preload: true,
+});
 
 export const metadata: Metadata = {
   title: "ByteVerse — Microlearning Content Generator",
@@ -23,7 +33,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-theme="dark" suppressHydrationWarning>
-      <body className={`${inter.variable} ${syne.variable} ${spaceGrotesk.variable} font-space antialiased`} suppressHydrationWarning>
+      <body className={`${inter.variable} ${syne.variable} ${spaceGrotesk.variable} ${blou.variable} font-space antialiased`} suppressHydrationWarning>
         {/* Liquid Glass SVG Filter */}
         <svg className="absolute w-0 h-0" aria-hidden="true">
           <defs>
