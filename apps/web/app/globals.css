@@ -105,6 +105,57 @@ textarea:focus-visible {
     font-family: var(--font-space), system-ui, sans-serif;
   }
 
+  .font-blou {
+    font-family: var(--font-blou), sans-serif;
+  }
+
+  .byteverse-verse {
+    font-family: "Times New Roman", Times, serif;
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    white-space: nowrap;
+    color: #000;
+    -webkit-text-stroke-width: 0.022em;
+    -webkit-text-stroke-color: #fff;
+    -webkit-text-fill-color: #000;
+    paint-order: stroke fill;
+  }
+
+  .byteverse-verse--light {
+    color: #fff;
+    -webkit-text-stroke-color: #000;
+    -webkit-text-fill-color: #fff;
+  }
+
+  .byteverse-verse-wrap {
+    bottom: 0.08em;
+    left: 52%;
+  }
+
+  .byteverse-b-star {
+    top: 52.5%;
+    left: 55%;
+    width: 0.38em;
+    height: 0.38em;
+    transform: translate(-50%, -50%);
+  }
+
+  .byteverse-lockup {
+    perspective: 900px;
+    overflow: visible;
+  }
+
+  .byteverse-lockup--pending {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .byteverse-byte-glow {
+    will-change: filter;
+  }
+
   .apple-glass {
     background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(24px);
