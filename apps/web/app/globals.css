@@ -106,7 +106,7 @@ textarea:focus-visible {
   }
 
   .font-blou {
-    font-family: var(--font-blou), sans-serif;
+    font-family: var(--font-blou);
   }
 
   .byteverse-verse {

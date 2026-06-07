@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useReducedMotion } from 'framer-motion';
 import gsap from 'gsap';
@@ -17,16 +17,90 @@ type ByteVerseWordmarkProps = {
   className?: string;
 };
 
+type WordmarkRenderMode = 'detecting' | 'text' | 'image';
+
 const iconSrc = {
   dark: '/images/icons/ByteB_white.png',
   light: '/images/icons/ByteB_black.png',
+} as const;
+
+const wordmarkSrc = {
+  dark: '/images/brand/wordmark/byteverse-white.png',
+  light: '/images/brand/wordmark/byteverse-black.png',
 } as const;
 
 const sizeStyles = {
   nav: 'h-8 w-8 md:h-9 md:w-9',
 } as const;
 
+const heroLockupSize = 'h-[clamp(3.9rem,19.2vw,10.5rem)]';
+
 const BYTE_LETTERS = 'BYTE'.split('');
+
+const FONT_CHECK_TIMEOUT_MS = 3000;
+
+function resolveBlouFontFamily(): string | null {
+  if (typeof document === 'undefined') return null;
+
+  const probe = document.createElement('span');
+  probe.className = 'font-blou';
+  probe.style.position = 'absolute';
+  probe.style.visibility = 'hidden';
+  probe.style.pointerEvents = 'none';
+  probe.textContent = 'B';
+  document.body.appendChild(probe);
+
+  const fontFamily = getComputedStyle(probe)
+    .fontFamily.split(',')[0]
+    ?.trim()
+    .replace(/^["']|["']$/g, '');
+
+  document.body.removeChild(probe);
+  return fontFamily || null;
+}
+
+async function checkBlouFontLoaded(): Promise<boolean> {
+  if (typeof document === 'undefined' || !document.fonts) return false;
+
+  const fontFamily = resolveBlouFontFamily();
+  if (!fontFamily) return false;
+
+  try {
+    await Promise.race([
+      Promise.all([
+        document.fonts.load(`900 1em ${fontFamily}`).catch(() => undefined),
+        document.fonts.ready,
+      ]),
+      new Promise<never>((_, reject) => {
+        setTimeout(() => reject(new Error('Blou font load timeout')), FONT_CHECK_TIMEOUT_MS);
+      }),
+    ]);
+  } catch {
+    return false;
+  }
+
+  return document.fonts.check(`900 1em ${fontFamily}`);
+}
+
+function useBlouWordmarkMode(): WordmarkRenderMode {
+  const [mode, setMode] = useState<WordmarkRenderMode>('detecting');
+
+  useEffect(() => {
+    let cancelled = false;
+
+    void checkBlouFontLoaded().then((loaded) => {
+      if (!cancelled) {
+        setMode(loaded ? 'text' : 'image');
+      }
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  return mode;
+}
 
 function AiStar({ theme }: { theme: 'dark' | 'light' }) {
   return (
@@ -51,7 +125,54 @@ function NavIcon({ theme }: { theme: 'dark' | 'light' }) {
   );
 }
 
-function HeroWordmark({
+function HeroWordmarkImage({
+  theme,
+  animated,
+}: {
+  theme: 'dark' | 'light';
+  animated: boolean;
+}) {
+  const lockupRef = useRef<HTMLDivElement>(null);
+  const reduceMotion = useReducedMotion();
+  const shouldAnimate = animated && !reduceMotion;
+
+  useGSAP(
+    () => {
+      if (!shouldAnimate || !lockupRef.current) return;
+
+      gsap.fromTo(
+        lockupRef.current,
+        { opacity: 0, scale: 1.08, filter: 'blur(10px)' },
+        {
+          opacity: 1,
+          scale: 1,
+          filter: 'blur(0px)',
+          duration: 1.05,
+          ease: 'power2.inOut',
+        },
+      );
+    },
+    { scope: lockupRef, dependencies: [shouldAnimate] },
+  );
+
+  return (
+    <div
+      ref={lockupRef}
+      className={`byteverse-lockup relative inline-block w-fit${shouldAnimate ? ' opacity-0' : ''}`}
+      role="img"
+      aria-label="ByteVerse"
+    >
+      <img
+        src={wordmarkSrc[theme]}
+        alt=""
+        aria-hidden
+        className={`${heroLockupSize} w-auto object-contain`}
+      />
+    </div>
+  );
+}
+
+function HeroWordmarkText({
   theme,
   animated,
 }: {
@@ -73,121 +194,104 @@ function HeroWordmark({
       const verseWrap = lockup.querySelector<HTMLElement>('.byteverse-verse-wrap');
       const verseMotion = lockup.querySelector<HTMLElement>('.byteverse-verse-motion');
       const byteGlow = lockup.querySelector<HTMLElement>('.byteverse-byte-glow');
-      const byteEl = lockup.querySelector<HTMLElement>('.byteverse-byte');
       const heroSection = lockup.closest('section');
 
       if (!letters.length || !verseWrap || !verseMotion || !byteGlow) return;
 
-      const waitForBlou = async () => {
-        if (!document.fonts || !byteEl) return;
+      lockup.classList.remove('byteverse-lockup--pending');
 
-        const fontFamily = getComputedStyle(byteEl).fontFamily.split(',')[0]?.trim();
-        if (!fontFamily) return;
+      gsap.set(lockup, { transformOrigin: '50% 50%', visibility: 'visible' });
+      gsap.set(byteGlow, { filter: `drop-shadow(0 0 0px ${glowColor})` });
+      gsap.set(lockup, { scale: 1.16, opacity: 0, filter: 'blur(16px)' });
+      gsap.set(letters, {
+        opacity: 0,
+        y: 28,
+        rotate: (index) => (index % 2 === 0 ? -6 : 6),
+      });
+      gsap.set(verseMotion, {
+        opacity: 0,
+        y: 26,
+        x: 18,
+        clipPath: 'inset(0 100% 0 0)',
+      });
 
-        await Promise.all([
-          document.fonts.load(`900 1em ${fontFamily}`).catch(() => undefined),
-          document.fonts.ready,
-        ]);
-      };
+      const intro = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-      const runAnimations = () => {
-        lockup.classList.remove('byteverse-lockup--pending');
-
-        gsap.set(lockup, { transformOrigin: '50% 50%', visibility: 'visible' });
-        gsap.set(byteGlow, { filter: `drop-shadow(0 0 0px ${glowColor})` });
-        gsap.set(lockup, { scale: 1.16, opacity: 0, filter: 'blur(16px)' });
-        gsap.set(letters, {
-          opacity: 0,
-          y: 28,
-          rotate: (index) => (index % 2 === 0 ? -6 : 6),
-        });
-        gsap.set(verseMotion, {
-          opacity: 0,
-          y: 26,
-          x: 18,
-          clipPath: 'inset(0 100% 0 0)',
-        });
-
-        const intro = gsap.timeline({ defaults: { ease: 'power3.out' } });
-
-        intro
-          .to(lockup, {
-            scale: 1,
+      intro
+        .to(lockup, {
+          scale: 1,
+          opacity: 1,
+          filter: 'blur(0px)',
+          duration: 1.05,
+          ease: 'power2.inOut',
+        })
+        .to(
+          letters,
+          {
             opacity: 1,
-            filter: 'blur(0px)',
-            duration: 1.05,
+            y: 0,
+            rotate: 0,
+            duration: 0.72,
+            stagger: {
+              each: 0.085,
+              from: 'center',
+            },
+            ease: 'expo.out',
+          },
+          '-=0.78',
+        )
+        .to(
+          verseMotion,
+          {
+            opacity: 1,
+            y: 0,
+            x: 0,
+            clipPath: 'inset(0 0% 0 0)',
+            duration: 0.95,
             ease: 'power2.inOut',
-          })
-          .to(
-            letters,
-            {
-              opacity: 1,
-              y: 0,
-              rotate: 0,
-              duration: 0.72,
-              stagger: {
-                each: 0.085,
-                from: 'center',
-              },
-              ease: 'expo.out',
-            },
-            '-=0.78',
-          )
-          .to(
-            verseMotion,
-            {
-              opacity: 1,
-              y: 0,
-              x: 0,
-              clipPath: 'inset(0 0% 0 0)',
-              duration: 0.95,
-              ease: 'power2.inOut',
-            },
-            '-=0.38',
-          )
-          .to(
-            byteGlow,
-            {
-              filter: `drop-shadow(0 0 18px ${glowColor})`,
-              duration: 0.55,
-              ease: 'sine.inOut',
-            },
-            '-=0.25',
-          )
-          .to(byteGlow, {
-            filter: `drop-shadow(0 0 0px ${glowColor})`,
-            duration: 0.65,
+          },
+          '-=0.38',
+        )
+        .to(
+          byteGlow,
+          {
+            filter: `drop-shadow(0 0 18px ${glowColor})`,
+            duration: 0.55,
             ease: 'sine.inOut',
-          });
+          },
+          '-=0.25',
+        )
+        .to(byteGlow, {
+          filter: `drop-shadow(0 0 0px ${glowColor})`,
+          duration: 0.65,
+          ease: 'sine.inOut',
+        });
 
-        if (heroSection) {
-          const parallax = gsap.timeline({
-            scrollTrigger: {
-              trigger: heroSection,
-              start: 'top top',
-              end: 'bottom top',
-              scrub: 0.85,
+      if (heroSection) {
+        const parallax = gsap.timeline({
+          scrollTrigger: {
+            trigger: heroSection,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: 0.85,
+          },
+        });
+
+        parallax
+          .to(byteGlow, { y: -68, ease: 'none' }, 0)
+          .to(verseMotion, { y: -104, x: 10, ease: 'none' }, 0)
+          .to(
+            lockup,
+            {
+              scale: 0.88,
+              opacity: 0.2,
+              ease: 'none',
             },
-          });
+            0,
+          );
+      }
 
-          parallax
-            .to(byteGlow, { y: -68, ease: 'none' }, 0)
-            .to(verseMotion, { y: -104, x: 10, ease: 'none' }, 0)
-            .to(
-              lockup,
-              {
-                scale: 0.88,
-                opacity: 0.2,
-                ease: 'none',
-              },
-              0,
-            );
-        }
-
-        ScrollTrigger.refresh();
-      };
-
-      void waitForBlou().then(runAnimations);
+      ScrollTrigger.refresh();
     },
     { scope: lockupRef, dependencies: [shouldAnimate, glowColor] },
   );
@@ -223,6 +327,35 @@ function HeroWordmark({
       </div>
     </div>
   );
+}
+
+function HeroWordmark({
+  theme,
+  animated,
+}: {
+  theme: 'dark' | 'light';
+  animated: boolean;
+}) {
+  const mode = useBlouWordmarkMode();
+
+  if (mode === 'detecting') {
+    return (
+      <div
+        className="byteverse-lockup byteverse-lockup--pending relative inline-block w-fit"
+        role="img"
+        aria-label="ByteVerse"
+        aria-busy="true"
+      >
+        <span className={`block ${heroLockupSize}`} aria-hidden />
+      </div>
+    );
+  }
+
+  if (mode === 'image') {
+    return <HeroWordmarkImage theme={theme} animated={animated} />;
+  }
+
+  return <HeroWordmarkText theme={theme} animated={animated} />;
 }
 
 export default function ByteVerseWordmark({
