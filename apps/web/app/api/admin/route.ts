@@ -71,7 +71,7 @@ export async function POST(request: NextRequest) {
         code,
         type: 'early_access',
         grants_tier: 'early_access',
-        bonus_credits: 2,
+        bonus_credits: 0,
         max_uses: 1,
         is_active: true,
       }).select().single();

@@ -41,7 +41,7 @@ export default function EngagementBanner() {
       </span>
       <Link href="/app/settings?tab=referrals" className="flex items-center gap-1 text-accent1 hover:underline ml-auto">
         <Share2 className="w-4 h-4" />
-        Share ByteVerse, earn credits
+        Share ByteVerse, grow your creator score
       </Link>
     </div>
   );

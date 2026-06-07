@@ -21,9 +21,9 @@ export async function GET(request: NextRequest) {
         : null,
       stats,
       rewards: {
-        refereeSignupBonus: 2,
-        refereeFirstCourseBonus: 1,
-        referrerFirstCourseBonus: 3,
+        referrerSignupPoints: 5,
+        referrerFirstCoursePoints: 15,
+        refereeFirstCoursePoints: 5,
       },
     });
   } catch (error) {

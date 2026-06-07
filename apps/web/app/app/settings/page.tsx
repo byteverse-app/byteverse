@@ -126,7 +126,7 @@ function SettingsContent() {
             <div className="border border-border rounded-lg p-4 bg-bg2">
               <h3 className="text-sm font-semibold mb-3">Free models directory</h3>
               <p className="text-xs text-text-tertiary mb-4">
-                Add your own API keys below for unlimited course creation with these free-tier models.
+                Connect your own API keys below to use your preferred models and providers.
               </p>
               <div className="space-y-3">
                 {FREE_MODEL_DIRECTORY.map((m) => (
@@ -162,8 +162,8 @@ function SettingsContent() {
                   <p className="font-medium capitalize">{(profile.tier as string)?.replace('_', ' ')}</p>
                 </div>
                 <div>
-                  <p className="text-text-tertiary text-xs">Bonus credits</p>
-                  <p className="font-medium">{(profile.usage as { bonusCredits?: number })?.bonusCredits ?? 0}</p>
+                  <p className="text-text-tertiary text-xs">ByteVerse AI</p>
+                  <p className="font-medium text-green-400">Unlimited</p>
                 </div>
                 <div className="flex items-center gap-2">
                   <Flame className="w-4 h-4 text-orange-400" />
@@ -182,8 +182,8 @@ function SettingsContent() {
               </div>
             )}
             <p className="text-sm text-text-secondary">
-              Using ByteVerse AI counts toward your daily and monthly limits when a full course generation completes.
-              Bring your own API key or use Ollama locally for unlimited creation.
+              ByteVerse AI is included free with unlimited course generation. Prefer your own model?
+              Connect any provider or run Ollama locally in the Models tab.
             </p>
             <Link href="/app/settings?tab=models" className="text-sm text-accent1 hover:underline">
               Configure AI models →
@@ -224,13 +224,13 @@ function SettingsContent() {
                     <p className="text-xs text-text-tertiary">First courses</p>
                   </div>
                   <div className="p-3 bg-bg2 rounded-lg">
-                    <p className="text-2xl font-bold">{(referral?.stats as { creditsEarned: number })?.creditsEarned ?? 0}</p>
-                    <p className="text-xs text-text-tertiary">Credits earned</p>
+                    <p className="text-2xl font-bold">{(referral?.stats as { pointsEarned: number })?.pointsEarned ?? 0}</p>
+                    <p className="text-xs text-text-tertiary">Creator score earned</p>
                   </div>
                 </div>
                 <div className="text-xs text-text-secondary space-y-1">
-                  <p>Referee signup: +2 bonus credits for them</p>
-                  <p>Referee completes first course: +3 credits for you, +1 for them</p>
+                  <p>Friend signs up with your link: +5 creator score for you</p>
+                  <p>Friend completes first course: +15 for you, +5 for them</p>
                 </div>
               </>
             )}

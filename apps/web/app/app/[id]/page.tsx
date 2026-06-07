@@ -1116,16 +1116,6 @@ I couldn't extract content from: ${url}
 
             if (!contentResponse.ok) {
               const errorData = await contentResponse.json().catch(() => ({}));
-              if (contentResponse.status === 402 || errorData.code === 'QUOTA_EXCEEDED') {
-                setError(errorData.error || 'Platform quota exceeded.');
-                setToast({
-                  message: 'Daily limit reached. Add your API key in Settings for unlimited creation.',
-                  type: 'error',
-                });
-                setGenerating(null);
-                setGenerationProgress({ status: 'idle', progress: 0 });
-                return;
-              }
               throw new Error(errorData.error || `Failed to generate content for stage ${i + 1}`);
             }
 

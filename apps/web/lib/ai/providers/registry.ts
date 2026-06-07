@@ -19,7 +19,7 @@ export const PROVIDER_REGISTRY: Record<AIProvider, ProviderMeta> = {
   platform: {
     id: 'platform',
     label: 'ByteVerse AI',
-    description: 'Included free tier — limited daily full course generations on our hosted models',
+    description: 'Included free — unlimited course generation on our hosted models',
     category: 'cloud',
     defaultModel: 'auto',
     models: ['auto', 'gemini-2.5-flash', 'llama-3.3-70b-versatile', 'gpt-4o-mini'],

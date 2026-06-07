@@ -5,7 +5,7 @@ import { Key, Server, Cpu, Layers, Mail, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
 
 const PROVIDERS = [
-  { name: 'ByteVerse AI', desc: 'Included hosted models — free tier with daily limits', tag: 'Included' },
+  { name: 'ByteVerse AI', desc: 'Included hosted models — free and unlimited', tag: 'Included' },
   { name: 'Ollama', desc: 'Local Llama, Mistral, Qwen', tag: 'Local' },
   { name: 'OpenAI', desc: 'GPT-4o & GPT-4o-mini', tag: 'Cloud' },
   { name: 'Anthropic', desc: 'Claude 3.5 Sonnet', tag: 'Cloud' },
@@ -28,8 +28,8 @@ export default function AIProvidersSection() {
             <span className="text-white/20 italic">OWN LLM</span>
           </h2>
           <p className="font-space text-gray-400 text-sm leading-relaxed mb-8 max-w-lg">
-            Start free on ByteVerse AI with included hosted models. Hit your limit? Add your own API keys from
-            Groq, OpenRouter, Google, and more — or run models locally with Ollama for unlimited creation.
+            ByteVerse AI is included free with unlimited course generation — no API key required.
+            Prefer your own provider? Connect Groq, OpenRouter, Google, and more, or run models locally with Ollama.
           </p>
 
           <div className="space-y-4 mb-8">
@@ -37,7 +37,7 @@ export default function AIProvidersSection() {
               {
                 icon: Layers,
                 title: 'ByteVerse AI included',
-                desc: '5 full course generations per day on our hosted models — no API key required.',
+                desc: 'Hosted models, free and unlimited — start creating immediately, no API key required.',
               },
               {
                 icon: Cpu,
@@ -47,7 +47,7 @@ export default function AIProvidersSection() {
               {
                 icon: Key,
                 title: 'Bring your own keys',
-                desc: 'Configure OpenAI, Anthropic, Groq, Mistral, Gemini, and more in settings for unlimited use.',
+                desc: 'Configure OpenAI, Anthropic, Groq, Mistral, Gemini, and more in settings for model choice and privacy.',
               },
               {
                 icon: Server,
@@ -83,32 +83,26 @@ export default function AIProvidersSection() {
           initial={{ opacity: 0, x: 20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="apple-glass rounded-[2rem] border border-white/5 p-8"
+          className="grid grid-cols-2 gap-3"
         >
-          <h3 className="font-syne text-xl font-bold mb-6">Supported providers</h3>
-          <div className="grid grid-cols-2 gap-3">
-            {PROVIDERS.map((p) => (
-              <div
-                key={p.name}
-                className="p-4 rounded-xl bg-white/[0.03] border border-white/5 hover:border-brand-primary/30 transition-colors"
-              >
-                <div className="flex items-center justify-between mb-2">
-                  <span className="font-syne text-sm font-bold">{p.name}</span>
-                  <span className="text-[9px] uppercase tracking-wider text-white/30 font-space">{p.tag}</span>
-                </div>
-                <p className="text-[11px] text-gray-500 font-space">{p.desc}</p>
+          {PROVIDERS.map((p) => (
+            <div
+              key={p.name}
+              className="apple-glass p-4 rounded-2xl border border-white/5 hover:border-brand-primary/30 transition-colors"
+            >
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="font-syne font-bold text-sm">{p.name}</h3>
+                <span className="text-[10px] font-space tracking-wider text-brand-primary uppercase">{p.tag}</span>
               </div>
-            ))}
-          </div>
-          <p className="text-[11px] text-gray-600 font-space mt-6 text-center">
-            + Together AI, custom OpenAI-compatible endpoints
-          </p>
+              <p className="font-space text-xs text-gray-500">{p.desc}</p>
+            </div>
+          ))}
           <Link
             href="/signup"
-            className="mt-6 block w-full text-center py-3 bg-brand-primary/20 border border-brand-primary/40 rounded-full font-syne text-sm font-bold hover:bg-brand-primary hover:text-white transition-all"
+            className="col-span-2 apple-glass p-5 rounded-2xl border border-brand-primary/20 flex items-center justify-between group hover:border-brand-primary/50 transition-colors"
           >
-            Get early access
+            <span className="font-syne font-bold text-sm">Request early access</span>
+            <ExternalLink className="w-4 h-4 text-brand-primary group-hover:translate-x-0.5 transition-transform" />
           </Link>
         </motion.div>
       </div>

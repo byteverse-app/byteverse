@@ -8,7 +8,7 @@
 - Output unit: **3–7 minute modules** with visible pedagogy (ADDIE, Bloom, cognitive load)
 - **ByteAI** = instructional design engine (structure, objectives, assessments)—not a learner tutor
 - Ends at **export**: SCORM 1.2, standalone HTML, JSON source
-- Free-tier creator tool; separate Supabase project and codebase
+- Free, unlimited creator tool; separate Supabase project and codebase
 
 ## Sudar
 

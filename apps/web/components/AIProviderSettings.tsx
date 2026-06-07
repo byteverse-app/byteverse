@@ -155,7 +155,7 @@ export default function AIProviderSettings({
         <div className="border border-border rounded-lg p-4 space-y-3 bg-bg2">
           <h3 className="text-sm font-semibold">ByteVerse AI (included)</h3>
           <p className="text-xs text-text-tertiary">
-            Our hosted models — limited full course generations per day. No API key needed.
+            Our hosted models — free and unlimited. No API key needed.
           </p>
           <QuotaMeter compact />
         </div>

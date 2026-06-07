@@ -6,11 +6,11 @@ import ByteVerseWordmark from './ByteVerseWordmark';
 import { useAdaptiveContrast } from '@/hooks/useAdaptiveContrast';
 
 const navLinks = [
+  { href: '#tour', label: 'Tour' },
   { href: '#pipeline', label: 'Pipeline' },
   { href: '#ai-providers', label: 'AI Providers' },
   { href: '#features', label: 'Features' },
   { href: '#deploy', label: 'Deploy' },
-  { href: '/demo', label: 'Demo' },
 ] as const;
 
 export default function MarketingNav() {

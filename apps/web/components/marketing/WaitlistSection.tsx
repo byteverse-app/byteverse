@@ -44,7 +44,8 @@ export default function WaitlistSection() {
         Join the waitlist
       </h2>
       <p className="text-center text-gray-400 text-sm mb-8">
-        ByteVerse is invite-only. Join the waitlist and we&apos;ll send you an access code.
+        We&apos;re onboarding educators in small batches to learn from real usage and ship improvements fast.
+        Join the waitlist and we&apos;ll send you an access code.
       </p>
       <form onSubmit={handleSubmit} className="apple-glass p-6 rounded-2xl border border-white/5 space-y-4">
         <input

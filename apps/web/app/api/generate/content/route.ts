@@ -307,20 +307,6 @@ export async function POST(request: NextRequest) {
         totalStages
       );
 
-      if (completionMeta.quotaExceeded) {
-        return NextResponse.json(
-          {
-            error: 'Platform quota exceeded. Add your API key in settings for unlimited creation.',
-            code: 'QUOTA_EXCEEDED',
-            resetAt: completionMeta.resetAt,
-            upsell: 'settings',
-            ...content,
-            validated: validationResult?.isValid ?? true,
-            validationResult: validationResult,
-          },
-          { status: 402 }
-        );
-      }
     }
 
     return NextResponse.json({

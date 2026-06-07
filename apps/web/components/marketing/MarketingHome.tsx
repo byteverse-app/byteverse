@@ -9,6 +9,7 @@ import MarketingNav from './MarketingNav';
 import CreationPipeline from './CreationPipeline';
 import DeploySudar from './DeploySudar';
 import AIProvidersSection from './AIProvidersSection';
+import ProductWireframeDemo from './wireframe-demo/ProductWireframeDemo';
 import WaitlistSection from './WaitlistSection';
 
 const SectionWrapper = ({ children, id }: { children: React.ReactNode; id?: string }) => (
@@ -71,14 +72,12 @@ export default function MarketingHome() {
             >
               Create a module <ArrowRight className="w-4 h-4" />
             </Link>
-            <Link
-              href="/demo"
-              className="px-10 py-5 border border-white/20 rounded-full font-syne font-bold hover:bg-white/5"
-            >
-              See demo
-            </Link>
           </motion.div>
         </section>
+
+        <SectionWrapper id="tour">
+          <ProductWireframeDemo />
+        </SectionWrapper>
 
         <SectionWrapper id="pipeline">
           <CreationPipeline />
@@ -113,7 +112,7 @@ export default function MarketingHome() {
                 },
                 {
                   title: 'Your keys, your models',
-                  desc: 'ByteVerse AI included free, plus Ollama, OpenAI, Groq, Mistral, and more — BYOK for unlimited creation.',
+                  desc: 'ByteVerse AI included free and unlimited. Prefer your own model? Connect Ollama, OpenAI, Groq, Mistral, and more.',
                 },
               ].map((f) => (
                 <div key={f.title} className="apple-glass p-10 rounded-[2rem] border border-white/5">
@@ -132,9 +131,9 @@ export default function MarketingHome() {
         <WaitlistSection />
 
         <section className="py-32 px-6 text-center">
-          <h2 className="font-syne text-4xl font-bold mb-8">Start free, scale with your keys</h2>
+          <h2 className="font-syne text-4xl font-bold mb-8">Create free. Export anywhere.</h2>
           <p className="text-gray-500 mb-10 max-w-xl mx-auto font-space">
-            AI-assisted microlearning design belongs in every educator&apos;s hands.
+            AI-assisted microlearning design belongs in every educator&apos;s hands — free and unlimited, like Sudar.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link href="/signup" className="px-12 py-5 bg-brand-primary rounded-full font-syne font-bold hover:bg-brand-deep transition-colors">
