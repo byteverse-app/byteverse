@@ -1,57 +1,40 @@
-# ByteVerse — AI-Powered Learning Ecosystem
+# ByteVerse — Microlearning Content Generator
 
-ByteVerse is the AI learning ecosystem that **learns with you, for you**. It personalizes learning and is adaptive: the AI leverages **memory** and **contextual awareness** of the course and your past learning history to deliver a **holistic learning experience**.
+ByteVerse is a **chat-first microlearning factory** for creators. Upload sources, talk through your brief with ByteAI, and export SCORM or HTML packages. For adaptive delivery, host on **[Sudar](https://teachwithsudar.com)** (sibling product—not the same codebase).
 
-This repository is the **landing page** for [byteverse.app](https://byteverse.app). The product is built on longitudinal learner memory, adaptive paths, an AI tutor (Byte), and multi-modality (text, flashcards, video, audio). Created by **Dhanikesh Karunanithi** — Global Head of Learning Tech & Data Strategy; 2× Gold Stevie (2024), Brandon Hall Gold & Silver (2022).
+## Monorepo
 
----
+| Path | Purpose |
+|------|---------|
+| [`apps/web`](apps/web) | Next.js app — marketing (`/`), creator workspace (`/app`), APIs |
+| [`packages/export-html`](packages/export-html) | Birb HTML export (from htmlcontentgen) |
+| [`docs`](docs) | Positioning, Sudar bridge, legacy reuse map |
+| [`supabase/migrations`](supabase/migrations) | ByteVerse-only database schema |
 
-## Features
-
-- Polished hero with tagline "Learns with you, for you" and CTAs to GitHub + waitlist
-- Features section: AI tutor with memory, L&D + learners, multimodal, contextual awareness, open & research-backed
-- Pricing, FAQ, Waitlist (Formspree-ready)
-- Accessible, responsive (Vite + Tailwind)
-- Deploy on GitHub Pages; GitHub Actions workflow included
-
----
-
-## Tech
-
-- **React 18** + **Vite**
-- **Tailwind CSS 3**
-- **ogl** (WebGL) for Gradient Blinds background
-- Optional **Formspree** for waitlist
-
----
-
-## Quickstart
+## Quick start
 
 ```bash
 npm install
-cp .env.example .env   # optional: VITE_FORMSPREE_ID, etc.
-npm run dev            # http://localhost:5173
-npm run build && npm run preview
+cp apps/web/.env.example apps/web/.env.local
+# Set TOGETHER_API_KEY at minimum; Supabase optional (localStorage fallback in workspace)
+npm run dev
 ```
 
----
+- Marketing: http://localhost:3000  
+- Creator app: http://localhost:3000/app  
+- Demo module: http://localhost:3000/demo  
 
-## Deploy (GitHub Pages)
+## Deploy (Vercel)
 
-1. Push to a **public** repo (e.g. byteverse-app/byteverse).
-2. **Settings → Pages → Build and deployment** → Source: **GitHub Actions**.
-3. Commit to `main`; the workflow deploys automatically.
+Set project **Root Directory** to repository root, or use included `vercel.json`. Configure env vars from `apps/web/.env.example`. Use a **separate Supabase project** from Sudar.
 
-For a custom domain (e.g. byteverse.app), set DNS to GitHub Pages and leave `VITE_BASE_PATH` unset unless using a subpath.
+## Differentiation
 
----
+- **ByteVerse**: create & export microlearning modules  
+- **Sudar**: learning OS (Studio, Learn, tutor, twin) — import ByteVerse SCORM in Studio  
 
-## Links
+See [docs/POSITIONING.md](docs/POSITIONING.md) and [docs/SUDAR_BRIDGE.md](docs/SUDAR_BRIDGE.md).
 
-- **Product:** [byteverse.app](https://byteverse.app)
-- **Platform (open source):** [GitHub](https://github.com/lorddannykay/ByteOS)
-- **Creator:** [Dhanikesh Karunanithi](https://dhanikeshkarunanithi.com)
+## Legacy
 
----
-
-*ByteVerse — Learns with you, for you. | Part of the ByteVerse ecosystem.*
+Ported from **ByteLab** (primary), **htmlcontentgen** (birb template), **ByteJul** (pedagogy prompts). Marketing animations from the original Vite byteverse site.

@@ -1,0 +1,26 @@
+# Legacy archive — not needed for production build
+original project
+
+# Dependencies and build output (installed/built on Vercel)
+node_modules
+**/node_modules
+.next
+**/.next
+dist
+out
+build
+
+# Large seed data — already applied to Supabase
+supabase/seeds
+
+# Local / dev only
+.env.local
+.env*.local
+*.log
+.DS_Store
+.vercel
+.git
+coverage
+temp
+output
+.email-preview

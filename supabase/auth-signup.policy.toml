@@ -1,0 +1,9 @@
+# Remote auth policy for ByteVerse (apply with configure-auth-signup.mjs or supabase config push)
+# Project: nnhpstcawlqfosbyjwop
+
+[auth.email]
+enable_confirmations = true
+
+[auth.hook.before_user_created]
+enabled = true
+uri = "pg-functions://postgres/public/hook_before_user_created"
