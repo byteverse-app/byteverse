@@ -1,8 +1,20 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { createServiceRoleSupabaseClient } from '@/lib/supabase/server';
+import { SITE_URL } from '@/lib/seo/siteConfig';
+
+export const metadata: Metadata = {
+  title: 'Community Showcase',
+  description:
+    'Public microlearning courses created with ByteVerse. Explore community showcase projects and get inspired to build your own.',
+  alternates: { canonical: `${SITE_URL}/showcase` },
+  openGraph: {
+    title: 'ByteVerse Community Showcase',
+    url: `${SITE_URL}/showcase`,
+  },
+};
 
 export const dynamic = 'force-dynamic';
-
 export default async function ShowcasePage() {
   let projects: { id: string; title: string; metadata: Record<string, unknown> }[] = [];
 

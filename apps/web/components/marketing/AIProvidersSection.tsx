@@ -5,7 +5,7 @@ import { Key, Server, Cpu, Layers, Mail, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
 
 const PROVIDERS = [
-  { name: 'ByteVerse AI', desc: 'Included hosted models — free and unlimited', tag: 'Included' },
+  { name: 'ByteVerse AI', desc: 'Included hosted models — forever free and unlimited', tag: 'Included' },
   { name: 'Ollama', desc: 'Local Llama, Mistral, Qwen', tag: 'Local' },
   { name: 'OpenAI', desc: 'GPT-4o & GPT-4o-mini', tag: 'Cloud' },
   { name: 'Anthropic', desc: 'Claude 3.5 Sonnet', tag: 'Cloud' },
@@ -37,7 +37,7 @@ export default function AIProvidersSection() {
               {
                 icon: Layers,
                 title: 'ByteVerse AI included',
-                desc: 'Hosted models, free and unlimited — start creating immediately, no API key required.',
+                desc: 'Hosted models, forever free and unlimited — start creating immediately, no API key required.',
               },
               {
                 icon: Cpu,

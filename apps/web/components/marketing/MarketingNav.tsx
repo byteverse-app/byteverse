@@ -11,6 +11,7 @@ const navLinks = [
   { href: '#ai-providers', label: 'AI Providers' },
   { href: '#features', label: 'Features' },
   { href: '#deploy', label: 'Deploy' },
+  { href: '/about', label: 'About', isRoute: true },
 ] as const;
 
 export default function MarketingNav() {
@@ -36,11 +37,17 @@ export default function MarketingNav() {
             onLight ? 'text-black/55 hover:[&_a]:text-black/90' : 'text-white/40 hover:[&_a]:text-white/80',
           ].join(' ')}
         >
-          {navLinks.map((link) => (
-            <a key={link.href} href={link.href} className="transition-colors">
-              {link.label}
-            </a>
-          ))}
+          {navLinks.map((link) =>
+            'isRoute' in link && link.isRoute ? (
+              <Link key={link.href} href={link.href} className="transition-colors">
+                {link.label}
+              </Link>
+            ) : (
+              <a key={link.href} href={link.href} className="transition-colors">
+                {link.label}
+              </a>
+            ),
+          )}
         </div>
         <div className="flex items-center gap-3">
           <Link

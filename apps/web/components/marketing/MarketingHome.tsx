@@ -11,6 +11,7 @@ import DeploySudar from './DeploySudar';
 import AIProvidersSection from './AIProvidersSection';
 import ProductWireframeDemo from './wireframe-demo/ProductWireframeDemo';
 import WaitlistSection from './WaitlistSection';
+import { FOUNDER } from '@/lib/seo/siteConfig';
 
 const SectionWrapper = ({ children, id }: { children: React.ReactNode; id?: string }) => (
   <motion.div
@@ -112,7 +113,7 @@ export default function MarketingHome() {
                 },
                 {
                   title: 'Your keys, your models',
-                  desc: 'ByteVerse AI included free and unlimited. Prefer your own model? Connect Ollama, OpenAI, Groq, Mistral, and more.',
+                  desc: 'ByteVerse AI included forever free and unlimited. Prefer your own model? Connect Ollama, OpenAI, Groq, Mistral, and more.',
                 },
               ].map((f) => (
                 <div key={f.title} className="apple-glass p-10 rounded-[2rem] border border-white/5">
@@ -130,10 +131,28 @@ export default function MarketingHome() {
 
         <WaitlistSection />
 
+        <section className="py-24 px-6 max-w-3xl mx-auto text-center">
+          <p className="font-space text-gray-500 leading-relaxed">
+            ByteVerse is forever free — built by{' '}
+            <a
+              href={FOUNDER.url}
+              target="_blank"
+              rel="noreferrer"
+              className="text-brand-primary hover:text-white transition-colors"
+            >
+              Dhanikesh &ldquo;Dhani&rdquo; Karunanithi
+            </a>{' '}
+            to make AI-powered education open and accessible.{' '}
+            <Link href="/about" className="text-brand-primary hover:text-white transition-colors">
+              Read our story →
+            </Link>
+          </p>
+        </section>
+
         <section className="py-32 px-6 text-center">
           <h2 className="font-syne text-4xl font-bold mb-8">Create free. Export anywhere.</h2>
           <p className="text-gray-500 mb-10 max-w-xl mx-auto font-space">
-            AI-assisted microlearning design belongs in every educator&apos;s hands — free and unlimited, like Sudar.
+            AI-assisted microlearning design belongs in every educator&apos;s hands — forever free, like Sudar.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link href="/signup" className="px-12 py-5 bg-brand-primary rounded-full font-syne font-bold hover:bg-brand-deep transition-colors">
@@ -146,11 +165,17 @@ export default function MarketingHome() {
         </section>
       </main>
 
-      <footer className="py-12 text-center text-white/30 text-xs font-space tracking-widest uppercase">
+      <footer className="py-12 text-center text-white/30 text-xs font-space tracking-widest uppercase space-y-2">
         <p>
           ByteVerse — microlearning factory ·{' '}
           <a href="https://teachwithsudar.com" className="text-brand-primary" target="_blank" rel="noreferrer">
             Host on Sudar
+          </a>
+        </p>
+        <p>
+          Founded by{' '}
+          <a href={FOUNDER.url} className="text-brand-primary hover:text-white" target="_blank" rel="noreferrer">
+            {FOUNDER.name}
           </a>
         </p>
       </footer>

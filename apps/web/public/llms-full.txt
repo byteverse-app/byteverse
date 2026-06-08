@@ -1,0 +1,66 @@
+# ByteVerse — Full context for LLMs
+
+> ByteVerse is a forever-free AI microlearning content generator. Founded by Dhanikesh "Dhani" Karunanithi (https://dhanikeshkarunanithi.com), it helps educators create and export pedagogy-first modules. Sudar (https://teachwithsudar.com) is the optional sibling product for adaptive delivery.
+
+## What ByteVerse is
+
+ByteVerse is a **microlearning content factory** for L&D professionals, educators, and subject-matter experts.
+
+- Chat-first brief: talk through goals, upload PDFs and URLs, paste text with RAG over sources
+- Output: **3–7 minute modules** with visible pedagogy (ADDIE, Bloom's taxonomy, cognitive load)
+- **ByteAI** is an instructional design engine — structure, objectives, assessments — not a learner tutor
+- Ends at **export**: SCORM 1.2, standalone HTML, JSON source
+- **Forever free**: ByteVerse will always be free. ByteVerse AI is included free and unlimited. Bring your own API keys for Ollama, OpenAI, Anthropic, Groq, Mistral, Google Gemini, OpenRouter, and more.
+
+## What ByteVerse is not
+
+- Not a full learning management system
+- Not Sudar Learn, Sudar Studio, or Sudar Intelligence
+- Does not promise adaptive delivery, digital learner twin, or memory-aware tutoring (those are Sudar capabilities)
+
+## Founder
+
+Dhanikesh "Dhani" Karunanithi is the founder of ByteVerse and Sudar. Personal site: https://dhanikeshkarunanithi.com
+
+His mission: make AI-powered education more open, free, and accessible. From learners in remote communities to professionals upskilling at scale — no one should be left behind in the knowledge economy.
+
+## Open inter-tech ecosystem
+
+| Step | Product |
+|------|---------|
+| Create microlearning module | **ByteVerse** |
+| Export SCORM / HTML / JSON | **ByteVerse** |
+| Import, publish, adapt | **Sudar** (or any LMS) |
+
+ByteVerse does **not** require Sudar. Sudar is promoted as the recommended host for adaptive delivery after export.
+
+### Deploy with Sudar (manual handoff)
+
+1. In ByteVerse, finish a module and open Export.
+2. Download SCORM 1.2 ZIP (or standalone HTML).
+3. In Sudar Studio (https://teachwithsudar.com), sign in and use Import SCORM.
+4. Edit if needed, publish to Sudar Learn for learners.
+
+### Export formats
+
+| Format | Use case |
+|--------|----------|
+| SCORM 1.2 ZIP | Sudar Studio, Moodle, Canvas, etc. |
+| HTML ZIP | Standalone hosting, email, intranet |
+| JSON | Re-open project in ByteVerse |
+
+## Key URLs
+
+- Home: https://byteverse.app/
+- About: https://byteverse.app/about
+- Showcase: https://byteverse.app/showcase
+- Sign up: https://byteverse.app/signup
+- Sudar: https://teachwithsudar.com
+- ByteVerse GitHub: https://github.com/Dhanikesh-Karunanithi/byteverse
+- Sudar GitHub: https://github.com/Dhanikesh-Karunanithi/Sudar
+- Founder: https://dhanikeshkarunanithi.com
+- Contact: missioncontrol@byteverse.app
+
+## Crawler policy
+
+Public marketing pages (/, /about, /showcase, /signup, /login) are intended for search and AI discovery. Authenticated creator workspace (/app/*), API routes (/api/*), admin, and analytics are disallowed in robots.txt.

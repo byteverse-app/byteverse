@@ -1,0 +1,39 @@
+# ByteVerse
+
+> ByteVerse is a forever-free AI microlearning content generator. Founded by Dhanikesh "Dhani" Karunanithi ([dhanikeshkarunanithi.com](https://dhanikeshkarunanithi.com)), it helps educators and L&D teams chat with ByteAI, upload sources, and export pedagogy-first 3–7 minute modules as SCORM, HTML, or JSON. ByteVerse is the creation layer in an open inter-tech learning ecosystem alongside [Sudar](https://teachwithsudar.com) for optional adaptive delivery.
+
+ByteVerse ends at export — no vendor lock-in. Create modules here, then import SCORM into Sudar Studio, Moodle, Canvas, or any compliant LMS. ByteVerse AI is included free and unlimited; bring your own keys for Ollama, OpenAI, Anthropic, Groq, Mistral, and more.
+
+Dhani Karunanithi builds ByteVerse and Sudar to make AI-powered education more open, free, and accessible worldwide. Education should never be a barrier.
+
+## Product
+
+- [Home](https://byteverse.app/): Landing page — microlearning factory, tour, features, deploy with Sudar
+- [About](https://byteverse.app/about): Forever-free pledge, founder story, open learning ecosystem
+- [Showcase](https://byteverse.app/showcase): Community showcase of public creator projects
+- [Sign up](https://byteverse.app/signup): Get early access to ByteVerse
+
+## Documentation
+
+- [Roadmap](https://byteverse.app/docs/Roadmap.md): Product roadmap and planned features
+- [Master Plan](https://byteverse.app/docs/MasterPlan.md): Vision and architecture overview
+
+## Founder
+
+- [Dhanikesh Karunanithi](https://dhanikeshkarunanithi.com): Personal site — background on open AI-powered education and learning technology
+
+## Ecosystem
+
+- [Sudar](https://teachwithsudar.com): AI-native learning OS — host, publish, and adaptively deliver modules exported from ByteVerse
+- [Sudar on GitHub](https://github.com/Dhanikesh-Karunanithi/Sudar): Open-source Sudar repository
+- [ByteVerse on GitHub](https://github.com/Dhanikesh-Karunanithi/byteverse): Open-source ByteVerse repository
+
+## Optional
+
+- [Login](https://byteverse.app/login): Sign in to existing account
+- [Forgot password](https://byteverse.app/forgot-password): Password reset
+
+## Contact
+
+- Email: missioncontrol@byteverse.app
+- Support for AI indexing: public marketing pages and /about are intended for discovery; /app/* requires authentication and is disallowed in robots.txt

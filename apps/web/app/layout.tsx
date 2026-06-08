@@ -18,8 +18,46 @@ const blou = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "ByteVerse — Microlearning Content Generator",
-  description: "Chat with AI, upload sources, and export pedagogy-first microlearning modules as SCORM or HTML.",
+  metadataBase: new URL("https://byteverse.app"),
+  title: {
+    default: "ByteVerse — Forever-Free AI Microlearning Generator",
+    template: "%s | ByteVerse",
+  },
+  description:
+    "Forever-free AI microlearning content generator. Chat with ByteAI, upload sources, and export pedagogy-first modules as SCORM or HTML. Founded by Dhanikesh Karunanithi.",
+  keywords: [
+    "microlearning",
+    "SCORM",
+    "AI education",
+    "instructional design",
+    "ByteVerse",
+    "free LMS tools",
+    "Sudar",
+  ],
+  authors: [{ name: "Dhanikesh Karunanithi", url: "https://dhanikeshkarunanithi.com" }],
+  creator: "Dhanikesh Karunanithi",
+  robots: { index: true, follow: true },
+  alternates: {
+    canonical: "https://byteverse.app",
+    types: {
+      "text/markdown": "/llms.txt",
+    },
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://byteverse.app",
+    siteName: "ByteVerse",
+    title: "ByteVerse — Forever-Free AI Microlearning Generator",
+    description:
+      "Chat with ByteAI, upload sources, and export pedagogy-first microlearning. Forever free — create anywhere, export anywhere.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ByteVerse — Forever-Free AI Microlearning Generator",
+    description:
+      "Chat with ByteAI, upload sources, and export pedagogy-first microlearning. Forever free.",
+  },
   icons: {
     icon: "/images/icons/ByteB_white.png",
     apple: "/images/icons/ByteB_white.png",
