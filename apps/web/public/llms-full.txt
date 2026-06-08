@@ -56,7 +56,7 @@ ByteVerse does **not** require Sudar. Sudar is promoted as the recommended host 
 - Showcase: https://byteverse.app/showcase
 - Sign up: https://byteverse.app/signup
 - Sudar: https://teachwithsudar.com
-- ByteVerse GitHub: https://github.com/Dhanikesh-Karunanithi/byteverse
+- ByteVerse GitHub: https://github.com/byteverse-app/byteverse
 - Sudar GitHub: https://github.com/Dhanikesh-Karunanithi/Sudar
 - Founder: https://dhanikeshkarunanithi.com
 - Contact: missioncontrol@byteverse.app

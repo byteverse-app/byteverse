@@ -1,0 +1,26 @@
+name: IndexNow
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/web/app/**'
+      - 'apps/web/public/**'
+      - 'apps/web/lib/seo/**'
+      - 'apps/web/components/seo/**'
+      - 'apps/web/components/marketing/**'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    name: Ping IndexNow (Bing)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Wait for Vercel deploy
+        run: sleep 90
+
+      - name: Notify search engines
+        run: node apps/web/scripts/ping-indexnow.mjs

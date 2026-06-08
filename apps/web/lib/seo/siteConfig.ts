@@ -10,8 +10,17 @@ export const FOUNDER = {
 export const ECOSYSTEM = {
   sudar: 'https://teachwithsudar.com',
   sudarGithub: 'https://github.com/Dhanikesh-Karunanithi/Sudar',
-  byteverseGithub: 'https://github.com/Dhanikesh-Karunanithi/byteverse',
+  byteverseGithub: 'https://github.com/byteverse-app/byteverse',
 } as const;
+
+/** IndexNow key — hosted at `/{INDEXNOW_KEY}.txt` for Bing/Yandex instant indexing. */
+export const INDEXNOW_KEY = 'byteverseindex2026bv';
+
+export function getPublicSitemapUrls(): string[] {
+  return SITEMAP_ENTRIES.map(({ path }) =>
+    path === '/' ? SITE_URL : `${SITE_URL}${path}`,
+  );
+}
 
 export const SUPPORT_EMAIL = 'missioncontrol@byteverse.app';
 

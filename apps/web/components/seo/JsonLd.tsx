@@ -73,6 +73,7 @@ export default function JsonLd() {
       url: FOUNDER.url,
     },
     isAccessibleForFree: true,
+    codeRepository: ECOSYSTEM.byteverseGithub,
   };
 
   const graphs = [organization, person, website, software];

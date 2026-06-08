@@ -26,10 +26,11 @@ Dhani Karunanithi builds ByteVerse and Sudar to make AI-powered education more o
 
 - [Sudar](https://teachwithsudar.com): AI-native learning OS — host, publish, and adaptively deliver modules exported from ByteVerse
 - [Sudar on GitHub](https://github.com/Dhanikesh-Karunanithi/Sudar): Open-source Sudar repository
-- [ByteVerse on GitHub](https://github.com/Dhanikesh-Karunanithi/byteverse): Open-source ByteVerse repository
+- [ByteVerse on GitHub](https://github.com/byteverse-app/byteverse): Open-source ByteVerse repository
 
 ## Optional
 
+- [llms-full.txt](https://byteverse.app/llms-full.txt): Expanded inline context for LLMs
 - [Login](https://byteverse.app/login): Sign in to existing account
 - [Forgot password](https://byteverse.app/forgot-password): Password reset
 

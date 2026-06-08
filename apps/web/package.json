@@ -9,10 +9,14 @@
     "lint": "next lint",
     "test-api": "node test-api.js",
     "check-env": "node check-env.js",
-    "fix-env": "node fix-env-file.js"
+    "fix-env": "node fix-env-file.js",
+    "indexnow:ping": "node scripts/ping-indexnow.mjs"
   },
   "dependencies": {
+    "@byteverse/content-design": "*",
     "@gsap/react": "^2.1.2",
+    "@hyperframes/core": "^0.6.80",
+    "@hyperframes/player": "^0.6.80",
     "@react-three/drei": "^9.122.0",
     "@react-three/fiber": "^8.18.0",
     "@supabase/ssr": "^0.5.2",
