@@ -8,6 +8,7 @@ const PUBLIC_PATHS = ['/login', '/signup', '/forgot-password', '/auth/callback',
 const PUBLIC_API_PATHS = [
   '/api/invite/validate',
   '/api/invite/prepare-oauth',
+  '/api/invite/clear-oauth-prep',
   '/api/invite/apply-profile',
   '/api/invite/redeem',
   '/api/waitlist',

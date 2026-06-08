@@ -7,6 +7,7 @@ import { AuthShell } from '@/components/auth/AuthShell';
 import { EmailSentState, getEmailSentCopy } from '@/components/auth/EmailSentState';
 import { GoogleIcon } from '@/components/auth/GoogleIcon';
 import { LinkedInIcon } from '@/components/auth/LinkedInIcon';
+import { buildAuthCallbackUrl } from '@/lib/auth/authIntent';
 import { safeNextPath } from '@/lib/auth/safeNextPath';
 import { createClient } from '@/lib/supabase/client';
 import { validateSignupEmail } from '@/lib/validation/emailPolicy';
@@ -27,7 +28,11 @@ function LoginForm() {
   const nextParam = safeNextPath(searchParams?.get('next') ?? undefined);
 
   function getCallbackUrl() {
-    return `${window.location.origin}/auth/callback?next=${encodeURIComponent(nextParam)}`;
+    return buildAuthCallbackUrl({
+      origin: window.location.origin,
+      next: nextParam,
+      intent: 'login',
+    });
   }
 
   async function handlePasswordLogin(e: React.FormEvent) {
@@ -85,6 +90,9 @@ function LoginForm() {
     try {
       setLoading(true);
       setError(null);
+
+      await supabase.auth.signOut();
+      await fetch('/api/invite/clear-oauth-prep', { method: 'POST' }).catch(() => {});
 
       const { error: oauthError } = await supabase.auth.signInWithOAuth({
         provider,
@@ -157,8 +165,11 @@ function LoginForm() {
       footer={
         <span className="text-text-secondary">
           Don&apos;t have an account?{' '}
-          <Link href={`/signup${nextParam !== '/app' ? `?next=${encodeURIComponent(nextParam)}` : ''}`} className="text-accent1 hover:underline">
-            Sign up
+          <Link
+            href={`/signup${nextParam !== '/app' ? `?next=${encodeURIComponent(nextParam)}` : ''}`}
+            className="text-accent1 hover:underline"
+          >
+            Sign up with an invite
           </Link>
         </span>
       }
@@ -276,11 +287,13 @@ function LoginForm() {
 
 export default function LoginClient() {
   return (
-    <Suspense fallback={
-      <AuthShell title="Sign in to ByteVerse" subtitle="Loading…">
-        <div className="h-32" />
-      </AuthShell>
-    }>
+    <Suspense
+      fallback={
+        <AuthShell title="Sign in to ByteVerse" subtitle="Loading…">
+          <div className="h-32" />
+        </AuthShell>
+      }
+    >
       <LoginForm />
     </Suspense>
   );

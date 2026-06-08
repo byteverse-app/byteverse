@@ -6,6 +6,7 @@ import {
   VERIFIED_INVITE_MAX_AGE_SECONDS,
 } from '@/lib/auth/verifiedInviteCookie';
 
+/** Sets bv_verified_invite cookie — only consumed in /auth/callback when intent=signup. */
 export async function POST(request: NextRequest) {
   try {
     const { code } = await request.json();

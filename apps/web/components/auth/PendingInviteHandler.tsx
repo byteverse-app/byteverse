@@ -1,17 +1,25 @@
 'use client';
 
 import { useEffect } from 'react';
+import {
+  AUTH_INTENT_STORAGE_KEY,
+  clearSignupAuthIntent,
+  hasSignupAuthIntent,
+} from '@/lib/auth/authIntent';
 
 const STORAGE_KEY = 'byteverse-pending-invite';
 
 export function setPendingInvite(code: string) {
   if (typeof window !== 'undefined') {
     sessionStorage.setItem(STORAGE_KEY, code);
+    sessionStorage.setItem(AUTH_INTENT_STORAGE_KEY, 'signup');
   }
 }
 
 export default function PendingInviteHandler() {
   useEffect(() => {
+    if (!hasSignupAuthIntent()) return;
+
     const code = sessionStorage.getItem(STORAGE_KEY);
     if (!code) return;
 
@@ -20,7 +28,10 @@ export default function PendingInviteHandler() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ code }),
     })
-      .then(() => sessionStorage.removeItem(STORAGE_KEY))
+      .then(() => {
+        sessionStorage.removeItem(STORAGE_KEY);
+        clearSignupAuthIntent();
+      })
       .catch(() => {});
   }, []);
 
